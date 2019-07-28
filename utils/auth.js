@@ -1,6 +1,11 @@
 import Config from "../config/config.js"
 
 /**
+ * 绑定状态
+ */
+const BINDING = Config.bindingKey
+
+/**
  * token存储键名
  */
 const TOKENKEY = Config.tokenKey
@@ -13,9 +18,9 @@ const TOKENEXPIRE = Config.tokenExpire;
 /**
  * 获取token
  */
-function getToken() {
+function getToken(keyName) {
     try {
-        let res = uni.getStorageSync(TOKENKEY);
+        let res = uni.getStorageSync(keyName);
         if (res) {
             res = JSON.parse(res);
             if (res.end > new Date().getTime()) {
@@ -33,7 +38,6 @@ function getToken() {
  */
 function setToken(token) {
     try {
-        console.log('set token: ' + token);
         uni.setStorageSync(TOKENKEY, JSON.stringify({key: token, end: new Date().getTime() + 3600000 * TOKENEXPIRE}))
         return true;
     } catch (e) {
@@ -42,4 +46,18 @@ function setToken(token) {
     }
 }
 
-export {getToken, setToken}
+/**
+ * 激活状态（绑定状态）
+ * @param {bool} bool
+ */
+function setBinding(bool) {
+    try {
+        uni.setStorageSync(BINDING, JSON.stringify({key: bool, end: new Date().getTime() + 3600000 * TOKENEXPIRE}))
+        return true;
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
+}
+
+export {getToken, setToken, setBinding}

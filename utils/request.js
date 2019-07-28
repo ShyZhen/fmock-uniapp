@@ -1,3 +1,6 @@
+/**
+ * 公共请求方法 封装Authorization
+ */
 import Config from "../config/config.js"
 import * as Auth from "./auth.js"
 
@@ -30,7 +33,7 @@ class Request
      * @param {Object} data
      * @param {Object} headers
      */
-    request(method, uri, data, headers) {
+    request(method, uri, data, headers = {}) {
         return new Promise((resolve, reject) => {
             uni.request({
                 url: this.buildFullUrl(uri),
