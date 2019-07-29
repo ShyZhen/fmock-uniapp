@@ -51,6 +51,12 @@
         methods: {
             ...mapMutations(['login']),
             initProvider() {
+				console.log(this.$store.state)
+                console.log(this.forcedLogin)
+				console.log(123445)
+				
+				
+				
                 const filters = ['weixin', 'qq', 'sinaweibo'];
                 uni.getProvider({
                     service: 'oauth',

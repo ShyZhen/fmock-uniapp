@@ -1,15 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Config from '../config/config.js'
+
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        /**
-         * 是否需要强制登录
-         */
-        forcedLogin: false,
-        hasLogin: false,
+        hasBinding: uni.getStorageSync(Config.bindingKey) ? true : false,
+        hasLogin: uni.getStorageSync(Config.tokenKey) ? true : false,
         userName: ""
     },
     mutations: {
