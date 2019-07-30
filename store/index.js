@@ -1,27 +1,34 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {getToken, getBinding} from '../utils/auth'
+
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        /**
-         * 是否需要强制登录
-         */
-        forcedLogin: false,
+        hasBinding: false,
         hasLogin: false,
-        userName: ""
     },
     mutations: {
-        login(state, userName) {
-            state.userName = userName || '新用户';
+        login(state) {
             state.hasLogin = true;
         },
         logout(state) {
-            state.userName = "";
             state.hasLogin = false;
+        },
+        binding(state) {
+            state.hasBinding = true;
+        },
+        setLoginState(state) {
+            if (state.hasLogin == false) {
+                state.hasLogin = getToken() ? true : false;
+            }
+            if (state.hasBinding == false) {
+                state.hasBinding = getBinding() ? true : false;
+            }
         }
-    }
+    },
 })
 
 export default store

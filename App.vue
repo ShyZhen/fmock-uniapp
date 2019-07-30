@@ -1,13 +1,19 @@
 <script>
+	// #ifdef MP-WEIXIN
+	import {wxmpLogin} from 'utils/loginPlugin.js'
+	// #endif
 	export default {
 		onLaunch: function() {
-			console.log('App Launch');
+			// 如果是微信小程序登录 则直接登录获取token
+			// #ifdef MP-WEIXIN
+			wxmpLogin()
+			// #endif
 		},
 		onShow: function() {
-			console.log('App Show');
+			//console.log('App Show');
 		},
 		onHide: function() {
-			console.log('App Hide');
+			//console.log('App Hide');
 		}
 	}
 </script>

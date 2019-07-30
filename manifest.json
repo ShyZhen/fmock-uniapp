@@ -49,11 +49,16 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wxf44e0f0793806c93",
         "setting" : {
             "urlCheck" : false
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "墨客社区需要获取您的位置信息"
+            }
+        }
     },
     "mp-alipay" : {
         "usingComponents" : false
@@ -70,6 +75,7 @@
         },
         "devServer" : {
             "https" : false
-        }
+        },
+        "title" : "墨客社区"
     }
 }
