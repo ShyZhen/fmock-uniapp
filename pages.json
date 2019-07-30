@@ -54,36 +54,37 @@
         }
     ],
     // 底部 tab 
+    // 底部 tab 
     "tabBar": {
         "color": "#333333",
-        "selectedColor": "#FF5050",
+        "selectedColor": "#00A6FC",
         "backgroundColor": "#FCFCFD",
         "list": [{
             "pagePath": "pages/home/home",
             "text": "首页",
             "iconPath": "static/img/home.png",
-            "selectedIconPath": "static/img/home-a.png"
+            "selectedIconPath": "static/img/home-c.png"
         },{
             "pagePath": "pages/follow/follow",
             "iconPath": "static/img/follow.png",
-            "selectedIconPath": "static/img/follow-a.png",
+            "selectedIconPath": "static/img/follow-c.png",
             "text": "关注"
       },{
             "pagePath": "pages/study/study",
             "iconPath": "static/img/lightningcopy.png",
-            "selectedIconPath": "static/img/lightningcopy-a.png",
+            "selectedIconPath": "static/img/lightningcopy-c.png",
             "text": "充电"
       },{
             "pagePath": "pages/mine/mine",
             "iconPath": "static/img/mine.png",
-            "selectedIconPath": "static/img/mine-a.png",
+            "selectedIconPath": "static/img/mine-c.png",
             "text": "我的"
         }]
     },
     // 设置默认页面的窗口表现    
     "globalStyle": {
         "navigationBarTextStyle": "white",
-        "navigationBarBackgroundColor": "#FF5050",
+        "navigationBarBackgroundColor": "#00A6FC",
         "backgroundColor": "#F8F8F8",
         "navigationBarTitleText": "墨客社区"
     }
