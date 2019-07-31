@@ -11,24 +11,37 @@ const store = new Vuex.Store({
         hasLogin: false,
     },
     mutations: {
-        login(state) {
-            state.hasLogin = true;
+        login(state, bool = true) {
+            state.hasLogin = bool;
         },
         logout(state) {
             state.hasLogin = false;
         },
-        binding(state) {
-            state.hasBinding = true;
+        binding(state, bool = true) {
+            state.hasBinding = bool;
         },
-        setLoginState(state) {
-            if (state.hasLogin == false) {
-                state.hasLogin = getToken() ? true : false;
+        
+        // 该方法移植到actions中
+        // setLoginState(state) {
+        //     if (state.hasLogin == false) {
+        //         this.commit('login', getToken() ? true : false)
+        //     }
+        //     if (state.hasBinding == false) {
+        //         this.commit('binding', getBinding() ? true : false)
+        //     }
+        // }
+    },
+    actions: {
+        initLoginState(context) {
+            if (context.state.hasLogin == false) {
+                context.commit('login', getToken() ? true : false)
             }
-            if (state.hasBinding == false) {
-                state.hasBinding = getBinding() ? true : false;
+            if (context.state.hasBinding == false) {
+                context.commit('binding', getBinding() ? true : false)
             }
         }
-    },
+    }
+
 })
 
 export default store
