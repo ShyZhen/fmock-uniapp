@@ -33,7 +33,7 @@ class Request
      * @param {Object} data
      * @param {Object} headers
      */
-    request(method, uri, data, headers = {}) {
+    request(method, uri, data = {}, headers = {}) {
         return new Promise((resolve, reject) => {
             uni.request({
                 url: this.buildFullUrl(uri),
