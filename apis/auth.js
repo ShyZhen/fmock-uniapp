@@ -1,5 +1,4 @@
 import request from '../utils/request';
-// import Config from "../config/config.js"
 
 // 小程序登录API
 function wxmpLogin(code) {
@@ -8,7 +7,6 @@ function wxmpLogin(code) {
         request.request('POST', 'V1/oauth/wechat/login', params).then(res => {
             resolve(res.data);
         }).catch(e => {
-            // request.js中无输出，统一处理
             reject(e);
         })
     })
@@ -37,7 +35,39 @@ function logout() {
     })
 }
 
+// 发送注册验证码
+function registerCode(data) {
+    let params = {
+            "account": data.account,
+        }
+
+    return new Promise((resolve, reject) => {
+        request.request('POST', 'V1/register-code', params).then(res => {
+            resolve(res.data);
+        }).catch(e => {
+            reject(e);
+        })
+    })
+}
+
 // 注册
+function accountRegister(data) {
+    let params = {
+            "name":data.name,
+            "verify_code": data.verifyCode,
+            "account": data.account,
+            "password": data.password,
+            "password_confirmation": data.passwordConfirmation
+        }
+
+    return new Promise((resolve, reject) => {
+        request.request('POST', 'V1/register', params).then(res => {
+            resolve(res.data);
+        }).catch(e => {
+            reject(e);
+        })
+    })
+}
 
 
-export {wxmpLogin, accountLogin, logout}
+export {wxmpLogin, accountLogin, logout, registerCode, accountRegister}

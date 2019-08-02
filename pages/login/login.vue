@@ -28,10 +28,27 @@
 
 <script>
 import {mapState, mapActions} from 'vuex'
-import {accountLogin} from '../../utils/loginPlugin.js'
-import mInput from '../../components/m-input.vue'
+import {accountLogin} from '@/utils/loginPlugin.js'
+import mInput from '@/components/m-input.vue'
 
     export default {
+        onLoad: function () {
+            // 小程序不需要登录界面
+            // #ifdef MP-WEIXIN
+            this.toHome()
+            // #endif
+        
+            // 在需要登录的地方执行初始化方法
+            this.initLoginState()
+            
+            // 判断登录状态 并跳转到首页
+            if (this.hasLogin) {
+                this.toHome()
+            }
+        },
+        components: {
+            mInput
+        },
         data() {
             return {
                 providerList: [],
@@ -41,36 +58,12 @@ import mInput from '../../components/m-input.vue'
                 positionTop: 0
             }
         },
-        components: {
-            mInput
-        },
 		computed: {
             ...mapState(['hasBinding', 'hasLogin']),
-        },
-        onLoad: function () {
-            // 小程序不需要登录界面
-            // #ifdef MP-WEIXIN
-            this.toHome()
-            // #endif
-
-            // 在需要登录的地方执行初始化方法
-            this.initLoginState()
-            
-            // 判断登录状态 并跳转到首页
-            if (this.hasLogin) {
-                this.toHome()
-            }
         },
         methods: {
             ...mapActions(['initLoginState']),
             
-            initPosition() {
-                /**
-                 * 使用 absolute 定位，并且设置 bottom 值进行定位。软键盘弹出时，底部会因为窗口变化而被顶上来。
-                 * 反向使用 top 进行定位，可以避免此问题。
-                 */
-                this.positionTop = uni.getSystemInfoSync().windowHeight - 100;
-            },
             bindLogin() {
                 /**
                  * 账号密码登录
@@ -100,14 +93,18 @@ import mInput from '../../components/m-input.vue'
             },
 
             toHome() {
-                /**
-                 * 强制登录时使用reLaunch方式跳转过来
-                 * 返回首页也使用reLaunch方式
-                 */
                 uni.reLaunch({
                     url: '../home/home'
                 });
-            }
+            },
+            
+            initPosition() {
+                /**
+                 * 使用 absolute 定位，并且设置 bottom 值进行定位。软键盘弹出时，底部会因为窗口变化而被顶上来。
+                 * 反向使用 top 进行定位，可以避免此问题。
+                 */
+                this.positionTop = uni.getSystemInfoSync().windowHeight - 100;
+            },
         },
         onReady() {
             this.initPosition();

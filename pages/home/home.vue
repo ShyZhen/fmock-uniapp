@@ -1,10 +1,12 @@
 <template>
-	<view style="padding: 0 0 100px 0">
+	<view>
+		<!-- 头部导航 -->
+		<nav-bar :logo="logo" :title="title" :showInput="showInput" :rightIcon="rightIcon"></nav-bar>
         <view class="">
             首页
-             <button type="primary" @tap="test()">sd</button>
-             <button type="primary" @tap="login()">登录</button>
-             <button type="primary" @tap="logout()">登出</button>
+            <button type="primary" @tap="test()">sd</button>
+            <button type="primary" @tap="login()">登录</button>
+            <button type="primary" @tap="logout()">登出</button>
         </view>
 
 	</view>
@@ -12,21 +14,29 @@
 
 <script>
 import {mapState, mapActions} from 'vuex'
-import {logout} from '../../utils/loginPlugin.js'
+import {logout} from '@/utils/loginPlugin.js'
+import navBar from '@/components/nav-bar'
 
 	export default {
 		data() {
 			return {
-
+                logo: '/static/img/FMOCK-LOGO.png',
+                leftIcon: "iconback",
+                leftWords: "",
+                rightImg: "",
+                rightIcon: "",
+                rightWords: "",
+                iconColor: "",
+                title: "墨客社区",
+				showInput: true
 			}
 		},
-        components: {
-            
-        },
-
 		computed: {
             ...mapState(['hasBinding', 'hasLogin']),
         },
+		components: {
+			navBar
+		},
 		onLoad: function () {
             // 在需要登录的地方执行初始化方法
             this.initLoginState()
@@ -37,9 +47,9 @@ import {logout} from '../../utils/loginPlugin.js'
                 console.log(this.hasLogin)
                 console.log(this.hasBinding)
             },
-            
-            
-            
+
+
+
             // TEST
             login() {
                 uni.navigateTo({
@@ -58,5 +68,4 @@ import {logout} from '../../utils/loginPlugin.js'
 </script>
 
 <style>
-
 </style>

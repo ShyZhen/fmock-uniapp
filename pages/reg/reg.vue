@@ -16,26 +16,65 @@
         </view>
         <view class="btn-row">
             <button type="primary" class="primary" @tap="register">注册</button>
+            
+            <button type="primary" @tap="registerCode">发送注册验证码</button>
         </view>
     </view>
 </template>
 
 <script>
-    //import service from '../../service.js';
-    import mInput from '../../components/m-input.vue';
+import mInput from '../../components/m-input.vue'
+import {registerCode, accountRegister} from '@/utils/loginPlugin.js'
+import {mapState, mapActions} from 'vuex'
 
     export default {
+        onLoad: function () {
+            // 小程序不需要注册界面
+            // #ifdef MP-WEIXIN
+            this.toHome()
+            // #endif
+        
+            // 在需要登录的地方执行初始化方法
+            this.initLoginState()
+            
+            // 判断登录状态 并跳转到首页
+            if (this.hasLogin) {
+                this.toHome()
+            }
+        },
         components: {
             mInput
         },
+
         data() {
             return {
                 account: '',
                 password: '',
-                email: ''
+                email: '',
+                verifyCode: '',
+                passwordConfirmation: ''
+                
             }
         },
+        computed: {
+            ...mapState(['hasBinding', 'hasLogin']),
+        },
         methods: {
+            ...mapActions(['initLoginState']),
+            
+            // 发送注册验证码
+            registerCode() {
+                const data = {
+                    account: "13476835720"
+                }
+                registerCode(data).then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log('err', err)
+                })
+            },
+            
+            // 注册
             register() {
                 /**
                  * 客户端对账号信息进行一些必要的校验。
@@ -64,16 +103,23 @@
                 }
 
                 const data = {
-                    account: this.account,
+                    name: this.name,
                     password: this.password,
-                    email: this.email
+                    account: this.email,
+                    verifyCode: this.verifyCode,
+                    passwordConfirmation: this.passwordConfirmation
                 }
-                service.addUser(data);
-                uni.showToast({
-                    title: '注册成功'
-                });
-                uni.navigateBack({
-                    delta: 1
+
+                accountRegister(data).then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log('err', err)
+                })
+
+            },
+            toHome() {
+                uni.reLaunch({
+                    url: '../home/home'
                 });
             }
         }
