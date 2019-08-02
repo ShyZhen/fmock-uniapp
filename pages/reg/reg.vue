@@ -1,23 +1,34 @@
 <template>
     <view class="content">
         <view class="input-group">
+			
+            <view class="input-row border">
+                <text class="title">昵称：</text>
+                <m-input type="text" focus clearable v-model="name" placeholder="输入昵称"></m-input>
+            </view>
+			
             <view class="input-row border">
                 <text class="title">账号：</text>
-                <m-input type="text" focus clearable v-model="account" placeholder="请输入账号"></m-input>
+                <m-input type="text" clearable v-model="account" @input="checkIsCorAccount" placeholder="输入手机或邮箱"></m-input>
             </view>
+            <view class="input-row border" v-show="isCorrectAccount">
+                <text class="title">验证码：</text>
+                <m-input type="text" clearable v-model="verify_code" placeholder="输入验证码"></m-input>
+				<button type="primary" @tap="registerCode">{{emailText.text}}</button>
+            </view>
+			
             <view class="input-row border">
                 <text class="title">密码：</text>
                 <m-input type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
             </view>
-            <view class="input-row">
-                <text class="title">邮箱：</text>
-                <m-input type="text" clearable v-model="email" placeholder="请输入邮箱"></m-input>
+			
+            <view class="input-row border">
+                <text class="title">确认密码：</text>
+                <m-input type="password" displayable v-model="password_confirmation" placeholder="请再次确认密码"></m-input>
             </view>
         </view>
         <view class="btn-row">
             <button type="primary" class="primary" @tap="register">注册</button>
-            
-            <button type="primary" @tap="registerCode">发送注册验证码</button>
         </view>
     </view>
 </template>
@@ -48,12 +59,26 @@ import {mapState, mapActions} from 'vuex'
 
         data() {
             return {
-                account: '',
-                password: '',
-                email: '',
-                verifyCode: '',
-                passwordConfirmation: ''
-                
+				// 用户名称
+				name: '',
+				// 用户邮箱
+				account: '',
+				// 验证码
+				verify_code: '',
+				// 用户密码
+				password: '',
+				// 用户密码验证
+				password_confirmation: '',
+				
+				// 是否是正确的邮箱或者手机号码
+                isCorrectAccount: false,
+				
+				// 是否可以获取注册码
+                canGetRegisterCode: true,
+				
+				emailText: {
+                    text: '获取验证码'
+                },
             }
         },
         computed: {
@@ -61,57 +86,100 @@ import {mapState, mapActions} from 'vuex'
         },
         methods: {
             ...mapActions(['initLoginState']),
+			
+			checkIsCorAccount() {
+                const regEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                const regPhone = /^(1\d{10})$/
+                const account = this.account;
+
+                this.isCorrectAccount = regEmail.test(account) || regPhone.test(account);
+            },
             
             // 发送注册验证码
             registerCode() {
-                const data = {
-                    account: "13476835720"
+				if(!this.canGetRegisterCode){
+                    return
+                }
+				
+				// TODO 极验
+				
+				uni.showLoading({title: ''});
+                let data = {
+                    account: this.account
                 }
                 registerCode(data).then(res => {
-                    console.log(res)
+					console.log(res)
+					
+					uni.hideLoading();
+					const _this = this
+					this.canGetRegisterCode = false
+					
+					// 触发倒计时
+                    _countDown(this.emailText)
+                    function _countDown(textObj, time = 60) {
+                        let timer = null;
+
+                        timer = setInterval(() => {
+                            if (time === 0) {
+                                textObj.text = '获取验证码'
+                                _this.canGetRegisterCode = true
+                                clearInterval(timer)
+                                return
+                            }
+                            time--;
+                            textObj.text = `${time}s后重新发送`
+                        }, 1000)    
+                    }
+					
                 }).catch(err => {
+					this.canGetRegisterCode = true
                     console.log('err', err)
                 })
             },
             
             // 注册
             register() {
-                /**
-                 * 客户端对账号信息进行一些必要的校验。
-                 * 实际开发中，根据业务需要进行处理，这里仅做示例。
-                 */
-                if (this.account.length < 5) {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '账号最短为 5 个字符'
-                    });
-                    return;
+				uni.showLoading({title: ''});
+				
+                // 非空判断
+                if(this.name.trim() === ''){
+                    uni.showToast({title: '昵称不能为空', icon: 'none', duration: 2000});
+                    return 
                 }
-                if (this.password.length < 6) {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '密码最短为 6 个字符'
-                    });
-                    return;
+                if(this.account.trim() === ''){
+                    uni.showToast({title: '登录账户不能为空!', icon: 'none', duration: 2000});
+                    return 
                 }
-                if (this.email.length < 3 || !~this.email.indexOf('@')) {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '邮箱地址不合法'
-                    });
-                    return;
+                if(this.verify_code.trim() === ''){
+                    uni.showToast({title: '验证码不能为空!', icon: 'none', duration: 2000});
+                    return 
+                }
+                if(this.password.trim() === ''){
+                    uni.showToast({title: '密码不能为空!', icon: 'none', duration: 2000});
+                    return 
+                }
+                if(this.password_confirmation.trim() === ''){
+                    uni.showToast({title: '请确认密码!', icon: 'none', duration: 2000});
+                    return 
+                }
+                // 密码与重复密码不一致
+                if(this.password.trim() !== this.password_confirmation.trim()){
+                    uni.showToast({title: '密码与重复密码不一致!', icon: 'none', duration: 2000});
+                    return 
                 }
 
-                const data = {
+                let data = {
                     name: this.name,
                     password: this.password,
-                    account: this.email,
-                    verifyCode: this.verifyCode,
-                    passwordConfirmation: this.passwordConfirmation
+                    account: this.account,
+                    verify_code: this.verify_code,
+                    password_confirmation: this.password_confirmation
                 }
 
                 accountRegister(data).then(res => {
                     console.log(res)
+					uni.hideLoading();
+					this.toHome()
                 }).catch(err => {
                     console.log('err', err)
                 })

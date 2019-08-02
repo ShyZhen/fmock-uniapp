@@ -52,16 +52,8 @@ function registerCode(data) {
 
 // 注册
 function accountRegister(data) {
-    let params = {
-            "name":data.name,
-            "verify_code": data.verifyCode,
-            "account": data.account,
-            "password": data.password,
-            "password_confirmation": data.passwordConfirmation
-        }
-
     return new Promise((resolve, reject) => {
-        request.request('POST', 'V1/register', params).then(res => {
+        request.request('POST', 'V1/register', data).then(res => {
             resolve(res.data);
         }).catch(e => {
             reject(e);
@@ -69,5 +61,30 @@ function accountRegister(data) {
     })
 }
 
+// 获取用户状态 是否存在 是否已冻结
+function getAccountStatus(data) {
+	let params = {
+		"account": data.account,
+	}
+	
+	return new Promise((resolve, reject) => {
+	    request.request('POST', 'V1/user-check', params).then(res => {
+	        resolve(res.data);
+	    }).catch(e => {
+	        reject(e);
+	    })
+	})
+}
 
-export {wxmpLogin, accountLogin, logout, registerCode, accountRegister}
+function githubLogin() {
+	return new Promise((resolve, reject) => {
+	    request.request('GET', 'V1/oauth/github/login').then(res => {
+	        resolve(res.data);
+	    }).catch(e => {
+	        reject(e);
+	    })
+	})
+}
+
+
+export {wxmpLogin, accountLogin, logout, registerCode, accountRegister, getAccountStatus, githubLogin}

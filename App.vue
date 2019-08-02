@@ -6,7 +6,14 @@
 		onLaunch: function() {
 			// 如果是微信小程序登录 则直接登录获取token
 			// #ifdef MP-WEIXIN
-			wxmpLogin()
+			
+			uni.showLoading({title: '登录中...'});
+			wxmpLogin().then(res => {
+				uni.hideLoading();
+			}).catch(err => {
+				uni.hideLoading();}
+			)
+			
 			// #endif
 		},
 		onShow: function() {

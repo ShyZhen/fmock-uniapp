@@ -95,10 +95,11 @@
 			onFocus() {
 				this.isFocus = true
 			},
-			onBlur() {
+			onBlur(e) {
 				this.$nextTick(() => {
 					this.isFocus = false
 				})
+				this.$emit('blur', e.target.value)
 			},
 			onInput(e) {
 				this.$emit('input', e.target.value)

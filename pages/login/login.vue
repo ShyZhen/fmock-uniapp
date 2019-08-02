@@ -3,7 +3,7 @@
         <view class="input-group">
             <view class="input-row border">
                 <text class="title">账号：</text>
-                <m-input class="m-input" type="text" clearable focus v-model="account" placeholder="输入手机号或邮箱"></m-input>
+                <m-input class="m-input" type="text" clearable focus v-model="account" @blur="validateAccount" placeholder="输入手机号或邮箱"></m-input>
             </view>
             <view class="input-row">
                 <text class="title">密码：</text>
@@ -28,7 +28,7 @@
 
 <script>
 import {mapState, mapActions} from 'vuex'
-import {accountLogin} from '@/utils/loginPlugin.js'
+import {accountLogin, getAccountStatus, githubLogin, githubCallback} from '@/utils/loginPlugin.js'
 import mInput from '@/components/m-input.vue'
 
     export default {
@@ -51,10 +51,16 @@ import mInput from '@/components/m-input.vue'
         },
         data() {
             return {
-                providerList: [],
-                hasProvider: false,
+				// 是否提供第三方登录
+				hasProvider: true,
+                providerList: [
+					{"value":"github", "image":"/static/img/github.png"},
+					{"value":"wechat", "image":"/static/img/weixin.png"},
+					{"value":"qq", "image":"/static/img/qq.png"},
+				],
                 account: '',
                 password: '',
+				canLogin: false,
                 positionTop: 0
             }
         },
@@ -64,33 +70,81 @@ import mInput from '@/components/m-input.vue'
         methods: {
             ...mapActions(['initLoginState']),
             
+			// 验证账号
+			validateAccount() {
+                const regEmail = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                const regPhone = /^1(?:3|4|5|6|7|8|9)\d{9}$/
+
+                if (!this.account) {
+                    this.canLogin = false;
+                } else if (!(regEmail.test(this.account) || regPhone.test(this.account))) {
+                    this.canLogin = false;
+					uni.showToast({title: '用户名格式不正确', icon: 'none', duration: 2000});
+                } else {
+					// 检测用户是否已经注册
+					let data = {
+						"account": this.account,
+					}
+					getAccountStatus(data).then(res => {
+						this.canLogin = true;
+					}).catch(err => {}) 
+                }
+            },
+			
+			// 账号密码登录
             bindLogin() {
-                /**
-                 * 账号密码登录
-                 */
-                if (this.account.length < 5) {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '账号最短为 5 个字符'
-                    });
-                    return;
-                }
-                if (this.password.length < 6) {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '密码最短为 6 个字符'
-                    });
-                    return;
-                }
+                if (!this.canLogin) {
+                    uni.showToast({title: '用户名格式不正确', icon: 'none', duration: 2000});
+                    return
+                };
+				
+				if (!this.password || this.password.length < 6) {
+					uni.showToast({title: '密码格式不正确', icon: 'none', duration: 2000});
+					return
+				}
                 
                 // 调用登录插件进行登录
+				uni.showLoading({title: '登录中...'});
                 accountLogin(this.account, this.password).then(res => {
-                    //console.log('succ', res)
+					uni.hideLoading();
                     this.toHome()
-                }).catch (err => {
-                    console.log('err', err)
-                })
+                }).catch (err => {})
             },
+			
+			// 第三方OAUTH登录
+			oauth(provider) {
+				uni.showLoading({title: '登录中...'});
+				switch (provider){
+					case 'github':
+					    githubLogin().then(res => {
+							if (res.redirectUrl) {
+								window.open(res.redirectUrl)
+								window.addEventListener('message', (e) => {
+									let res = JSON.parse(e.data);
+									console.log('RES', res);
+									if (res.access_token && res.binding_status) {
+										// 本地存储token
+										uni.hideLoading();
+                                        githubCallback(res)
+										this.toHome()
+									}
+								}, false)
+							}
+						}).catch(err => {
+							console.log('err', err)
+						})
+						break;
+					case 'qq':
+					    console.log('qq', provider)
+						break;
+					case 'wechat':
+					    console.log('ww', provider)
+						break;
+					default:
+					    uni.hideLoading();
+						break;
+				}
+			},
 
             toHome() {
                 uni.reLaunch({
@@ -137,15 +191,15 @@ import mInput from '@/components/m-input.vue'
     .oauth-image {
         width: 100upx;
         height: 100upx;
-        border: 1upx solid #dddddd;
-        border-radius: 100upx;
+        /* border: 1upx solid #dddddd; */
+        /* border-radius: 100upx; */
         margin: 0 40upx;
-        background-color: #ffffff;
+        /* background-color: #ffffff; */
     }
 
     .oauth-image image {
         width: 60upx;
         height: 60upx;
-        margin: 20upx;
+        margin: 10upx;
     }
 </style>
