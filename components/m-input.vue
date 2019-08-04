@@ -4,20 +4,20 @@
 		 :password="type==='password'&&!showPassword" @focus="onFocus" @blur="onBlur" />
 		<!-- 优先显示密码可见按钮 -->
 		<view v-if="clearable_&&!displayable_&&value.length" class="m-input-icon">
-			<m-icon color="#666666" type="clear" size="20" @click="clear"></m-icon>
+			<!-- <m-icon color="#666666" type="clear" size="20" @click="clear"></m-icon> -->
+            <text class="iconfont iconioscloseempty" @click="clear"></text>
 		</view>
 		<view v-if="displayable_" class="m-input-icon">
-			<m-icon :color="showPassword?'#666666':'#cccccc'" type="eye" size="20" @click="display"></m-icon>
+			<!-- <m-icon :color="showPassword?'#666666':'#cccccc'" type="eye" size="20" @click="display"></m-icon> -->
+            <text class="iconfont" :class="showPassword?'iconeye':'iconyanjing'" @click="display"></text>
 		</view>
 	</view>
 </template>
 
 <script>
-	import mIcon from './m-icon/m-icon.vue'
 
 	export default {
 		components: {
-			mIcon
 		},
 		props: {
 			/**
@@ -95,10 +95,11 @@
 			onFocus() {
 				this.isFocus = true
 			},
-			onBlur() {
+			onBlur(e) {
 				this.$nextTick(() => {
 					this.isFocus = false
 				})
+				this.$emit('blur', e.target.value)
 			},
 			onInput(e) {
 				this.$emit('input', e.target.value)
@@ -125,4 +126,7 @@
 	.m-input-icon {
 		width: 20px;
 	}
+    .iconioscloseempty, .iconeye, .iconyanjing {
+        color: #666666;
+    }
 </style>

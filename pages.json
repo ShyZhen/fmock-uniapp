@@ -1,43 +1,43 @@
 {
-    "pages": [ //pages数组中第一项表示应用启动页,
-        // {
-        //     "path": "pages/main/main",
-        //     "style": {
-        //         "navigationBarTitleText": "登录模板"
-        //     }
-        // }, {
-        //     "path": "pages/login/login",
-        //     "style": {
-        //         "navigationBarTitleText": "登录"
-        //     }
-        // }, {
-        //     "path": "pages/reg/reg",
-        //     "style": {
-        //         "navigationBarTitleText": "注册"
-        //     }
-        // }, {
-        //     "path": "pages/pwd/pwd",
-        //     "style": {
-        //         "navigationBarTitleText": "找回密码"
-        //     }
-        // }, {
-        //     "path": "pages/user/user",
-        //     "style": {
-        //         "navigationBarTitleText": "我的"
-        //     }
-        // },
-		
+    "pages": [
 		{
 		    "path": "pages/home/home",
 		    "style": {
 		        "navigationBarTitleText": "墨客社区",
-				"enablePullDownRefresh":true//开启下拉刷新
+				"enablePullDownRefresh": true    //开启下拉刷新
+                // "app-plus": {
+                //     "titleNView": {
+                //         "searchInput": {
+                //             "align": "center",
+                //             "placeholder": "Search...",
+                //             "borderRadius":"50upx",
+                //             "backgroundColor": "#FCFCFD"
+                //         },
+                //         "buttons": [
+                //             {
+                //                 "text": "测试",
+                //                 "fontSize" :"16",
+                //                 "float": "left",
+                //                 "color": "#FFFFFF"
+                //                 // "badgeText": "12"  // 红色标识
+                //             },
+                //             {
+                //                 "text" : "write",
+                //                 "fontSize" : "16",
+                //                 "float":"right",
+                //                 "color":"#FFFFFF"
+                //                 // "redDot" : true  // 红点
+                //             }
+                //         ]
+                //     }
+                // }
 		    }
 		}
         ,{
             "path" : "pages/follow/follow",
             "style" : {
-				"navigationBarTitleText": "关注的文章"
+				"navigationBarTitleText": "关注的文章",
+                "enablePullDownRefresh": true    //开启下拉刷新
 			}
         }
         ,{
@@ -51,10 +51,24 @@
             "style" : {
 				"navigationBarTitleText": "个人信息"
 			}
+        },{
+            "path": "pages/login/login",
+            "style": {
+                  "navigationBarTitleText": "登录"
+            }
+        },{
+            "path": "pages/reg/reg",
+            "style": {
+                "navigationBarTitleText": "注册"
+            }
+        },{
+            "path": "pages/pwd/pwd",
+            "style": {
+                "navigationBarTitleText": "找回密码"
+            }
         }
     ],
-    // 底部 tab 
-    // 底部 tab 
+    // 底部 tab
     "tabBar": {
         "color": "#333333",
         "selectedColor": "#00A6FC",
@@ -81,11 +95,12 @@
             "text": "我的"
         }]
     },
-    // 设置默认页面的窗口表现    
+    // 设置默认页面的窗口表现
     "globalStyle": {
         "navigationBarTextStyle": "white",
         "navigationBarBackgroundColor": "#00A6FC",
         "backgroundColor": "#F8F8F8",
-        "navigationBarTitleText": "墨客社区"
+        "navigationBarTitleText": "墨客社区",
+        "navigationStyle": "custom"    // 使用自定义导航，满足小程序和H5，以及各个页面不同的需求
     }
 }
