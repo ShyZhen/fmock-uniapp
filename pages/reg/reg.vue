@@ -19,7 +19,7 @@
 			
             <view class="input-row border">
                 <text class="title">密码：</text>
-                <m-input type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
+                <m-input type="password" displayable v-model="password" @input="checkZh" placeholder="请输入密码"></m-input>
             </view>
 			
             <view class="input-row border">
@@ -88,8 +88,8 @@ import {mapState, mapActions} from 'vuex'
             ...mapActions(['initLoginState']),
 			
 			checkIsCorAccount() {
-                const regEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                const regPhone = /^(1\d{10})$/
+                const regEmail = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                const regPhone = /^1(?:3|4|5|6|7|8|9)\d{9}$/
                 const account = this.account;
 
                 this.isCorrectAccount = regEmail.test(account) || regPhone.test(account);
@@ -140,25 +140,25 @@ import {mapState, mapActions} from 'vuex'
             // 注册
             register() {
 				uni.showLoading({title: ''});
-				
+
                 // 非空判断
-                if(this.name.trim() === ''){
-                    uni.showToast({title: '昵称不能为空', icon: 'none', duration: 2000});
+                if(!this.strlen(this.name.trim()) || this.strlen(this.name.trim()) > 16){
+                    uni.showToast({title: '昵称最多不得超过8个汉字或16个字符', icon: 'none', duration: 2000});
                     return 
                 }
-                if(this.account.trim() === ''){
-                    uni.showToast({title: '登录账户不能为空!', icon: 'none', duration: 2000});
+                if(!this.account.trim().length || !this.isCorrectAccount){
+                    uni.showToast({title: '登录账户格式错误!', icon: 'none', duration: 2000});
                     return 
                 }
-                if(this.verify_code.trim() === ''){
-                    uni.showToast({title: '验证码不能为空!', icon: 'none', duration: 2000});
+                if(this.verify_code.trim().length !== 6){
+                    uni.showToast({title: '验证码格式错误!', icon: 'none', duration: 2000});
                     return 
                 }
-                if(this.password.trim() === ''){
-                    uni.showToast({title: '密码不能为空!', icon: 'none', duration: 2000});
+                if(this.password.trim().length < 6){
+                    uni.showToast({title: '密码最少需要6个字符!', icon: 'none', duration: 2000});
                     return 
                 }
-                if(this.password_confirmation.trim() === ''){
+                if(this.password_confirmation.trim().length < 6){
                     uni.showToast({title: '请确认密码!', icon: 'none', duration: 2000});
                     return 
                 }
@@ -185,6 +185,33 @@ import {mapState, mapActions} from 'vuex'
                 })
 
             },
+			
+			// 中英文长度计算
+			strlen(str){
+				let len = 0;
+				for (let i = 0; i < str.length; i++) { 
+					let c = str.charCodeAt(i); 
+					//单字节加1 
+					if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f))    { 
+						len++; 
+					} 
+					else { 
+						len+=2; 
+					} 
+				} 
+				return len;
+			},
+			
+			// 防止密码可见状态下输入中文
+			checkZh(){
+				let replaceStr = this.password.replace(/[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/g,'')
+			    this.password = replaceStr
+				
+				this.$forceUpdate()
+			    console.log(this.password)
+			 // this.$set(this.emailText, 'text', 'ss')
+			},
+			
             toHome() {
                 uni.reLaunch({
                     url: '../home/home'

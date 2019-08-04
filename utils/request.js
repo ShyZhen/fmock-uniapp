@@ -23,7 +23,7 @@ class Request
      */
     buildHeader(headers) {
         let auth = {'Authorization': 'Bearer ' + Auth.getToken()};
-        return Object.assign({}, headers || {}, auth);
+        return Object.assign({'Accept': 'application/json'}, headers || {}, auth);
     }
     
     /**

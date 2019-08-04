@@ -104,7 +104,7 @@ import mInput from '@/components/m-input.vue'
 				}
                 
                 // 调用登录插件进行登录
-				uni.showLoading({title: '登录中...'});
+				uni.showLoading({title: '登录中...', 'mask': true});
                 accountLogin(this.account, this.password).then(res => {
 					uni.hideLoading();
                     this.toHome()
@@ -113,7 +113,7 @@ import mInput from '@/components/m-input.vue'
 			
 			// 第三方OAUTH登录
 			oauth(provider) {
-				uni.showLoading({title: '登录中...'});
+				uni.showLoading({title: '登录中...', 'mask': true});
 				switch (provider){
 					case 'github':
 					    githubLogin().then(res => {
