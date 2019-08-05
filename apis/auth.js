@@ -87,4 +87,6 @@ function githubLogin() {
 }
 
 
-export {wxmpLogin, accountLogin, logout, registerCode, accountRegister, getAccountStatus, githubLogin}
+export {
+    wxmpLogin, accountLogin, logout, registerCode, accountRegister, getAccountStatus, githubLogin
+}

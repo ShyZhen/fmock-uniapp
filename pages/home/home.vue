@@ -13,21 +13,21 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
-import {logout} from '@/utils/loginPlugin.js'
+import { mapState, mapActions } from 'vuex'
+import { logout } from '@/utils/loginPlugin.js'
 import navBar from '@/components/nav-bar'
 
 	export default {
 		data() {
 			return {
                 logo: '/static/img/FMOCK-LOGO.png',
-                leftIcon: "iconback",
-                leftWords: "",
-                rightImg: "",
-                rightIcon: "",
-                rightWords: "",
-                iconColor: "",
-                title: "墨客社区",
+                leftIcon: 'iconback',
+                leftWords: '',
+                rightImg: '',
+                rightIcon: '',
+                rightWords: '',
+                iconColor: '',
+                title: '墨客社区',
 				showInput: true
 			}
 		},

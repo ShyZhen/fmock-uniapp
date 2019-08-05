@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {getToken, getBinding} from '../utils/auth'
+import { getToken, getBinding } from '../utils/auth'
 
 
 Vue.use(Vuex)

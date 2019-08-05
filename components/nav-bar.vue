@@ -36,16 +36,16 @@
 import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
 
     export default {  
-        name: "navBar",
+        name: 'navBar',
         props: {
 			logo: '',
-			leftIcon: "",
-			leftWords: "",
-			rightImg: "",
-			rightIcon: "",
-			rightWords: "",
-			iconColor: "",
-			title: "",
+			leftIcon: '',
+			leftWords: '',
+			rightImg: '',
+			rightIcon: '',
+			rightWords: '',
+			iconColor: '',
+			title: '',
 			showInput: false
         },
 		components: {
@@ -65,10 +65,10 @@ import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
                 this.$emit('inputClick',this.value)
             },
 			leftClick: function () {
-			    this.$emit("leftClick")
+			    this.$emit('leftClick')
 			},
             rightClick: function () {
-                this.$emit("rightClick")
+                this.$emit('rightClick')
             },
             // 将导航栏高度存储到localstorage中，使用开发者工具记得清理缓存
             getNavHeight: function() {

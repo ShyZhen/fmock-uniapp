@@ -128,4 +128,4 @@ function getAccountStatus(data) {
     })
 }
 
-export {accountLogin, wxmpLogin, logout, registerCode, accountRegister, getAccountStatus, githubLogin, githubCallback}
+export { accountLogin, wxmpLogin, logout, registerCode, accountRegister, getAccountStatus, githubLogin, githubCallback }

@@ -13,18 +13,18 @@ const TOKENKEY = Config.tokenKey
 /**
  * 前端存储过期时间 （单位天）
  */
-const TOKENEXPIRE = Config.tokenExpire;
+const TOKENEXPIRE = Config.tokenExpire
 
 /**
  * 获取token
  */
 function getToken() {
     try {
-        let res = uni.getStorageSync(TOKENKEY);
+        let res = uni.getStorageSync(TOKENKEY)
         if (res) {
-            res = JSON.parse(res);
+            res = JSON.parse(res)
             if (res.end > new Date().getTime()) {
-                return res.key;
+                return res.key
             }
         }
     } catch (e) {}
@@ -39,10 +39,10 @@ function getToken() {
 function setToken(token) {
     try {
         uni.setStorageSync(TOKENKEY, JSON.stringify({key: token, end: new Date().getTime() + 3600000 * TOKENEXPIRE}))
-        return true;
+        return true
     } catch (e) {
         // console.log(e);
-        return false;
+        return false
     }
 }
 
@@ -51,16 +51,16 @@ function setToken(token) {
  */
 function getBinding() {
     try {
-        let res = uni.getStorageSync(BINDING);
+        let res = uni.getStorageSync(BINDING)
         if (res) {
-            res = JSON.parse(res);
+            res = JSON.parse(res)
             if (res.end > new Date().getTime()) {
-                return res.key;
+                return res.key
             }
         }
     } catch (e) {}
 
-    return false;
+    return false
 }
 
 /**
@@ -70,10 +70,10 @@ function getBinding() {
 function setBinding(bool) {
     try {
         uni.setStorageSync(BINDING, JSON.stringify({key: bool, end: new Date().getTime() + 3600000 * TOKENEXPIRE}))
-        return true;
+        return true
     } catch (e) {
         // console.log(e);
-        return false;
+        return false
     }
 }
 
@@ -82,13 +82,13 @@ function setBinding(bool) {
  */
 function removeLoginStorage() {
     try {
-        uni.removeStorageSync(TOKENKEY);
-        uni.removeStorageSync(BINDING);
-        return true;
+        uni.removeStorageSync(TOKENKEY)
+        uni.removeStorageSync(BINDING)
+        return true
     } catch (e) {
         // error
-        return false;
+        return false
     }
 }
 
-export {getToken, setToken, getBinding, setBinding, removeLoginStorage}
+export { getToken, setToken, getBinding, setBinding, removeLoginStorage }

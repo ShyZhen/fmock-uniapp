@@ -19,7 +19,7 @@
 			
             <view class="input-row border">
                 <text class="title">密码：</text>
-                <m-input type="password" displayable v-model="password" @input="checkZh" placeholder="请输入密码"></m-input>
+                <m-input type="password" displayable v-model="password" @input="checkIsCorPassword" placeholder="请输入密码"></m-input>
             </view>
 			
             <view class="input-row border">
@@ -34,9 +34,10 @@
 </template>
 
 <script>
+    
 import mInput from '../../components/m-input.vue'
-import {registerCode, accountRegister} from '@/utils/loginPlugin.js'
-import {mapState, mapActions} from 'vuex'
+import { registerCode, accountRegister } from '@/utils/loginPlugin.js'
+import { mapState, mapActions } from 'vuex'
 
     export default {
         onLoad: function () {
@@ -72,6 +73,9 @@ import {mapState, mapActions} from 'vuex'
 				
 				// 是否是正确的邮箱或者手机号码
                 isCorrectAccount: false,
+                
+                // 密码格式是否正确
+                isCorrectPassword: false,
 				
 				// 是否可以获取注册码
                 canGetRegisterCode: true,
@@ -95,6 +99,14 @@ import {mapState, mapActions} from 'vuex'
                 this.isCorrectAccount = regEmail.test(account) || regPhone.test(account);
             },
             
+            // 密码规则校验 数字、字母、特殊字符 最少俩种
+            checkIsCorPassword() {
+                const regPassword = /^(?![\d]+$)(?![a-zA-Z]+$)(?![!@#$%^&*()_.]+$)[\da-zA-Z!@#$%^&*()_.]{6,20}$/
+                const password = this.password;
+            
+                this.isCorrectPassword = regPassword.test(password);
+            },
+
             // 发送注册验证码
             registerCode() {
 				if(!this.canGetRegisterCode){
@@ -103,14 +115,12 @@ import {mapState, mapActions} from 'vuex'
 				
 				// TODO 极验
 				
-				uni.showLoading({title: ''});
+				this.$loading()
                 let data = {
                     account: this.account
                 }
                 registerCode(data).then(res => {
-					console.log(res)
-					
-					uni.hideLoading();
+					this.$loading(false)
 					const _this = this
 					this.canGetRegisterCode = false
 					
@@ -139,32 +149,37 @@ import {mapState, mapActions} from 'vuex'
             
             // 注册
             register() {
-				uni.showLoading({title: ''});
+				this.$loading()
 
                 // 非空判断
-                if(!this.strlen(this.name.trim()) || this.strlen(this.name.trim()) > 16){
-                    uni.showToast({title: '昵称最多不得超过8个汉字或16个字符', icon: 'none', duration: 2000});
+                if (!this.strlen(this.name.trim()) || this.strlen(this.name.trim()) > 16) {
+                    this.toast('昵称最多不得超过8个汉字或16个字符')
                     return 
                 }
-                if(!this.account.trim().length || !this.isCorrectAccount){
-                    uni.showToast({title: '登录账户格式错误!', icon: 'none', duration: 2000});
+                if (!this.account.trim().length || !this.isCorrectAccount) {
+                    this.toast('登录账户格式错误!')
                     return 
                 }
-                if(this.verify_code.trim().length !== 6){
-                    uni.showToast({title: '验证码格式错误!', icon: 'none', duration: 2000});
+                if (this.verify_code.trim().length !== 6) {
+                    this.toast('验证码格式错误!')
                     return 
                 }
-                if(this.password.trim().length < 6){
-                    uni.showToast({title: '密码最少需要6个字符!', icon: 'none', duration: 2000});
+
+                if (this.password.trim().length < 6 || this.password.trim().length > 20) {
+                    this.toast('密码最少需要6个字符，且不得超过20个字符!')
                     return 
                 }
-                if(this.password_confirmation.trim().length < 6){
-                    uni.showToast({title: '请确认密码!', icon: 'none', duration: 2000});
+                if (!this.isCorrectPassword) {
+                    this.toast('密码只能由字母、数字、特殊字符组成，最少包含两种!')
+                    return 
+                }
+                if (this.password_confirmation.trim().length < 6) {
+                    this.toast('请确认密码!')
                     return 
                 }
                 // 密码与重复密码不一致
-                if(this.password.trim() !== this.password_confirmation.trim()){
-                    uni.showToast({title: '密码与重复密码不一致!', icon: 'none', duration: 2000});
+                if (this.password.trim() !== this.password_confirmation.trim()) {
+                    this.toast('密码与重复密码不一致!')
                     return 
                 }
 
@@ -178,7 +193,7 @@ import {mapState, mapActions} from 'vuex'
 
                 accountRegister(data).then(res => {
                     console.log(res)
-					uni.hideLoading();
+					this.$loading(false)
 					this.toHome()
                 }).catch(err => {
                     console.log('err', err)
@@ -200,16 +215,6 @@ import {mapState, mapActions} from 'vuex'
 					} 
 				} 
 				return len;
-			},
-			
-			// 防止密码可见状态下输入中文
-			checkZh(){
-				let replaceStr = this.password.replace(/[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/g,'')
-			    this.password = replaceStr
-				
-				this.$forceUpdate()
-			    console.log(this.password)
-			 // this.$set(this.emailText, 'text', 'ss')
 			},
 			
             toHome() {

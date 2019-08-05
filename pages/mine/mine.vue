@@ -8,8 +8,9 @@
 </template>
 
 <script>
-    import {mapState, mapActions} from 'vuex'
-	import {logout} from '@/utils/loginPlugin.js'
+    
+import { mapState, mapActions } from 'vuex'
+import { logout } from '@/utils/loginPlugin.js'
 
     export default {
 		onLoad: function () {
@@ -35,6 +36,9 @@
 			
             bindLogout() {
                 logout()
+                uni.reLaunch({
+                    url: '../login/login',
+                });
             }
         }
     }

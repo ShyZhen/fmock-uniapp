@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
-import {accountLogin, getAccountStatus, githubLogin, githubCallback} from '@/utils/loginPlugin.js'
+import { mapState, mapActions } from 'vuex'
+import { accountLogin, getAccountStatus, githubLogin, githubCallback } from '@/utils/loginPlugin.js'
 import mInput from '@/components/m-input.vue'
 
     export default {
@@ -79,7 +79,7 @@ import mInput from '@/components/m-input.vue'
                     this.canLogin = false;
                 } else if (!(regEmail.test(this.account) || regPhone.test(this.account))) {
                     this.canLogin = false;
-					uni.showToast({title: '用户名格式不正确', icon: 'none', duration: 2000});
+                    this.$toast('用户名格式不正确!')
                 } else {
 					// 检测用户是否已经注册
 					let data = {
@@ -94,26 +94,26 @@ import mInput from '@/components/m-input.vue'
 			// 账号密码登录
             bindLogin() {
                 if (!this.canLogin) {
-                    uni.showToast({title: '用户名格式不正确', icon: 'none', duration: 2000});
+                    this.$toast('用户名格式不正确!')
                     return
                 };
 				
 				if (!this.password || this.password.length < 6) {
-					uni.showToast({title: '密码格式不正确', icon: 'none', duration: 2000});
+                    this.$toast('密码格式不正确!')
 					return
 				}
                 
                 // 调用登录插件进行登录
-				uni.showLoading({title: '登录中...', 'mask': true});
+                this.$loading('登录中...')
                 accountLogin(this.account, this.password).then(res => {
-					uni.hideLoading();
+					this.$loading(false)
                     this.toHome()
                 }).catch (err => {})
             },
 			
 			// 第三方OAUTH登录
 			oauth(provider) {
-				uni.showLoading({title: '登录中...', 'mask': true});
+                this.$loading('登录中...')
 				switch (provider){
 					case 'github':
 					    githubLogin().then(res => {
@@ -124,7 +124,7 @@ import mInput from '@/components/m-input.vue'
 									console.log('RES', res);
 									if (res.access_token && res.binding_status) {
 										// 本地存储token
-										uni.hideLoading();
+										this.$loading(false)
                                         githubCallback(res)
 										this.toHome()
 									}
@@ -141,7 +141,7 @@ import mInput from '@/components/m-input.vue'
 					    console.log('ww', provider)
 						break;
 					default:
-					    uni.hideLoading();
+					    this.$loading(false)
 						break;
 				}
 			},

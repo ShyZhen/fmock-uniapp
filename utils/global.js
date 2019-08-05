@@ -1,5 +1,26 @@
-// 弹出层 toast 
-uni.showToast({title: '密码格式不正确', icon: 'none', duration: 2000});
 
-// loading
-uni.showLoading({title: '登录中...', 'mask': true});
+// 加载层
+function loading(text, config) {
+    if (text === false) {
+        uni.hideLoading();
+    } else {
+        text = text || '';
+        let options = Object.assign({
+            title: text,
+            mask: true,
+        }, config || {});
+        uni.showLoading(options);
+    }
+}
+
+// 弹窗
+function toast(text, config) {
+  let options = Object.assign({
+    title: text,
+    icon: 'none',
+    duration: 2000,
+  }, config || {});
+  uni.showToast(options);
+}
+
+export { loading, toast }

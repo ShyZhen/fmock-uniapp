@@ -14,19 +14,19 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import navBar from '@/components/nav-bar.vue'
     export default {
         data() {
             return {
                 logo: '/static/img/FMOCK-LOGO.png',
-                leftIcon: "",
-                leftWords: "",
-                rightImg: "/static/img/write.png",
-                rightIcon: "",
-                rightWords: "",
+                leftIcon: '',
+                leftWords: '',
+                rightImg: '/static/img/write.png',
+                rightIcon: '',
+                rightWords: '',
                 input: true,
-                title: ""
+                title: ''
             }
         },
         components: {

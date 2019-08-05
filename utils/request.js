@@ -62,7 +62,7 @@ class Request
                         });
         
                         setTimeout(() => {
-                            uni.redirectTo({
+                            uni.navigateTo({
                                 url: '/pages/login/login',
                             });
                         }, 2000);
