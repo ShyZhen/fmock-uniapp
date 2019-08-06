@@ -37,10 +37,10 @@ import mInput from '@/components/m-input.vue'
             // #ifdef MP-WEIXIN
             this.toHome()
             // #endif
-        
+
             // 在需要登录的地方执行初始化方法
             this.initLoginState()
-            
+
             // 判断登录状态 并跳转到首页
             if (this.hasLogin) {
                 this.toHome()
@@ -69,7 +69,7 @@ import mInput from '@/components/m-input.vue'
         },
         methods: {
             ...mapActions(['initLoginState']),
-            
+
 			// 验证账号
 			validateAccount() {
                 const regEmail = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
@@ -87,22 +87,22 @@ import mInput from '@/components/m-input.vue'
 					}
 					getAccountStatus(data).then(res => {
 						this.canLogin = true;
-					}).catch(err => {}) 
+					}).catch(err => {})
                 }
             },
-			
+
 			// 账号密码登录
             bindLogin() {
                 if (!this.canLogin) {
                     this.$toast('用户名格式不正确!')
                     return
-                };
-				
+                }
+
 				if (!this.password || this.password.length < 6) {
                     this.$toast('密码格式不正确!')
 					return
 				}
-                
+
                 // 调用登录插件进行登录
                 this.$loading('登录中...')
                 accountLogin(this.account, this.password).then(res => {
@@ -110,7 +110,7 @@ import mInput from '@/components/m-input.vue'
                     this.toHome()
                 }).catch (err => {})
             },
-			
+
 			// 第三方OAUTH登录
 			oauth(provider) {
                 this.$loading('登录中...')
@@ -151,17 +151,17 @@ import mInput from '@/components/m-input.vue'
                     url: '../home/home'
                 });
             },
-            
+
             initPosition() {
                 /**
                  * 使用 absolute 定位，并且设置 bottom 值进行定位。软键盘弹出时，底部会因为窗口变化而被顶上来。
                  * 反向使用 top 进行定位，可以避免此问题。
                  */
-                this.positionTop = uni.getSystemInfoSync().windowHeight - 100;
+                this.positionTop = uni.getSystemInfoSync().windowHeight - 100
             },
         },
         onReady() {
-            this.initPosition();
+            this.initPosition()
         }
     }
 </script>

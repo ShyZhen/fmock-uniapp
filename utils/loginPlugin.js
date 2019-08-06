@@ -2,7 +2,7 @@
  * 各个环境下的登录处理，存储token，状态等
  */
 import * as AuthApi from "../apis/auth.js"
-import {setToken, setBinding, removeLoginStorage} from '../utils/auth.js'
+import { setToken, setBinding, removeLoginStorage } from '../utils/auth.js'
 import store from '../store/index.js';
 
 // 账号密码登录插件
@@ -17,7 +17,7 @@ function accountLogin(account, password) {
                 store.commit('binding')
             }
             resolve(res)
-            
+
         }).catch(err => {
             reject(err)
         })
@@ -38,14 +38,14 @@ function wxmpLogin() {
                         store.commit('login')
                         store.commit('binding')
                     }
-                    
+
                     resolve(res)
                 }).catch (err => {
                     reject(err)
                 })
             },
             fail: (e) => {
-                console.error('do login error:', e);
+                console.error('do login error:', e)
             }
         })
     })
@@ -110,7 +110,7 @@ function accountRegister(data) {
                 store.commit('binding')
             }
             resolve(res)
-            
+
         }).catch(err => {
             reject(err)
         })
@@ -128,4 +128,36 @@ function getAccountStatus(data) {
     })
 }
 
-export { accountLogin, wxmpLogin, logout, registerCode, accountRegister, getAccountStatus, githubLogin, githubCallback }
+// 忘记密码 改密验证码
+function getasswordCode(data) {
+    return new Promise((resolve, reject) => {
+        AuthApi.getasswordCode(data).then(res => {
+            resolve(res)
+        }).catch(err => {
+            reject(err)
+        })
+    })
+}
+
+// 忘记密码改密插件
+function updatePassword(data) {
+    return new Promise((resolve, reject) => {
+        AuthApi.updatePassword(data).then(res => {
+            if (res.access_token) {
+                // 保存token 绑定状态到storage；保存vuex状态
+                setToken(res.access_token)
+                setBinding(true)
+                store.commit('login')
+                store.commit('binding')
+            }
+            resolve(res)
+
+        }).catch(err => {
+            reject(err)
+        })
+    })
+}
+
+export { 
+    accountLogin, wxmpLogin, logout, registerCode, accountRegister, getAccountStatus, githubLogin, githubCallback, getasswordCode, updatePassword
+}

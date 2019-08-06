@@ -2,6 +2,10 @@
 	<view>
 		<!-- 头部导航 -->
 		<nav-bar :logo="logo" :title="title" :showInput="showInput" :rightIcon="rightIcon"></nav-bar>
+        
+        <view style="height: 10rpx;"></view>
+        
+        
         <view class="">
             首页
             <button type="primary" @tap="test()">sd</button>

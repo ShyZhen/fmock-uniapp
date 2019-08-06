@@ -153,33 +153,33 @@ import { mapState, mapActions } from 'vuex'
 
                 // 非空判断
                 if (!this.strlen(this.name.trim()) || this.strlen(this.name.trim()) > 16) {
-                    this.toast('昵称最多不得超过8个汉字或16个字符')
+                    this.$toast('昵称最多不得超过8个汉字或16个字符')
                     return 
                 }
                 if (!this.account.trim().length || !this.isCorrectAccount) {
-                    this.toast('登录账户格式错误!')
+                    this.$toast('登录账户格式错误!')
                     return 
                 }
                 if (this.verify_code.trim().length !== 6) {
-                    this.toast('验证码格式错误!')
+                    this.$toast('验证码格式错误!')
                     return 
                 }
 
                 if (this.password.trim().length < 6 || this.password.trim().length > 20) {
-                    this.toast('密码最少需要6个字符，且不得超过20个字符!')
+                    this.$toast('密码最少需要6个字符，且不得超过20个字符!')
                     return 
                 }
                 if (!this.isCorrectPassword) {
-                    this.toast('密码只能由字母、数字、特殊字符组成，最少包含两种!')
+                    this.$toast('密码只能由字母、数字、特殊字符组成，最少包含两种!')
                     return 
                 }
                 if (this.password_confirmation.trim().length < 6) {
-                    this.toast('请确认密码!')
+                    this.$toast('请确认密码!')
                     return 
                 }
                 // 密码与重复密码不一致
                 if (this.password.trim() !== this.password_confirmation.trim()) {
-                    this.toast('密码与重复密码不一致!')
+                    this.$toast('密码与重复密码不一致!')
                     return 
                 }
 
