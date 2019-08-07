@@ -1,0 +1,106 @@
+{
+    "pages": [
+		{
+		    "path": "pages/home/home",
+		    "style": {
+		        "navigationBarTitleText": "墨客社区",
+				"enablePullDownRefresh": false    // 下拉刷新 使用滑块内插件
+                // "app-plus": {
+                //     "titleNView": {
+                //         "searchInput": {
+                //             "align": "center",
+                //             "placeholder": "Search...",
+                //             "borderRadius":"50upx",
+                //             "backgroundColor": "#FCFCFD"
+                //         },
+                //         "buttons": [
+                //             {
+                //                 "text": "测试",
+                //                 "fontSize" :"16",
+                //                 "float": "left",
+                //                 "color": "#FFFFFF"
+                //                 // "badgeText": "12"  // 红色标识
+                //             },
+                //             {
+                //                 "text" : "write",
+                //                 "fontSize" : "16",
+                //                 "float":"right",
+                //                 "color":"#FFFFFF"
+                //                 // "redDot" : true  // 红点
+                //             }
+                //         ]
+                //     }
+                // }
+		    }
+		}
+        ,{
+            "path" : "pages/follow/follow",
+            "style" : {
+				"navigationBarTitleText": "关注的文章",
+                "enablePullDownRefresh": true    //开启下拉刷新
+			}
+        }
+        ,{
+            "path" : "pages/study/study",
+            "style" : {
+				"navigationBarTitleText": "充电学习"
+			}
+        }
+        ,{
+            "path" : "pages/mine/mine",
+            "style" : {
+				"navigationBarTitleText": "个人信息"
+			}
+        },{
+            "path": "pages/login/login",
+            "style": {
+                  "navigationBarTitleText": "登录"
+            }
+        },{
+            "path": "pages/reg/reg",
+            "style": {
+                "navigationBarTitleText": "注册"
+            }
+        },{
+            "path": "pages/pwd/pwd",
+            "style": {
+                "navigationBarTitleText": "找回密码"
+            }
+        }
+    ],
+    // 底部 tab
+    "tabBar": {
+        "color": "#333333",
+        "selectedColor": "#00A6FC",
+        "backgroundColor": "#FCFCFD",
+        "list": [{
+            "pagePath": "pages/home/home",
+            "text": "首页",
+            "iconPath": "static/img/home.png",
+            "selectedIconPath": "static/img/home-c.png"
+        },{
+            "pagePath": "pages/follow/follow",
+            "iconPath": "static/img/follow.png",
+            "selectedIconPath": "static/img/follow-c.png",
+            "text": "关注"
+      },{
+            "pagePath": "pages/study/study",
+            "iconPath": "static/img/lightningcopy.png",
+            "selectedIconPath": "static/img/lightningcopy-c.png",
+            "text": "充电"
+      },{
+            "pagePath": "pages/mine/mine",
+            "iconPath": "static/img/mine.png",
+            "selectedIconPath": "static/img/mine-c.png",
+            "text": "我的"
+        }]
+    },
+    // 设置默认页面的窗口表现
+    "globalStyle": {
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#00A6FC",
+        "backgroundColor": "#F8F8F8",
+        "navigationBarTitleText": "墨客社区",
+        "navigationStyle": "custom"    // 使用自定义导航，满足小程序和H5，以及各个页面不同的需求
+    }
+}
