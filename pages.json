@@ -4,7 +4,7 @@
 		    "path": "pages/home/home",
 		    "style": {
 		        "navigationBarTitleText": "墨客社区",
-				"enablePullDownRefresh": true    //开启下拉刷新
+				"enablePullDownRefresh": false    // 下拉刷新 使用滑块内插件
                 // "app-plus": {
                 //     "titleNView": {
                 //         "searchInput": {
