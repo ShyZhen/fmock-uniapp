@@ -22,6 +22,61 @@ function getPostDetail(uuid) {
     })
 }
 
+// 创建文章
+function createPost(data) {
+    return new Promise((resolve, reject) => {
+        request.request('POST', 'V1/post', data).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
+// 上传图片
+function uploadImage(data) {
+    return new Promise((resolve, reject) => {
+        request.request('POST', 'V1/file/image', data).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
+// 删除自己的文章
+function deletePost(uuid) {
+    return new Promise((resolve, reject) => {
+        request.request('DELETE', 'V1/post/' + uuid).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
+// 某用户发布的所有文章(包括自己)
+function getUserPosts(userUuid) {
+    return new Promise((resolve, reject) => {
+        request.request('GET', 'V1/user/posts/' + userUuid).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
+// 更新自己的某篇文章
+function updatePost(uuid, data) {
+    return new Promise((resolve, reject) => {
+        request.request('PUT', 'V1/post/' + uuid, data).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
 export {
-    getPostsList, getPostDetail
+    getPostsList, getPostDetail, createPost, uploadImage, deletePost, getUserPosts, updatePost
 }
