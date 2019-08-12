@@ -1,4 +1,4 @@
-# my-project
+# FMock
 
 ## Project setup
 ```

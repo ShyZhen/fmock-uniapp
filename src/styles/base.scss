@@ -1,0 +1,366 @@
+/* uni-app默认全局使用flex布局。因为flex布局有利于跨更多平台，尤其是采用原生渲染的平台。如不了解flex布局，请参考http://www.w3.org/TR/css3-flexbox/。如不使用flex布局，请删除或注释掉本行。*/
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+body, page {
+  min-height: 100%;
+  display: flex;
+}
+body {
+  line-height: 1.4;
+  color: $e-3;
+  font-size: 26rpx;
+  font-family: -apple-systee-font, microsoft yahei;
+  background-color: $e-lightGray;
+}
+/* #ifdef MP-BAIDU */
+page {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+swan-template {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+}
+
+/* 原生组件模式下需要注意组件外部样式 */
+custom-component {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+}
+
+/* #endif */
+
+/* 原生组件模式下需要注意组件外部样式 */
+m-input {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: #efeff4;
+  padding: 20upx;
+}
+
+.input-group {
+  background-color: #ffffff;
+  margin-top: 40upx;
+  position: relative;
+}
+
+.input-group::before {
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+  height: 1upx;
+  content: '';
+  -webkit-transform: scaleY(.5);
+  transform: scaleY(.5);
+  background-color: #c8c7cc;
+}
+
+.input-group::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1upx;
+  content: '';
+  -webkit-transform: scaleY(.5);
+  transform: scaleY(.5);
+  background-color: #c8c7cc;
+}
+
+.input-row {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.input-row .title {
+  width: 20%;
+  height: 50upx;
+  min-height: 50upx;
+  padding: 15upx 0;
+  padding-left: 30upx;
+  line-height: 50upx;
+}
+
+.input-row.border::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 15upx;
+  height: 1upx;
+  content: '';
+  -webkit-transform: scaleY(.5);
+  transform: scaleY(.5);
+  background-color: #c8c7cc;
+}
+
+.btn-row {
+  margin-top: 50upx;
+  padding: 20upx;
+}
+
+button.primary {
+  background-color: #0faeff;
+}
+
+/* ··················· 布局 ··················· */
+// 自动换行
+.e-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// 自动占满余量
+.e-flex_auto{
+  flex: 1;
+  overflow: hidden;
+}
+.e-flex_ais {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.e-flex_left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+// 上下居中
+.e-flex_center {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.e-flex_right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+// 上下靠边
+.e-flex_updown {
+  display: flex;
+  align-content: space-between;
+}
+.e-flex_lcenter {
+  display: flex;
+  align-items: center;
+}
+
+
+// 弹性布局
+.e-box {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+// 全屏白色背景
+.e-full{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background: $e-f;
+  &.fixed{
+    position: fixed;
+    z-index: 9;
+  }
+}
+
+/* ··················· 文字属性 ··················· */
+.e-txtC {
+  text-align: center;
+}
+.e-txtR {
+  text-align: right;
+}
+.e-txtL {
+  text-align: left;
+}
+.e-bold {
+  font-weight: bold;
+}
+.e-font20{
+  font-size: 20upx;
+}
+.e-font22{
+  font-size: 22upx;
+}
+.e-font24{
+  font-size: 24upx;
+}
+.e-font28{
+  font-size: 28upx;
+}
+.e-font30{
+  font-size: 30upx;
+}
+.e-font32{
+  font-size: 32upx;
+}
+.e-font36{
+  font-size: 36upx;
+}
+.e-font42{
+  font-size: 42upx;
+}
+.e-font44{
+  font-size: 44upx;
+}
+
+/* ··················· 颜色 ··················· */
+.e-red{
+  color: $e-red;
+}
+.e-blue {
+  color: $e-blue;
+}
+.e-green{
+  color: $e-green;
+}
+.e-yellow{
+  color: $e-yellow;
+}
+.e-c3 {
+  color: $e-3;
+}
+.e-c6 {
+  color: $e-6;
+}
+.e-c9 {
+  color: $e-9;
+}
+.e-cf {
+  color: $e-f;
+}
+.e-bgGray {
+  background: $e-gray;
+}
+.e-bgWhite {
+  background: $e-f;
+}
+
+/* ··················· 边距 ··················· */
+.e-pd20 {
+  padding: 20upx;
+}
+.e-pl20 {
+  padding-left: 20upx;
+}
+.e-pr20 {
+  padding-right: 20upx;
+}
+.e-pt20 {
+  padding-top: 20upx;
+}
+.e-pb20 {
+  padding-bottom: 20upx;
+}
+.e-mt5 {
+  margin-top: 5upx;
+}
+.e-mb5 {
+  margin-bottom: 5upx;
+}
+.e-ml5 {
+  margin-left: 5upx;
+}
+.e-mr5 {
+  margin-right: 5upx;
+}
+.e-mt10 {
+  margin-top: 10upx;
+}
+.e-ml10 {
+  margin-left: 10upx;
+}
+.e-mr10 {
+  margin-right: 10upx;
+}
+.e-mb10 {
+  margin-bottom: 10upx;
+}
+.e-mt20 {
+  margin-top: 20upx;
+}
+.e-ml20 {
+  margin-left: 20upx;
+}
+.e-mr20 {
+  margin-right: 20upx;
+}
+.e-mb20 {
+  margin-bottom: 20upx;
+}
+.e-ml26 {
+  margin-left: 26upx;
+}
+.e-mt30 {
+  margin-top: 30upx;
+}
+.e-mb30 {
+  margin-bottom: 30upx;
+}
+.e-mb35 {
+  margin-bottom: 35upx;
+}
+.e-ml30 {
+  margin-left: 30upx;
+}
+.e-mt50 {
+  margin-top: 50upx;
+}
+.e-mb50 {
+  margin-bottom: 50upx;
+}
+.e-mt80 {
+  margin-top: 80upx;
+}
+
+/* ··················· 字间距 ··················· */
+.e-lp1 {
+  letter-spacing: -1px;
+}
+
+/* ··················· 行距 ··················· */
+.e-lh1 {
+  line-height: 1;
+}
+.e-lh {
+  line-height: 1.5;
+}
+.e-lh2 {
+  line-height: 2;
+}
+.e-lh3 {
+  line-height: 3;
+}
+.e-lh4 {
+  line-height: 4;
+}
+
+/* ··················· 行距 ··················· */
+.mini-btn {
+  width: 150rpx;
+  height: 40rpx;
+  padding: 0 10rpx;
+  margin: 10rpx 0;
+  line-height: 40rpx;
+  font-size: inherit;
+}

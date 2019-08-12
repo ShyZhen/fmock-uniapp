@@ -112,6 +112,62 @@ function updatePassword(data) {
     })
 }
 
+// 获取当前登录用户的个人信息
+function getMyInfo() {
+    return new Promise((resolve, reject) => {
+        request.request('GET', 'V1/me').then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
+// 更新个人信息（除了昵称）
+function updateMyInfo(data) {
+    return new Promise((resolve, reject) => {
+        request.request('POST', 'V1/me', data).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
+// 更新昵称
+function updateMyName(data) {
+    return new Promise((resolve, reject) => {
+        request.request('POST', 'V1/my-name', data).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
+// 上传头像
+function updateAvatar(data) {
+    return new Promise((resolve, reject) => {
+        request.request('POST', 'V1/file/avatar', data).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
+// 获取某个用户信息
+function getUserDetail(uuid) {
+    return new Promise((resolve, reject) => {
+        request.request('GET', 'V1/user/' + uuid).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
 export {
-    wxmpLogin, accountLogin, logout, registerCode, accountRegister, getAccountStatus, githubLogin, getasswordCode, updatePassword
+    wxmpLogin, accountLogin, logout, registerCode, accountRegister, getAccountStatus, githubLogin, getasswordCode, updatePassword,
+    getMyInfo, updateMyInfo, updateMyName, updateAvatar, getUserDetail
 }
