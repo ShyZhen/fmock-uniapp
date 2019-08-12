@@ -132,7 +132,7 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
 
                 // 上拉下滑图标设置
                 pullIcon: '/static/img/FMOCK-LOGO-S144.png',
-                loadingMoreIcon: '/static/img/FMOCK-LOGO-S144.png',
+                loadingMoreIcon: '/static/img/loading.png',
 
                 // 悬浮按钮设置
                 horizontal: 'right',
