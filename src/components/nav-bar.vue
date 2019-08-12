@@ -81,7 +81,6 @@
                 }
                 // 导航栏高度 = 默认46px + 状态栏高度
                 this.navH = navHeight + 46
-                console.log(this.navH)
             }
         }
     }

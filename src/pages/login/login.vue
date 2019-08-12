@@ -225,6 +225,5 @@
     .oauth-image image {
         width: 60upx;
         height: 60upx;
-
     }
 </style>

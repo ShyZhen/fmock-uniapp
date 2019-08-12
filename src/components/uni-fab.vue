@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view
-			class="fab-box fab" 
+			class="fab-box fab"
 			:class="{
 				leftBottom: leftBottom,
 				rightBottom: rightBottom,
@@ -344,12 +344,6 @@ export default {
 	width: 110upx;
 }
 
-@font-face {
-	font-family: 'iconfont';
-	src: url('https://at.alicdn.com/t/font_1028200_xhbo4rn58rp.ttf?t=1548214263520')
-		format('truetype');
-}
-
 .icon {
 	font-family: 'iconfont' !important;
 	font-size: 16px;
@@ -358,11 +352,8 @@ export default {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+/* 该图标即static中的字体图标 */
 .icon-jia:before {
-	content: '\e630';
-}
-
-.icon-arrow-up:before {
-	content: '\e603';
+	content: '\e6be';    /* 加号： \e646 */
 }
 </style>
