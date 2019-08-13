@@ -241,7 +241,7 @@
     }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     .content {
         background: #fff;
         padding: 0;
