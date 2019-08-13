@@ -33,7 +33,7 @@ function createPost(data) {
     })
 }
 
-// 上传图片
+// 上传图片(二进制)
 function uploadImage(data) {
     return new Promise((resolve, reject) => {
         request.request('POST', 'V1/file/image', data).then(res => {
@@ -42,6 +42,25 @@ function uploadImage(data) {
             reject(e)
         })
     })
+}
+
+// 上传图片(uniapp通用方式)
+function uniUploadImage(filePath) {
+    return new Promise((resolve, reject) => {
+        uni.uploadFile({
+            url: request.buildFullUrl('/V1/file/image'),
+            filePath: filePath,
+            name: 'image',
+            header: request.buildHeader({}),
+            success: (uploadRes) => {
+                resolve(uploadRes)
+            },
+            fail: (failRes) => {
+                reject(failRes)
+            }
+        });
+    })
+
 }
 
 // 删除自己的文章
@@ -78,5 +97,5 @@ function updatePost(uuid, data) {
 }
 
 export {
-    getPostsList, getPostDetail, createPost, uploadImage, deletePost, getUserPosts, updatePost
+    getPostsList, getPostDetail, createPost, uploadImage, deletePost, getUserPosts, updatePost, uniUploadImage
 }

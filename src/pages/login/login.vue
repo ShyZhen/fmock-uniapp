@@ -118,7 +118,9 @@
                 accountLogin(this.account, this.password).then(res => {
                     this.$loading(false)
                     this.toHome()
-                }).catch (err => {})
+                }).catch (err => {
+                    this.$loading(false)
+                })
             },
 
             // 第三方OAUTH登录
@@ -181,7 +183,7 @@
     }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     .content {
         background: #fff;
         padding: 0;

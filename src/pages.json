@@ -72,6 +72,11 @@
                 "navigationBarTitleText": "创作"
             }
         },{
+            "path": "pages/write/write-mp",
+            "style": {
+                "navigationBarTitleText": "创作"
+            }
+      },{
             "path": "pages/search/search",
             "style": {
                 "navigationBarTitleText": "搜索"
