@@ -93,7 +93,9 @@
 import { mapState, mapActions } from 'vuex'
 import { logout } from '@/utils/loginPlugin.js'
 import navBar from '@/components/nav-bar'
+// #ifndef MP
 import advert from '@/components/advert/vue/advert'    // 首页广告图插件
+// #endif
 import pulldownRefresh from '@/components/pulldown-refresh/pulldown-refresh'    // 在滑块内的下拉刷新插件
 import loadMore from '@/components/load-more/load-more'    // 在滑块内的上拉加载插件
 import { getPostsList } from '@/apis/posts.js'
@@ -158,9 +160,11 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
         computed: {
             ...mapState(['hasBinding', 'hasLogin']),
         },
-        components: {
-            navBar,
+		components: {
+			navBar,
+            // #ifndef MP
             advert,
+            // #endif
             pulldownRefresh,
             loadMore,
             uniFab
@@ -175,7 +179,7 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
         },
         onReady: function () {
             // #ifndef MP
-            this.$refs.advert.initAdvert()
+            this.$refs.advert.initAdvert();
             // #endif
         },
         methods: {
@@ -265,11 +269,19 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
                 }).catch(err => {})
             },
 
-            // 文章详情
+            // 文章详情页
             navToDetails(uuid){
+                // #ifdef H5
                 uni.navigateTo({
-                    url: `/pages/post/${uuid}`
+                    url: `/pages/post/post?id=${uuid}`
                 })
+                // #endif
+
+                // #ifdef MP-WEIXIN
+                uni.navigateTo({
+                    url: `/pages/post/post-mp?id=${uuid}`
+                })
+                // #endif
             },
 
             // 切换内容滑块

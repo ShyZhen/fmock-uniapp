@@ -67,19 +67,29 @@
                 "navigationBarTitleText": "找回密码"
             }
         },{
+        // #ifdef H5
             "path": "pages/write/write",
+        // #endif
+        // #ifdef MP
+            "path": "pages/write/write-mp",
+        // #endif
             "style": {
                 "navigationBarTitleText": "创作"
             }
         },{
-            "path": "pages/write/write-mp",
-            "style": {
-                "navigationBarTitleText": "创作"
-            }
-      },{
             "path": "pages/search/search",
             "style": {
                 "navigationBarTitleText": "搜索"
+            }
+      },{
+            // #ifdef H5
+            "path": "pages/post/post",
+            // #endif
+            // #ifdef MP
+            "path": "pages/post/post-mp",
+            // #endif
+            "style": {
+                "navigationBarTitleText": "文章详情"
             }
       }
     ],

@@ -1,5 +1,6 @@
 <template>
     <view class="content">
+
         <navBar :logo="logo" :leftIcon="leftIcon"
                 :rightWords="rightWords"
                 :title="title"
@@ -7,12 +8,10 @@
                 @leftClick="toBack()">
         </navBar>
 
-        <view class="editor-content">
-            <m-input class="m-input" type="text" clearable focus v-model="postTitle"  placeholder="输入文章标题"></m-input>
-
+        <view class="editor">
+            <!-- quill编辑器 -->
+            <view id="editor-content"></view>
         </view>
-
-        <button type="primary" class="primary e-font30" @tap="post">发布</button>
 
     </view>
 </template>
@@ -20,61 +19,59 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import navBar from '@/components/nav-bar.vue'
-import mInput from '@/components/m-input.vue'
+import { getPostDetail } from '@/apis/posts'
 
     export default {
         data() {
             return {
                 logo: '',
-                leftIcon: 'iconioscloseempty',
-                rightWords: '发布',
-                title: '发布主题内容mp',
-                postTitle: '',
-                anonymous: false,
+                leftIcon: 'iconback',
+                rightWords: '',
+                title: '文章详情',
+                idObj: {},
+                postObj: {},
+                editor: {}
             }
         },
         components: {
             navBar,
-            mInput,
         },
         computed: {
             ...mapState(['hasBinding', 'hasLogin']),
         },
-        onLoad: function () {
-            // 只有小程序才能打开该编辑器
-            // #ifndef MP-WEIXIN
-            this.toHome()
-            // #endif
+        onLoad(idObj) {
 
             // 在需要登录的地方执行初始化方法
             this.initLoginState()
 
             // 判断登录状态
             if (!this.hasLogin) {
-                this.toHome()
+                this.toLogin()
             }
+
+            this.idObj = idObj
         },
-        onReady: function () {
+        onReady() {
+            // 获取文章详情
+            this.$loading()
+            getPostDetail(this.idObj.id).then(res => {
+                this.$loading(false)
+                this.postObj = res.data
+            }).catch(err => {
+                this.$loading(false)
+            })
         },
         methods: {
             ...mapActions(['initLoginState']),
 
+            // 初始化quill
+            initQuill(content) {
 
-
-
-
-
-
-            post() {
             },
 
-            rightClick() {
-                console.log('right')
-            },
-            //
-            toHome() {
-                uni.switchTab({
-                    url: '../home/home'
+            toLogin() {
+                uni.reLaunch({
+                    url: '../login/login'
                 });
             },
             toBack() {
@@ -86,12 +83,13 @@ import mInput from '@/components/m-input.vue'
     }
 </script>
 
-<style>
+
+<style scoped>
     .content {
         background: #fff;
         padding: 0;
     }
-    .editor-content {
+    .editor {
         height: 85%;
         width: 100%;
     }
