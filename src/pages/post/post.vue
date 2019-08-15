@@ -8,6 +8,8 @@
                 @leftClick="toBack()">
         </navBar>
 
+        <text>{{postObj}}</text>
+
         <view class="editor">
             <!-- quill编辑器 -->
             <view id="editor-content"></view>
@@ -32,6 +34,8 @@ import 'quill/dist/quill.bubble.css'
                 title: '文章详情',
                 idObj: {},
                 postObj: {},
+
+                // 编辑器相关
                 editor: {}
             }
         },
@@ -93,10 +97,6 @@ import 'quill/dist/quill.bubble.css'
 
 
 <style scoped>
-    .content {
-        background: #fff;
-        padding: 0;
-    }
     .editor {
         height: 85%;
         width: 100%;

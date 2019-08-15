@@ -8,9 +8,16 @@
                 @leftClick="toBack()">
         </navBar>
 
+        <text>{{postObj.title}}</text>
+
         <view class="editor">
-            <!-- quill编辑器 -->
-            <view id="editor-content"></view>
+            <!--小程序编辑器-->
+            <editor
+                    id="editor"
+                    class="ql-container"
+                    :read-only="readOnly"
+                    @ready="onEditorReady()">
+            </editor>
         </view>
 
     </view>
@@ -30,7 +37,9 @@ import { getPostDetail } from '@/apis/posts'
                 title: '文章详情',
                 idObj: {},
                 postObj: {},
-                editor: {}
+
+                // 编辑器相关
+                readOnly: false,
             }
         },
         components: {
@@ -41,12 +50,17 @@ import { getPostDetail } from '@/apis/posts'
         },
         onLoad(idObj) {
 
+            // 只有小程序才能打开该编辑器
+            // #ifndef MP-WEIXIN
+            this.toHome()
+            // #endif
+
             // 在需要登录的地方执行初始化方法
             this.initLoginState()
 
             // 判断登录状态
             if (!this.hasLogin) {
-                this.toLogin()
+                this.toHome()
             }
 
             this.idObj = idObj
@@ -57,6 +71,7 @@ import { getPostDetail } from '@/apis/posts'
             getPostDetail(this.idObj.id).then(res => {
                 this.$loading(false)
                 this.postObj = res.data
+                this.initEditor(JSON.parse(this.postObj.content).ops)
             }).catch(err => {
                 this.$loading(false)
             })
@@ -64,14 +79,24 @@ import { getPostDetail } from '@/apis/posts'
         methods: {
             ...mapActions(['initLoginState']),
 
-            // 初始化quill
-            initQuill(content) {
-
+            // 编辑器初始化方法
+            onEditorReady() {
+                const that = this
+                uni.createSelectorQuery().select('#editor').context((res) => {
+                    that.editorCtx = res.context
+                }).exec()
             },
 
-            toLogin() {
-                uni.reLaunch({
-                    url: '../login/login'
+            // 初始化内容
+            initEditor(content) {
+                this.editorCtx.setContents({
+                    'delta': content
+                })
+            },
+
+            toHome() {
+                uni.switchTab({
+                    url: '../home/home'
                 });
             },
             toBack() {
@@ -85,10 +110,6 @@ import { getPostDetail } from '@/apis/posts'
 
 
 <style scoped>
-    .content {
-        background: #fff;
-        padding: 0;
-    }
     .editor {
         height: 85%;
         width: 100%;

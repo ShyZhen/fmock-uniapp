@@ -35,10 +35,10 @@
 
 <script>
 
-    import mInput from '../../components/m-input.vue'
-    import { getasswordCode, updatePassword } from '@/utils/loginPlugin.js'
-    import { mapState, mapActions } from 'vuex'
-    import navBar from '@/components/nav-bar'
+import mInput from '../../components/m-input.vue'
+import { getasswordCode, updatePassword } from '@/utils/loginPlugin.js'
+import { mapState, mapActions } from 'vuex'
+import navBar from '@/components/nav-bar'
 
     export default {
         onLoad: function () {
@@ -231,11 +231,6 @@
 </script>
 
 <style scoped lang="scss">
-    .content {
-        background: #fff;
-        padding: 0;
-        font-size: 14px;
-    }
     .uni-navbar {
         background: transparent !important;
     }
@@ -252,6 +247,7 @@
         &::after{border: none;}
     }
     .input-group {
+        font-size: 13px;
         border: 0;
         background: transparent;
         &::before, &::after {background: none;}

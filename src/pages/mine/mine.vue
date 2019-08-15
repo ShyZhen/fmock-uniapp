@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    
+
 import { mapState, mapActions } from 'vuex'
 import { logout } from '@/utils/loginPlugin.js'
 
@@ -18,7 +18,7 @@ import { logout } from '@/utils/loginPlugin.js'
 		    // #ifdef MP-WEIXIN
 		    this.toHome()
 		    // #endif
-		
+
 		    // 在需要登录的地方执行初始化方法
 		    this.initLoginState()
 		},
@@ -27,13 +27,13 @@ import { logout } from '@/utils/loginPlugin.js'
         },
         methods: {
             ...mapActions(['initLoginState']),
-			
+
             bindLogin() {
                 uni.navigateTo({
                     url: '../login/login',
                 });
             },
-			
+
             bindLogout() {
                 logout()
                 uni.reLaunch({

@@ -1,5 +1,5 @@
 <template>
-    <view>
+    <view class="content">
         <!--
         * 广告组件
         * timedown 倒计时时间

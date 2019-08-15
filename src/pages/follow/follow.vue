@@ -1,15 +1,10 @@
 <template>
-    <view>
-        <navBar :logo="logo" :leftIcon="leftIcon" 
-                :leftWords="leftWords" :input="input"
-                :rightIcon="rightIcon"
-                :rightImg="rightImg"
-                :rightWords="rightWords"
-                :title="title"
-                @rightClick="rightClick()"
-                @inputClick="inputClick()"></navBar>
+    <view class="content">
+
+        <!-- 头部导航 -->
+        <nav-bar :logo="logo" :title="title" :showInput="showInput" :rightIcon="rightIcon" @inputClick="inputClick"></nav-bar>
         关注
-        <button type="primary" @tap="test()">sdddd</button>
+        <button type="primary" @tap="">sdddd</button>
     </view>
 </template>
 
@@ -20,13 +15,9 @@ import navBar from '@/components/nav-bar.vue'
         data() {
             return {
                 logo: '/static/img/FMOCK-LOGO.png',
-                leftIcon: '',
-                leftWords: '',
-                rightImg: '/static/img/write.png',
                 rightIcon: '',
-                rightWords: '',
-                input: true,
-                title: ''
+                title: '墨客社区',
+                showInput: true,
             }
         },
         components: {
@@ -38,23 +29,36 @@ import navBar from '@/components/nav-bar.vue'
         onLoad: function () {
             // 在需要登录的地方执行初始化方法
             this.initLoginState()
-            console.log(this.hasLogin)
-            console.log(this.hasBinding)
+
+            // 判断登录状态 并跳转到首页
+            if (!this.hasLogin) {
+                // #ifdef MP-WEIXIN
+                this.toHome()
+                // #endif
+                // #ifdef H5
+                this.toLogin()
+                // #endif
+            }
         },
         methods: {
             ...mapActions(['initLoginState']),
-            
-            rightClick() {
-                console.log('navbar右侧图标点击方法ff')
-            },
-            inputClick() {
-                console.log('跳转到搜索页面ff')
-            },
 
-            test() {
-                console.log(this.hasLogin)
-                console.log(this.hasBinding)
-            }
+            // 搜索页面
+            inputClick() {
+                uni.navigateTo({
+                    url: '../search/search'
+                })
+            },
+            toLogin() {
+                uni.reLaunch({
+                    url: '../login/login'
+                });
+            },
+            toHome() {
+                uni.switchTab({
+                    url: '../home/home'
+                });
+            },
         }
     }
 </script>

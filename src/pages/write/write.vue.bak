@@ -188,10 +188,6 @@ import uniRichtext from '@/components/uni-richtext.vue'
 </script>
 
 <style scoped>
-    .content {
-        background: #fff;
-        padding: 0;
-    }
     .editor {
         height: 85%;
         width: 100%;

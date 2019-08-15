@@ -7,9 +7,10 @@
                 @leftClick="toBack()">
         </navBar>
 
-        <m-input class="m-input" type="text" clearable focus v-model="postTitle"  placeholder="输入文章标题"></m-input>
 
-        <view class="editor">
+        <view class="editor-warpper">
+            <m-input class="m-input" type="text" clearable focus v-model="postTitle"  placeholder="输入文章标题"></m-input>
+
             <!-- quill编辑器 -->
             <view id="editor-content"></view>
         </view>
@@ -33,7 +34,7 @@ import 'quill/dist/quill.bubble.css'
             return {
                 logo: '',
                 leftIcon: 'iconioscloseempty',
-                rightWords: '发布',
+                rightWords: '',
                 title: '发布主题内容',
                 postTitle: '',
                 anonymous: false,
@@ -72,11 +73,11 @@ import 'quill/dist/quill.bubble.css'
                     modules: {
                         toolbar: {
                             container:[
-                                [{ 'header':  3}],
-                                ['bold', 'italic', 'underline', 'strike',],
-                                ['blockquote', 'code-block', 'link', 'image',],
-                                [{ 'color': [] }, { 'background': [] }],
-                                [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'align': [] }],
+                                [
+                                    { 'header':  1}, { 'header':  3}, 'bold', 'italic',
+                                    'underline', 'strike', { 'align': [] }, { 'list': 'ordered'},
+                                    { 'list': 'bullet' }, 'blockquote', 'code-block',  'clean', 'image'
+                                ],
                             ],
                             handlers: {'image': this.imageHandler}
                         }
@@ -207,11 +208,7 @@ import 'quill/dist/quill.bubble.css'
 </script>
 
 <style scoped>
-    .content {
-        background: #fff;
-        padding: 0;
-    }
-    .editor {
+    .editor-warpper {
         height: 85%;
         width: 100%;
     }
