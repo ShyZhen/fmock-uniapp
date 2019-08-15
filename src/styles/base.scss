@@ -365,14 +365,8 @@ button.primary {
   font-size: inherit;
 }
 
-/* 解决手机浏览器上下滑动手势冲突 大佬方案三 */
+/* TODO 解决手机浏览器上下滑动手势冲突 */
 .content {
   background: #fff;
   padding: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
 }

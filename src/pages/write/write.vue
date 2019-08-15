@@ -9,7 +9,9 @@
 
 
         <view class="editor-warpper">
-            <m-input class="m-input" type="text" clearable focus v-model="postTitle"  placeholder="输入文章标题"></m-input>
+            <view style="height: 100rpx">
+                <m-input class="m-input" type="text" clearable focus v-model="postTitle"  placeholder="输入文章标题"></m-input>
+            </view>
 
             <!-- quill编辑器 -->
             <view id="editor-content"></view>
