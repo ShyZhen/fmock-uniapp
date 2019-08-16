@@ -124,10 +124,6 @@ import  '@/plugins/editor/vue-quill-editor'
 </script>
 
 <style>
-    .content {
-        background: #fff;
-        padding: 0;
-    }
     .editor-content {
         height: 85%;
         width: 100%;

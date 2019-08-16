@@ -134,7 +134,7 @@
                                 window.addEventListener('message', (e) => {
                                     let res = JSON.parse(e.data);
                                     console.log('RES', res);
-                                    if (res.access_token && res.binding_status) {
+                                    if (res.access_token) {
                                         // 本地存储token
                                         this.$loading(false)
                                         githubCallback(res)
@@ -184,10 +184,6 @@
 </script>
 
 <style scoped lang="scss">
-    .content {
-        background: #fff;
-        padding: 0;
-    }
     .uni-navbar {
         background: transparent !important;
     }
@@ -200,7 +196,7 @@
         &::after{border: none;}
     }
     .input-group {
-        font-size: 28rpx;
+        font-size: 13px;
         border: 0;
         background: transparent;
         &::before, &::after {background: none;}
@@ -225,7 +221,7 @@
         justify-content: space-around;
     }
     .oauth-image image {
-        width: 60upx;
-        height: 60upx;
+        width: 60rpx;
+        height: 60rpx;
     }
 </style>

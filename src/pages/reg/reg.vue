@@ -3,7 +3,7 @@
         <!-- 头部导航 -->
         <nav-bar :leftIcon="leftIcon" bg="transparent" shadow="false" @leftClick="toBack"></nav-bar>
         <!-- 页面标题 -->
-        <view class="e-txtC e-font36 e-mt50">注册为新用户</view>
+        <view class="e-txtC e-font36 e-mt80">注册为新用户</view>
 
         <view class="container">
             <view class="input-group">
@@ -38,10 +38,10 @@
 
 <script>
 
-    import mInput from '../../components/m-input.vue'
-    import { registerCode, accountRegister } from '@/utils/loginPlugin.js'
-    import { mapState, mapActions } from 'vuex'
-    import navBar from '@/components/nav-bar'
+import mInput from '../../components/m-input.vue'
+import { registerCode, accountRegister } from '@/utils/loginPlugin.js'
+import { mapState, mapActions } from 'vuex'
+import navBar from '@/components/nav-bar'
 
     export default {
         onLoad: function () {
@@ -242,10 +242,6 @@
 </script>
 
 <style scoped lang="scss">
-    .content {
-        background: #fff;
-        padding: 0;
-    }
     .uni-navbar {
         background: transparent !important;
     }
@@ -254,6 +250,7 @@
         margin: 0 auto;
     }
     .mini-btn {
+        font-size: 12px;
         color: #0faeff;
         border-left: 1px solid #eaeaea;
         text-align: right;

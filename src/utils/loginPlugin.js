@@ -41,6 +41,7 @@ function wxmpLogin() {
 
                     resolve(res)
                 }).catch (err => {
+                    console.log('mp登录接口调用失败', err)
                     reject(err)
                 })
             },
@@ -158,6 +159,6 @@ function updatePassword(data) {
     })
 }
 
-export { 
+export {
     accountLogin, wxmpLogin, logout, registerCode, accountRegister, getAccountStatus, githubLogin, githubCallback, getasswordCode, updatePassword
 }

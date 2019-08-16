@@ -1,6 +1,6 @@
 <template>
-	<!-- #ifdef H5	 -->	
-	<view 
+	<!-- #ifdef H5	 -->
+	<view
 		class="mix-refresh-content"
 		:style="{
 				transform: 'translateY('+ pageDeviation +'px)',
@@ -13,8 +13,8 @@
 		@touchend="pageTouchend"
 	>
 	<!-- #endif -->
-	<!-- #ifndef H5	 -->	
-	<view 
+	<!-- #ifndef H5	 -->
+	<view
 		class="mix-refresh-content"
 		:style="{
 				transform: 'translateY('+ pageDeviation +'px)',
@@ -27,18 +27,18 @@
 		@touchend="pageTouchend"
 	>
 	<!-- #endif -->
-	
+
 		<!-- 下拉刷新 -->
 		<view class="mix-loading-wrapper">
-			<image 
-				class="mix-loading-icon" 
-				:class="{active: refreshing, ready: refreshReady}" 
+			<image
+				class="mix-loading-icon"
+				:class="{active: refreshing, ready: refreshReady}"
 				:src="pullIcon">
 			</image>
 		</view>
-		
+
 		<slot></slot>
-		
+
 	</view>
 </template>
 
@@ -47,7 +47,7 @@
 	let timeDiff = 0;
 	let touchending;
 	export default {
-		
+
 		props: {
 			top: {
 				//距离顶部距离，单位upx
@@ -72,7 +72,6 @@
 		created(){
 			uni.getSystemInfo({
 				success: function(e) {
-					console.log(e);
 					platform = e.platform;
 					windowHeight = e.windowHeight;
 				}
@@ -91,7 +90,7 @@
 				moveY = (e.touches[0].pageY - startY) * 0.4;
 				if(moveY >= 0){
 					this.pageDeviation = moveY;
-					
+
 					this.$emit('setEnableScroll', false);
 				}
 				if(moveY >= 50 && this.refreshReady === false){
@@ -114,7 +113,7 @@
 				}else{
 					this.pageDeviation = 0;
 				}
-				
+
 				if(this.refreshReady === true){
 					this.refreshReady = false;
 				}
@@ -159,7 +158,7 @@
 		align-items: center;
 		width: 100%;
 	}
-	
+
 	.mix-loading-icon{
 		width: 70upx;
 		height: 70upx;
@@ -171,7 +170,7 @@
 	.mix-loading-icon.active{
 		animation: loading .5s ease-in infinite both alternate;
 	}
-	
+
 	@keyframes loading {
 		0% {
 			transform: translateY(-20upx) scaleX(1);
@@ -180,5 +179,5 @@
 			transform: translateY(4upx)  scaleX(1.3);
 		}
 	}
-	
+
 </style>

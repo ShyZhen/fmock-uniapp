@@ -364,3 +364,9 @@ button.primary {
   line-height: 40rpx;
   font-size: inherit;
 }
+
+/* TODO 解决手机浏览器上下滑动手势冲突 */
+.content {
+  background: #fff;
+  padding: 0;
+}

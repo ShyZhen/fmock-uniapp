@@ -1,5 +1,5 @@
 <template>
-    <view>
+    <view class="content">
         <navBar :logo="logo"
                 :showInput="showInput"
                 @rightClick="rightClick()"
