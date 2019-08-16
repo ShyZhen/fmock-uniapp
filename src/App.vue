@@ -6,15 +6,14 @@
 		onLaunch: function() {
 			// 如果是微信小程序登录 则直接登录获取token
 			// #ifdef MP-WEIXIN
-
             this.$loading('登录中...')
 			wxmpLogin().then(res => {
                 this.$loading(false)
 			}).catch(err => {
                 this.$loading(false);
+                console.log('登录失败：', err)
                 setTimeout(() => {this.$toast('登陆失败！'), 500});
             })
-
 			// #endif
 
 		},

@@ -37,7 +37,7 @@
             "path" : "pages/follow/follow",
             "style" : {
 				"navigationBarTitleText": "关注的文章",
-                "enablePullDownRefresh": true    //开启下拉刷新
+                "enablePullDownRefresh": false    // 下拉刷新
 			}
         }
         ,{

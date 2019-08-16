@@ -15,7 +15,6 @@
         ></advert>
         <!-- #endif -->
 
-
         <!-- 头部导航 -->
         <nav-bar :logo="logo" :title="title" :showInput="showInput" :rightIcon="rightIcon" @inputClick="inputClick"></nav-bar>
 
@@ -79,19 +78,11 @@
             </pulldown-refresh>
         </view>
 
-        <!--
-                <view class="">
-                    <button type="primary" @tap="test()">sd</button>
-                    <button type="primary" @tap="login()">登录</button>
-                    <button type="primary" @tap="logout()">登出</button>
-                </view> -->
-
     </view>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { logout } from '@/utils/loginPlugin.js'
 import navBar from '@/components/nav-bar'
 // #ifndef MP
 import advert from '@/components/advert/vue/advert'    // 首页广告图插件
