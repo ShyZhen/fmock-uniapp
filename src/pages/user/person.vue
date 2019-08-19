@@ -9,19 +9,19 @@
 
 <script>
 
-import { mapState, mapActions } from 'vuex'
-import { logout } from '@/utils/loginPlugin.js'
+    import { mapState, mapActions } from 'vuex'
+    import { logout } from '@/utils/loginPlugin.js'
 
     export default {
-		onLoad: function () {
-		    // 小程序不需要登出界面
-		    // #ifdef MP-WEIXIN
-		    this.toHome()
-		    // #endif
+        onLoad: function (e) {
+            // 在需要登录的地方执行初始化方法
+            this.initLoginState()
 
-		    // 在需要登录的地方执行初始化方法
-		    this.initLoginState()
-		},
+            // 判断登录状态 并跳转到首页
+            if (!this.hasLogin) {
+                this.toLogin()
+            }
+        },
         computed: {
             ...mapState(['hasBinding', 'hasLogin'])
         },

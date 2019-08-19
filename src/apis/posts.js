@@ -96,6 +96,18 @@ function updatePost(uuid, data) {
     })
 }
 
+// TODO 获取所有我关注的用户的文章列表 动态页
+function getMyFollowPostsList(page) {
+    return new Promise((resolve, reject) => {
+        request.request('GET', 'V1/follow/posts/', data).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
 export {
-    getPostsList, getPostDetail, createPost, uploadImage, deletePost, getUserPosts, updatePost, uniUploadImage
+    getPostsList, getPostDetail, createPost, uploadImage, deletePost, getUserPosts, updatePost, uniUploadImage,
+    getMyFollowPostsList
 }
