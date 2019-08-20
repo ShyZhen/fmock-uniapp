@@ -11,9 +11,9 @@ Vue.config.productionTip = false
 
 Vue.prototype.$store = store
 // Vue.prototype.$http = request        // 所有请求放到 `/apis` 中
-Vue.prototype.$loading = loading;
-Vue.prototype.$toast = toast;
-Vue.prototype.$toLogin = toLogin;
+Vue.prototype.$loading = loading
+Vue.prototype.$toast = toast
+Vue.prototype.$toLogin = toLogin
 
 App.mpType = 'app'
 
