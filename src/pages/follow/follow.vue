@@ -109,7 +109,7 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
             this.initLoginState()
 
             if (!this.hasLogin) {
-                this.toLogin()
+                this.$toLogin()
             }
 
             this.loadPostsList('add')
@@ -220,11 +220,6 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
                 uni.navigateTo({
                     url: '../search/search'
                 })
-            },
-            toLogin() {
-                uni.reLaunch({
-                    url: '../login/login'
-                });
             },
             toHome() {
                 uni.switchTab({

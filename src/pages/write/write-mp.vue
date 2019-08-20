@@ -89,7 +89,7 @@ import { uniUploadImage, createPost } from '@/apis/posts'
 
             // 判断登录状态
             if (!this.hasLogin) {
-                this.toLogin()
+                this.$toLogin()
             }
         },
         methods: {

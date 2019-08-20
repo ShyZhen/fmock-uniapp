@@ -60,7 +60,7 @@ import 'quill/dist/quill.bubble.css'
 
             // 判断登录状态
             if (!this.hasLogin) {
-                this.toLogin()
+                this.$toLogin()
             }
         },
         onReady: function () {
@@ -194,11 +194,6 @@ import 'quill/dist/quill.bubble.css'
 
             rightClick() {
                 console.log('right')
-            },
-            toLogin() {
-                uni.reLaunch({
-                    url: '../login/login'
-                });
             },
             toBack() {
                 uni.navigateBack({

@@ -38,7 +38,7 @@ function getToken() {
  */
 function setToken(token) {
     try {
-        uni.setStorageSync(TOKENKEY, JSON.stringify({key: token, end: new Date().getTime() + 3600000 * TOKENEXPIRE}))
+        uni.setStorageSync(TOKENKEY, JSON.stringify({key: token, end: new Date().getTime() + 3600000 * 24 * TOKENEXPIRE}))
         return true
     } catch (e) {
         // console.log(e);
@@ -69,7 +69,7 @@ function getBinding() {
  */
 function setBinding(bool) {
     try {
-        uni.setStorageSync(BINDING, JSON.stringify({key: bool, end: new Date().getTime() + 3600000 * TOKENEXPIRE}))
+        uni.setStorageSync(BINDING, JSON.stringify({key: bool, end: new Date().getTime() + 3600000 * 24 * TOKENEXPIRE}))
         return true
     } catch (e) {
         // console.log(e);

@@ -23,4 +23,11 @@ function toast(text, config) {
   uni.showToast(options);
 }
 
-export { loading, toast }
+// 跳转到登录
+function toLogin() {
+    uni.reLaunch({
+        url: '../login/login'
+    });
+}
+
+export { loading, toast, toLogin }

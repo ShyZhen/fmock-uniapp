@@ -19,7 +19,7 @@
 
             // 判断登录状态 并跳转到首页
             if (!this.hasLogin) {
-                this.toLogin()
+                this.$toLogin()
             }
         },
         computed: {

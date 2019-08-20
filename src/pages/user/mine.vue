@@ -1,7 +1,7 @@
 <template>
     <view class="content">
         <view class="btn-row">
-            <button v-if="!hasLogin" type="primary" class="primary" @tap="bindLogin">登录</button>
+            <button v-if="!hasLogin" type="primary" class="primary" @tap="toLogin">登录</button>
             <button v-if="hasLogin" type="default" @tap="bindLogout">退出登录</button>
         </view>
     </view>
@@ -19,7 +19,7 @@ import { logout } from '@/utils/loginPlugin.js'
 
             // 判断登录状态 并跳转到首页
             if (!this.hasLogin) {
-                this.toLogin()
+                 this.$toLogin()
             }
 		},
         computed: {
@@ -28,18 +28,14 @@ import { logout } from '@/utils/loginPlugin.js'
         methods: {
             ...mapActions(['initLoginState']),
 
-            bindLogin() {
-                uni.navigateTo({
-                    url: '../login/login',
-                });
-            },
 
             bindLogout() {
-                logout()
-                uni.reLaunch({
-                    url: '../login/login',
-                });
-            }
+                this.$loading()
+                logout().then(res => {
+                    this.$loading(false)
+                    this.$toLogin()
+                })
+            },
         }
     }
 </script>

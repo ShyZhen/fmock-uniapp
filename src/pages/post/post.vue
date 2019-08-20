@@ -52,7 +52,7 @@ import 'quill/dist/quill.bubble.css'
 
             // 判断登录状态
             if (!this.hasLogin) {
-                this.toLogin()
+                this.$toLogin()
             }
 
             this.idObj = idObj
@@ -79,12 +79,6 @@ import 'quill/dist/quill.bubble.css'
                 const quill =  new Quill('#editor-content', editorOption)
                 this.editor = quill
                 this.editor.setContents(content)
-            },
-
-            toLogin() {
-                uni.reLaunch({
-                    url: '../login/login'
-                });
             },
             toBack() {
                 uni.navigateBack({

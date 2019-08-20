@@ -32,7 +32,7 @@ import navBar from '@/components/nav-bar.vue'
 
             // 判断登录状态 并跳转到首页
             if (!this.hasLogin) {
-                this.toLogin()
+                this.$toLogin()
             }
         },
         methods: {
@@ -43,13 +43,6 @@ import navBar from '@/components/nav-bar.vue'
             },
             leftClick() {
                 console.log('left')
-            },
-
-
-            toLogin() {
-                uni.reLaunch({
-                    url: '../login/login'
-                });
             },
         }
     }
