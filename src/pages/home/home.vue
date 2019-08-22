@@ -218,7 +218,7 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
 
                 // 加载
                 if (type === 'add') {
-                    if(tabItem.loadMoreStatus === 2){
+                    if (tabItem.loadMoreStatus === 2){
                         return
                     }
                     tabItem.loadMoreStatus = 1
@@ -237,7 +237,8 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
                 getPostsList(tabItem.id, tabItem.curragePage).then(res => {
                     let list = res.data.data
                     if(type === 'refresh'){
-                        tabItem.postsList = []  // 刷新前清空数组
+                        // 刷新前清空数组
+                        tabItem.postsList = []
                     }
                     list.forEach(item => {
                         tabItem.postsList.push(item)
@@ -255,8 +256,10 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
                     // 上滑加载 处理状态以及页数
                     if (type === 'add') {
                         tabItem.loadMoreStatus = list.length < this.pageSize ? 2: 0
-                        tabItem.curragePage += 1
                     }
+
+                    tabItem.curragePage += 1
+
                 }).catch(err => {})
             },
 

@@ -47,7 +47,7 @@
 			}
         }
         ,{
-            "path" : "pages/mine/mine",
+            "path" : "pages/user/mine",
             "style" : {
 				"navigationBarTitleText": "个人信息"
 			}
@@ -91,6 +91,11 @@
             "style": {
                 "navigationBarTitleText": "文章详情"
             }
+      },{
+        "path": "pages/user/person",
+        "style": {
+          "navigationBarTitleText": "个人中心"
+        }
       }
     ],
     // 底部 tab
@@ -114,7 +119,7 @@
             "selectedIconPath": "static/img/lightningcopy-c.png",
             "text": "充电"
       },{
-            "pagePath": "pages/mine/mine",
+            "pagePath": "pages/user/mine",
             "iconPath": "static/img/mine.png",
             "selectedIconPath": "static/img/mine-c.png",
             "text": "我的"

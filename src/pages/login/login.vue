@@ -34,6 +34,9 @@
 </template>
 
 <script>
+    // #ifdef MP-WEIXIN
+    import {wxmpLogin} from '@utils/loginPlugin.js'
+    // #endif
     import { mapState, mapActions } from 'vuex'
     import { accountLogin, getAccountStatus, githubLogin, githubCallback, registerCode } from '@/utils/loginPlugin.js'
     import mInput from '@/components/m-input.vue'
@@ -41,9 +44,17 @@
 
     export default {
         onLoad: function () {
-            // 小程序不需要登录界面
+            // 如果是微信小程序登录 则再次登录获取token 与App.vue一致
             // #ifdef MP-WEIXIN
-            this.toHome()
+            this.$loading('小程序登录中...')
+            wxmpLogin().then(res => {
+                this.$loading(false)
+            }).catch(err => {
+                this.$loading(false);
+                setTimeout(() => {this.$toast('登陆失败！'), 500});
+            }).finally(() => {
+                this.toHome()
+            })
             // #endif
 
             // 在需要登录的地方执行初始化方法

@@ -60,7 +60,7 @@ import { getPostDetail } from '@/apis/posts'
 
             // 判断登录状态
             if (!this.hasLogin) {
-                this.toHome()
+                this.$toLogin()
             }
 
             this.idObj = idObj

@@ -8,7 +8,7 @@
                 @leftClick="toBack()">
         </navBar>
 
-        <text>{{postObj}}</text>
+        <text @tap="toUserDetail(userObj.uuid)">{{(userObj.uuid)}}</text>
 
         <view class="editor">
             <!-- quill编辑器 -->
@@ -34,6 +34,7 @@ import 'quill/dist/quill.bubble.css'
                 title: '文章详情',
                 idObj: {},
                 postObj: {},
+                userObj: {},
 
                 // 编辑器相关
                 editor: {}
@@ -52,7 +53,7 @@ import 'quill/dist/quill.bubble.css'
 
             // 判断登录状态
             if (!this.hasLogin) {
-                this.toLogin()
+                this.$toLogin()
             }
 
             this.idObj = idObj
@@ -63,6 +64,7 @@ import 'quill/dist/quill.bubble.css'
             getPostDetail(this.idObj.id).then(res => {
                 this.$loading(false)
                 this.postObj = res.data
+                this.userObj = res.data.user_info
                 this.initQuill(JSON.parse(this.postObj.content).ops)
             }).catch(err => {
                 this.$loading(false)
@@ -81,11 +83,13 @@ import 'quill/dist/quill.bubble.css'
                 this.editor.setContents(content)
             },
 
-            toLogin() {
-                uni.reLaunch({
-                    url: '../login/login'
-                });
+            toUserDetail(uuid) {
+                console.log(uuid)
+                uni.navigateTo({
+                    url: `/pages/user/person?id=${uuid}`
+                })
             },
+
             toBack() {
                 uni.navigateBack({
                     delta: 1
