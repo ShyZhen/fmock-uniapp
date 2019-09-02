@@ -66,7 +66,7 @@
 		},
 		computed: {
 			pageTop(){
-				return uni.upx2px(this.top);
+				return this.top;
 			}
 		},
 		created(){
@@ -160,8 +160,8 @@
 	}
 
 	.mix-loading-icon{
-		width: 70upx;
-		height: 70upx;
+		width: 88upx;
+		height: 88upx;
 		transition: .3s;
 	}
 	.mix-loading-icon.ready{

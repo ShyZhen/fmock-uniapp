@@ -48,6 +48,7 @@ m-input {
   flex-direction: column;
   background-color: #efeff4;
   padding: 20upx;
+  padding-top: 0;
 }
 
 .input-group {
@@ -114,6 +115,17 @@ m-input {
 
 button.primary {
   background-color: #0faeff;
+}
+
+/* TODO 解决手机浏览器上下滑动手势冲突 */
+ //page, page>view {
+ //  height: 100%;
+ //  overflow: hidden;
+ //}
+.scroll {
+  box-sizing: border-box;
+  height: 100vh;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ··················· 布局 ··················· */
@@ -214,6 +226,9 @@ button.primary {
 .e-font32{
   font-size: 32upx;
 }
+.e-font34{
+  font-size: 34upx;
+}
 .e-font36{
   font-size: 36upx;
 }
@@ -237,6 +252,9 @@ button.primary {
 .e-yellow{
   color: $e-yellow;
 }
+.e-c0 {
+  color: $e-0;
+}
 .e-c3 {
   color: $e-3;
 }
@@ -245,6 +263,9 @@ button.primary {
 }
 .e-c9 {
   color: $e-9;
+}
+.e-cb {
+  color: $e-b;
 }
 .e-cf {
   color: $e-f;
@@ -355,7 +376,7 @@ button.primary {
   line-height: 4;
 }
 
-/* ··················· 行距 ··················· */
+/* ··················· 按钮 ··················· */
 .mini-btn {
   width: 150rpx;
   height: 40rpx;
@@ -365,8 +386,124 @@ button.primary {
   font-size: inherit;
 }
 
-/* TODO 解决手机浏览器上下滑动手势冲突 */
-.content {
-  background: #fff;
-  padding: 0;
+/* ··················· 缩略 ··················· */
+.e-omit1{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+.e-omit2{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* ··················· 1px border ··················· */
+// border-top
+.e-b-top {
+  background-image:
+      linear-gradient(0deg, $e-line 60%, transparent 40%),
+      linear-gradient(90deg, transparent, transparent),
+      linear-gradient(180deg, transparent, transparent),
+      linear-gradient(270deg, transparent, transparent);
+  background-repeat: no-repeat;
+  background-position: top, right, bottom, left;
+  background-size: 100% 1px, 0, 0, 0;
+}
+.e-b-bottom {
+  background-image:
+      linear-gradient(0deg, transparent, transparent),
+      linear-gradient(90deg, transparent, transparent),
+      linear-gradient(180deg, $e-line 60%, transparent 40%),
+      linear-gradient(270deg, transparent, transparent);
+  background-repeat: no-repeat;
+  background-position: top, right, bottom, left;
+  background-size: 0, 0, 100% 1px, 0;
+}
+.e-b-bottom-red {
+  background-image:
+      linear-gradient(0deg, transparent, transparent),
+      linear-gradient(90deg, transparent, transparent),
+      linear-gradient(180deg, $e-lightRed 60%, transparent 40%),
+      linear-gradient(270deg, transparent, transparent);
+  background-repeat: no-repeat;
+  background-position: top, right, bottom, left;
+  background-size: 0, 0, 100% 1px, 0;
+}
+.e-b-left {
+  background-image:
+      linear-gradient(0deg, transparent, transparent),
+      linear-gradient(90deg, transparent, transparent),
+      linear-gradient(180deg, transparent, transparent),
+      linear-gradient(270deg, $e-line 60%, transparent 40%);
+  background-repeat: no-repeat;
+  background-position: top, right, bottom, left;
+  background-size: 0, 0, 0, 1px 100%;
+}
+.e-b-rb {
+  padding: 1px;
+  background-image:
+      linear-gradient(0deg, transparent, transparent),
+      linear-gradient(90deg, $e-line 60%, transparent 40%),
+      linear-gradient(180deg, $e-line 60%, transparent 40%),
+      linear-gradient(270deg, transparent, transparent);
+  background-repeat: no-repeat;
+  background-position: top, right, bottom, left;
+  background-size: 0, 1px 100%, 100% 1px, 0;
+}
+.e-b {
+  padding: 1px;
+  background-image:
+      linear-gradient(0deg, $e-line 60%, transparent 40%),
+      linear-gradient(90deg, $e-line 60%, transparent 40%),
+      linear-gradient(180deg, $e-line 60%, transparent 40%),
+      linear-gradient(270deg, $e-line 60%, transparent 40%);
+  background-repeat: no-repeat;
+  background-position: top, right, bottom, left;
+  background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+  &.on{
+    background-image:
+        linear-gradient(0deg, $e-red 60%, transparent 40%),
+        linear-gradient(90deg, $e-red 60%, transparent 40%),
+        linear-gradient(180deg, $e-red 60%, transparent 40%),
+        linear-gradient(270deg, $e-red 60%, transparent 40%);
+    color: $e-red;
+  }
+}
+
+/* ··················· 自定义项目组件类 ··················· */
+
+// 带阴影边框
+.e-box_p {
+  width: auto;
+  margin: 30upx;
+  padding: 35upx 28upx;
+  background: $e-f;
+  border-radius: 10upx;
+  box-shadow: 0upx 10upx 14upx 1upx rgba(0, 0, 0, 0.03);
+}
+.e-box_f {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 30upx 26upx;
+  background: $e-f;
+}
+
+// 固定底部
+.e-fixed_bottom{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 998;
+  margin: 0 auto;
+}
+// 底部按钮栏
+.e-bottom-btnGroup {
+  height: 85rpx;
+  background-color: #fff;
+  padding: 12upx 20upx;
 }

@@ -35,7 +35,7 @@
 
 <script>
     // #ifdef MP-WEIXIN
-    import {wxmpLogin} from '@utils/loginPlugin.js'
+    import {wxmpLogin} from '@/utils/loginPlugin.js'
     // #endif
     import { mapState, mapActions } from 'vuex'
     import { accountLogin, getAccountStatus, githubLogin, githubCallback, registerCode } from '@/utils/loginPlugin.js'
