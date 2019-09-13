@@ -1,5 +1,5 @@
 <template>
-    <view class="content">
+    <view>
         <!--
         * 广告组件
         * timedown 倒计时时间
@@ -8,68 +8,85 @@
         *  -->
         <!-- #ifndef MP -->
         <advert
-            ref="advert"
-            :timedown="advertTimedown"
-            :imageUrl="imageUrl"
-            :url="advertUrl"
+                ref="advert"
+                :timedown="advertTimedown"
+                :imageUrl="imageUrl"
+                :url="advertUrl"
         ></advert>
         <!-- #endif -->
 
         <!-- 头部导航 -->
-        <nav-bar :logo="logo" :title="title" :showInput="showInput" :rightIcon="rightIcon" @inputClick="inputClick"></nav-bar>
-
+        <nav-bar :logo="logo" :title="title" :rightIcon="rightIcon" @inputClick="inputClick"></nav-bar>
         <!-- 二级导航 -->
-        <view style="height: 100%;">
-            <scroll-view id="nav-bar" class="nav-bar" scroll-x scroll-with-animation>
-                <view
+        <scroll-view id="nav-bar" class="nav-bar" :style="{top: statusH + 44 + 'px'}">
+            <view
                     v-for="(item, index) in tabBars" :key="item.id"
                     class="nav-item"
                     :class="{current: index === tabCurrentIndex}"
                     :id="'tab' + index"
                     @click="changeTab(index)"
-                >{{item.name}}</view>
-            </scroll-view>
-
+            >{{item.name}}</view>
+        </scroll-view>
+        <!-- 悬浮按钮 -->
+        <uni-fab
+                :pattern="pattern"
+                :content="content"
+                :horizontal="horizontal"
+                :vertical="vertical"
+                :direction="direction"
+                @trigger="trigger"
+        ></uni-fab>
+        <view :style="{paddingTop: statusH + 88 + 'px'}">
             <!-- 下拉刷新组件 -->
-            <pulldown-refresh ref="pulldownRefresh" class="panel-content" :top="90" :pullIcon="pullIcon" @refresh="onPulldownReresh" @setEnableScroll="setEnableScroll">
+            <pulldown-refresh ref="pulldownRefresh" class="panel-content" :top="statusH + 88" :pullIcon="pullIcon" @refresh="onPulldownReresh" @setEnableScroll="setEnableScroll">
                 <!-- 内容部分 -->
                 <swiper
-                    id="swiper"
-                    class="swiper-box"
-                    :duration="300"
-                    :current="tabCurrentIndex"
-                    @change="changeTab"
+                        id="swiper"
+                        class="swiper-box"
+                        :duration="300"
+                        :current="tabCurrentIndex"
+                        @change="changeTab"
                 >
                     <swiper-item v-for="tabItem in tabBars" :key="tabItem.id">
                         <scroll-view
-                            class="panel-scroll-box"
-                            :scroll-y="enableScroll"
-                            @scrolltolower="loadMore"
+                                class="panel-scroll-box"
+                                :scroll-y="enableScroll"
+                                @scrolltolower="loadMore"
                         >
-
-                            <uni-fab
-                                :pattern="pattern"
-                                :content="content"
-                                :horizontal="horizontal"
-                                :vertical="vertical"
-                                :direction="direction"
-                                @trigger="trigger"
-                            ></uni-fab>
-
-
                             <!-- 文章列表 -->
                             <!-- posts 文章组件 -->
-                            <view v-for="(item, index) in tabItem.postsList" :key="index" class="posts-item" @click="navToDetails(item.uuid)">
-                                <text :class="['title', 'title'+item.type]">{{item.title}}</text>
-                                <text>{{item.summary}}</text>
-                                <!-- 空图片占位 -->
-                                <view class="img-empty">
-                                    <image :src="item.poster"></image>
+                            <view v-for="(item, index) in tabItem.postsList" :key="index" class="posts-item e-box_f e-mt10" @click="navToDetails(item.uuid)">
+                                <!-- 标题 -->
+                                <view class="e-font36 e-c0 e-omit2" :class="['title', 'title'+item.type]">{{item.title}}</view>
+                                <!-- 内容 -->
+                                <view class="e-flex">
+                                    <view class="e-flex_auto">
+                                        <!-- 作者 -->
+                                        <view class="e-flex_left user-info e-mt10 e-mb10 e-font28">
+                                            <image :src="item.user_info.avatar"></image>
+                                            <view class="e-ml10 e-c6 e-bold e-omit1 e-lp1">{{item.user_info.username}}</view>
+                                            <!-- 这里使用的是标签不是一句话介绍，后面要换 -->
+                                            <view class="e-flex_auto e-ml10 e-omit1 e-pr20 e-c9">{{item.user_info.bio}}</view>
+                                        </view>
+                                        <!-- 摘要 -->
+                                        <view class="e-omit2 e-font30 e-c6">{{item.summary}}</view>
+                                    </view>
+                                    <!-- 空图片占位 -->
+                                    <view class="img-empty" v-if="item.poster">
+                                        <image :src="item.poster"></image>
+                                    </view>
+                                </view>
+                                <!-- 点赞评论 -->
+                                <view class="e-flex_center e-mt20">
+                                    <view class="e-flex e-c9">
+                                        <view>{{item.like_num}} 赞</view>
+                                        <view class="e-ml10 e-mr10">·</view>
+                                        <view>{{item.comment_num}} 评论</view>
+                                    </view>
+                                    <!-- more -->
+                                    <view class="icon"></view>
                                 </view>
                             </view>
-
-
-
                             <!-- 上滑加载更多 组件 -->
                             <load-more :status="tabItem.loadMoreStatus" :loadingMoreIcon="loadingMoreIcon"></load-more>
                         </scroll-view>
@@ -82,15 +99,16 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import navBar from '@/components/nav-bar'
-// #ifndef MP
-import advert from '@/components/advert/vue/advert'    // 首页广告图插件
-// #endif
-import pulldownRefresh from '@/components/pulldown-refresh/pulldown-refresh'    // 在滑块内的下拉刷新插件
-import loadMore from '@/components/load-more/load-more'    // 在滑块内的上拉加载插件
-import { getPostsList } from '@/apis/posts.js'
-import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
+    import { mapState, mapActions } from 'vuex'
+    import navBar from '@/components/nav-bar'
+    // #ifndef MP
+    import advert from '@/components/advert/vue/advert'    // 首页广告图插件
+    // #endif
+    import pulldownRefresh from '@/components/pulldown-refresh/pulldown-refresh'    // 在滑块内的下拉刷新插件
+    import loadMore from '@/components/load-more/load-more'    // 在滑块内的上拉加载插件
+    import { getPostsList } from '@/apis/posts.js'
+    import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
+    import { setTimeout } from 'timers';
 
     let scrollTimer = false
     export default {
@@ -123,7 +141,7 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
 
                 // 悬浮按钮设置
                 horizontal: 'right',
-                vertical: 'top',
+                vertical: 'bottom',
                 direction: 'horizontal',
                 pattern: {
                     color: '#7A7E83',
@@ -149,10 +167,10 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
             }
         },
         computed: {
-            ...mapState(['hasBinding', 'hasLogin']),
+            ...mapState(['hasBinding', 'hasLogin', 'statusH']),
         },
-		components: {
-			navBar,
+        components: {
+            navBar,
             // #ifndef MP
             advert,
             // #endif
@@ -356,7 +374,9 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
 
             // 上滑加载
             loadMore() {
-                this.loadPostsList('add')
+                setTimeout(() => {
+                    this.loadPostsList('add')
+                }, 1000);
             },
 
             // 设置scroll-view是否允许滚动，在小程序里下拉刷新时避免列表可以滑动
@@ -406,18 +426,17 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
 </script>
 
 <style lang='scss'>
-
-    page {
-        background-color: #f8f8f8;
-        height: 100%;
-        overflow: hidden;
+    .article {
+        height: 100vh;
+        box-sizing: border-box;
+        position: relative;
     }
-
     /* 顶部tabbar */
     .nav-bar{
-        position: relative;
+        position: fixed;
+        left: 0;
         z-index: 10;
-        height: 49px;
+        height: 44px;
         white-space: nowrap;
         box-shadow: 0 2rpx 8rpx rgba(0,0,0,.06);
         background-color: #fff;
@@ -451,12 +470,14 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
     }
 
     .swiper-box{
+        box-sizing: border-box;
         height: 100%;
+        overflow: hidden;
     }
 
     .panel-scroll-box{
         height: 100%;
-
+        overflow: hidden;
         .panel-item{
             background: #fff;
             padding: 30px 0;
@@ -473,10 +494,25 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
         background-color: #fff;
     }
     .title {
-        line-height: 46rpx;
-        height: 45rpx;
+        // line-height: 46rpx;
+        // height: 45rpx;
+    }
+    .user-info {
+        image {
+            width: 40upx;
+            height: 40upx;
+            border-radius: 20upx;
+        }
     }
     .img-empty{
-        height: 20rpx;
+        width: 175upx;
+        height: 140upx;
+        border-radius: 3px;
+        margin-left: 20upx;
+        overflow: hidden;
+        image {
+            width: 100%;
+            height: 100%;
+        }
     }
 </style>

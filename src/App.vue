@@ -1,6 +1,6 @@
 <script>
 	// #ifdef MP-WEIXIN
-	import {wxmpLogin} from '@utils/loginPlugin.js'
+	import {wxmpLogin} from '@/utils/loginPlugin.js'
 	// #endif
 	export default {
 		onLaunch: function() {
@@ -16,6 +16,10 @@
             })
 			// #endif
 
+            const systemInfo = uni.getSystemInfoSync();
+            // 状态栏的高度
+            const ktxStatusHeight = systemInfo.statusBarHeight;
+            this.$store.commit('getStatusH', ktxStatusHeight);
 		},
 		onShow: function() {
 			//console.log('App Show');

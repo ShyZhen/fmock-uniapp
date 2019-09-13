@@ -8,6 +8,7 @@ const store = new Vuex.Store({
     state: {
         hasBinding: false,
         hasLogin: false,
+        statusH: 0
     },
     mutations: {
         login(state, bool = true) {
@@ -19,6 +20,9 @@ const store = new Vuex.Store({
         binding(state, bool = true) {
             state.hasBinding = bool;
         },
+        getStatusH(state, statusH) {
+            state.statusH = statusH;
+        }
     },
     actions: {
         initLoginState(context) {

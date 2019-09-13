@@ -2,26 +2,28 @@
 <!-- 需要在每个页面 初始化body高度 即除去导航栏+状态栏高度 -->
 <template>
     <!-- 导航 -->
-    <view :style="'height:' + navH + 'px'">
-        <uni-nav-bar fixed="true" :background-color="bg" :shadow="shadow">
+    <view class="navbar e-b-bottom" :style="{height: (statusH + 44) + 'px', backgroundColor: bg}">
+        <!-- 状态栏 -->
+        <view :style="'height:' + statusH + 'px'"></view>
+        <view class="e-flex_center nav-wrapper">
+            <!-- 左边 -->
+            <view class="left">
+                <!-- 左侧logo -->
+                <image class="logo-img" :src="logo" v-if="logo" mode="widthFix"></image>
+                <!-- 左侧图标 -->
+                <view class="iconfont" v-else-if="leftIcon" :class="leftIcon" @tap="leftClick"></view>
+                <!-- 左侧文字 -->
+                <view v-else-if="leftWords" @tap="leftClick">{{ leftWords }}</view>
+            </view>
             <!-- 中间输入框 -->
             <view class="input-wrap" v-if="showInput">
                 <text class="iconfont iconsearch"></text>
                 <input type="text" disabled="true" placeholder="请输入搜索内容" @tap="inputClick"/>
             </view>
             <!-- 中间标题 -->
-            <view v-else-if="title"><text>{{ title }}</text></view>
-            <!-- 左边 -->
-            <view slot="left">
-                <!-- 左侧logo -->
-                <image class="logo-img" :src="logo" v-if="logo" mode="widthFix"></image>
-                <!-- 左侧图标 -->
-                <text class="iconfont" v-else-if="leftIcon" :class="leftIcon" @tap="leftClick"></text>
-                <!-- 左侧文字 -->
-                <text v-else-if="leftWords" @tap="leftClick">{{ leftWords }}</text>
-            </view>
+            <view class="title" v-else-if="title"><text>{{ title }}</text></view>
             <!-- 右边 -->
-            <view slot="right">
+            <view class="right">
                 <!-- 右侧图片 -->
                 <image class="logo-img" v-if="rightImg" :src="rightImg" mode="widthFix"></image>
                 <!-- 右侧图标 -->
@@ -29,16 +31,18 @@
                 <!-- 右侧文字 -->
                 <text v-else-if="rightWords" @tap="rightClick">{{ rightWords }}</text>
             </view>
-        </uni-nav-bar>
+        </view>
     </view>
 </template>
 <script>
-    import uniNavBar from '@/components/uni-nav-bar/uni-nav-bar.vue'
 
     export default {
         name: 'navBar',
         props: {
-            bg: '',
+            bg: {
+                type: String,
+                default: '#fff'
+            },
             shadow: true,
             logo: '',
             leftIcon: '',
@@ -50,17 +54,15 @@
             title: '',
             showInput: false
         },
-        components: {
-            uniNavBar
-        },
-
         data () {
             return {
-                navH: 0
+                // statusH: 0,
             }
         },
-        created() {
-            this.getNavHeight()
+        computed: {
+            statusH() {
+                return this.$store.state.statusH;
+            }
         },
         methods:{
             inputClick: function () {
@@ -72,20 +74,32 @@
             rightClick: function () {
                 this.$emit('rightClick')
             },
-            // 将导航栏高度存储到localstorage中，使用开发者工具记得清理缓存
-            getNavHeight: function() {
-                let navHeight = this.navH ? this.navH : uni.getStorageSync('navHeight')
-                if (!navHeight) {
-                    navHeight = uni.getSystemInfoSync().statusBarHeight
-                    uni.setStorageSync('navHeight', navHeight)
-                }
-                // 导航栏高度 = 默认46px + 状态栏高度
-                this.navH = navHeight + 46
-            }
+            // // 将导航栏高度存储到localstorage中，使用开发者工具记得清理缓存
+            // getstatusHeight: function() {
+            //     let statusHeight = this.statusH ? this.statusH : uni.getStorageSync('statusHeight')
+            //     if (!statusHeight) {
+            //         statusHeight = uni.getSystemInfoSync().statusBarHeight
+            //         uni.setStorageSync('statusHeight', statusHeight)
+            //     }
+            //     // 状态栏高度
+            //     this.statusH = statusHeight;
+            // }
         }
     }
 </script>
 <style lang="scss" scoped>
+    .navbar {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+    }
+    .nav-wrapper {
+        position: relative;
+        padding: 0 20upx;
+        height: 88upx;
+    }
     .iconfont {
         font-size: 24px;  //44rpx;
     }
@@ -119,5 +133,24 @@
 
     .input-wrap input {
         font-size: 12px;  //23rpx;
+    }
+    .left, .right {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+    }
+    .title {
+        width: 100%;
+        height: 100%;
+        font-size: 28upx;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 </style>
