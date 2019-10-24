@@ -45,7 +45,7 @@
                         class="swiper-box"
                         :duration="300"
                         :current="tabCurrentIndex"
-                        @change="changeTab"
+                        @animationfinish="changeTab"
                 >
                     <swiper-item v-for="tabItem in tabBars" :key="tabItem.id">
                         <scroll-view
