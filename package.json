@@ -43,7 +43,7 @@
     "@dcloudio/uni-cli-shared": "*",
     "@dcloudio/uni-template-compiler": "*",
     "@dcloudio/vue-cli-plugin-hbuilderx": "latest",
-    "@dcloudio/vue-cli-plugin-uni": "latest",
+    "@dcloudio/vue-cli-plugin-uni": "^2.0.0-alpha-25020191231002",
     "@dcloudio/vue-cli-plugin-uni-optimize": "latest",
     "@dcloudio/webpack-uni-mp-loader": "*",
     "@dcloudio/webpack-uni-pages-loader": "*",

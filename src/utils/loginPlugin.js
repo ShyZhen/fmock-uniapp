@@ -17,7 +17,6 @@ function accountLogin(account, password) {
                 store.commit('binding')
             }
             resolve(res)
-
         }).catch(err => {
             reject(err)
         })

@@ -40,14 +40,17 @@
         "navigationBarTitleText": "关注的文章",
         "enablePullDownRefresh": false    // 下拉刷新
       }
-    }
-  ,{
+    },{
       "path" : "pages/study/study",
       "style" : {
         "navigationBarTitleText": "充电学习"
       }
-    }
-  ,{
+    },{
+      "path": "pages/study/detail",
+      "style": {
+        "navigationBarTitleText": "视频详情"
+      }
+    },{
       "path" : "pages/user/mine",
       "style" : {
         "navigationBarTitleText": "个人信息"
