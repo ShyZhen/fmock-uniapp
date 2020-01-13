@@ -354,6 +354,6 @@ export default {
 
 /* 该图标即static中的字体图标 */
 .icon-jia:before {
-	content: '\e6be';    /* 加号： \e646 */
+	content: '\e646';    /* 箭头加号： \e6be */
 }
 </style>

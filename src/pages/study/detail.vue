@@ -2,6 +2,7 @@
 	<view class="content">
 		<view class="uni-padding-wrap uni-common-mt">
 			<view>
+<!--				<video id="fmock-video-context" src="http://image.fmock.com//hls/video/2020/01/video-d8714d36-f3be-6083-0313-6501c3e1aede.mp4"-->
 				<video id="fmock-video-context" src="http://image.fmock.com/video/2020/01/video-f604f2f0-6a2f-130c-628e-440fb7ce46b0.mp4"
 					   @error="videoErrorCallback" :danmu-list="danmuList" enable-danmu danmu-btn controls></video>
 			</view>
