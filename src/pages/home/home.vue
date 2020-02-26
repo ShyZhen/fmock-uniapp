@@ -1,5 +1,5 @@
 <template>
-    <view>
+    <view class="content">
         <!--
         * 广告组件
         * timedown 倒计时时间
@@ -36,7 +36,7 @@
                 :direction="direction"
                 @trigger="trigger"
         ></uni-fab>
-        <view :style="{paddingTop: statusH + 88 + 'px'}">
+        <view :style="{paddingTop: statusH + 88 + 'px'}" class="panel-content">
             <!-- 下拉刷新组件 -->
             <pulldown-refresh ref="pulldownRefresh" class="panel-content" :top="statusH + 88" :pullIcon="pullIcon" @refresh="onPulldownReresh" @setEnableScroll="setEnableScroll">
                 <!-- 内容部分 -->
@@ -469,6 +469,10 @@
         }
     }
 
+    /*兼容H5的页面高度*/
+    .panel-content {
+        height: 102%;
+    }
     .swiper-box{
         box-sizing: border-box;
         height: 100%;

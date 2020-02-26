@@ -5,8 +5,8 @@
 		:style="{
 				transform: 'translateY('+ pageDeviation +'px)',
 				transition: pageTransition + 's',
-				height: 'calc(100% - ' + pageTop + 'px)',
-				maxHeight: 'calc(100% - ' + pageTop + 'px)'
+				// height: 'calc(100% - ' + pageTop + 'px)',
+				// maxHeight: 'calc(100% - ' + pageTop + 'px)'
 			}"
 		@touchstart="pageTouchstart"
 		@touchmove="pageTouchmove"
