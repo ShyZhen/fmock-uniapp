@@ -3,10 +3,8 @@
         <navBar :logo="logo" :leftIcon="leftIcon"
                 :rightWords="rightWords"
                 :title="title"
-                @rightClick="rightClick()"
                 @leftClick="toBack()">
         </navBar>
-
 
         <view class="editor-warpper">
             <view style="height: 100rpx">
@@ -190,11 +188,6 @@ import 'quill/dist/quill.bubble.css'
                 })
             },
 
-
-
-            rightClick() {
-                console.log('right')
-            },
             toBack() {
                 uni.navigateBack({
                     delta: 1

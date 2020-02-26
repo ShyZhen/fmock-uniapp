@@ -198,7 +198,7 @@ import { uniUploadImage, createPost } from '@/apis/posts'
             // 文章详情
             navToDetails(uuid){
                 uni.navigateTo({
-                    url: `/pages/post/post-mp?id=${uuid}`
+                    url: `/pages/post/post?id=${uuid}`
                 })
             },
             toHome() {

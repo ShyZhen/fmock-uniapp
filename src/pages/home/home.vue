@@ -283,17 +283,9 @@
 
             // 文章详情页
             navToDetails(uuid){
-                // #ifdef H5
                 uni.navigateTo({
                     url: `/pages/post/post?id=${uuid}`
                 })
-                // #endif
-
-                // #ifdef MP-WEIXIN
-                uni.navigateTo({
-                    url: `/pages/post/post-mp?id=${uuid}`
-                })
-                // #endif
             },
 
             // 切换内容滑块
