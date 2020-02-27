@@ -10,7 +10,7 @@
 
         <view :style="{paddingTop: statusH + 44 + 'px'}">
             <!-- 文章主图 -->
-            <image :src="postObj.bg" />
+            <image :src="postObj.bg" ></image>
             <!-- 作者 -->
             <view class="e-flex_left user-info e-b-bottom">
                 <image :src="postObj.user_info.avatar"></image>
@@ -87,7 +87,10 @@ import 'quill/dist/quill.bubble.css'
                 rightWords: '',
                 title: '文章详情',
                 idObj: {},
-                postObj: {},
+                postObj: {
+                    user_info: {}
+                },
+                editor: {},
             }
         },
         components: {

@@ -383,18 +383,9 @@
                 console.log(e.index)
                 switch (e.index) {
                     case 0:
-                        // #ifdef H5
                         uni.navigateTo({
                             url: '../write/write'
                         });
-                        // #endif
-
-                        // #ifdef MP-WEIXIN
-                        uni.navigateTo({
-                            url: '../write/write-mp'
-                        });
-                        // #endif
-
                         break
                     case 1:
 

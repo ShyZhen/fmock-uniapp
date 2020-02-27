@@ -71,12 +71,7 @@
         "navigationBarTitleText": "找回密码"
       }
     },{
-      // #ifdef H5
       "path": "pages/write/write",
-      // #endif
-      // #ifdef MP
-      "path": "pages/write/write-mp",
-      // #endif
       "style": {
         "navigationBarTitleText": "创作"
       }
