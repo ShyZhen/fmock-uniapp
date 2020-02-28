@@ -24,10 +24,30 @@
             <view class="e-font44 e-mt30 e-bold e-mb30">{{postObj.title}}</view>
 
             <!-- 点赞 -->
-            <!-- <view class="e-c9 e-mb30">{{postObj.like_num}}人为这篇文章点赞</view> -->
+             <view class="e-c9 e-mb30">{{postObj.like_num}}人为这篇文章点赞</view>
 
             <!-- 正文 -->
-            <view v-html="postObj.content"></view>
+            <view>
+                <view class="editor">
+
+                    <!-- #ifdef MP-WEIXIN -->
+                    <!--小程序编辑器-->
+                    <editor
+                            id="editor-content"
+                            class="ql-container"
+                            :read-only=true
+                            @ready="onEditorReady()">
+                    </editor>
+                    <!-- #endif -->
+
+                    <!-- #ifdef H5 -->
+                    <!-- quill编辑器 -->
+                    <view class="ql-container ql-bubble">
+                        <view id="editor-content"></view>
+                    </view>
+                    <!-- #endif -->
+                </view>
+            </view>
 
             <!-- 底部操作栏 -->
             <view class="e-fixed_bottom e-bottom-btnGroup e-flex_center e-b-top">
@@ -46,26 +66,6 @@
                 <view>举报</view>
             </view>
         </view>
-
-        <view class="editor">
-
-            <!-- #ifdef MP-WEIXIN -->
-            <!--小程序编辑器-->
-            <editor
-                    id="editor-content"
-                    class="ql-container"
-                    :read-only=true
-                    @ready="onEditorReady()">
-            </editor>
-            <!-- #endif -->
-
-            <!-- #ifdef H5 -->
-            <!-- quill编辑器 -->
-            <view id="editor-content"></view>
-            <!-- #endif -->
-
-        </view>
-
     </view>
 </template>
 

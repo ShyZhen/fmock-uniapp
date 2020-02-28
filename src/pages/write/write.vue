@@ -7,7 +7,7 @@
         </navBar>
 
         <view class="editor-warpper">
-            <view style="height: 100rpx">
+            <view :style="{paddingTop: statusH + 44 + 'px'}">
                 <m-input class="m-input" type="text" clearable focus v-model="postTitle"  placeholder="输入文章标题"></m-input>
             </view>
 
@@ -88,7 +88,7 @@ import 'quill/dist/quill.bubble.css'
             mInput,
         },
         computed: {
-            ...mapState(['hasBinding', 'hasLogin']),
+            ...mapState(['hasBinding', 'hasLogin', 'statusH']),
         },
         onLoad: function () {
 
@@ -107,7 +107,6 @@ import 'quill/dist/quill.bubble.css'
         },
         methods: {
             ...mapActions(['initLoginState']),
-
 
             // #ifdef H5
             initQuill() {

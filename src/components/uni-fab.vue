@@ -231,8 +231,13 @@ export default {
 }
 
 .fab-box.fab.rightBottom {
-	right: 30upx;
-	bottom: 60upx;
+	right: 30rpx;
+	/* #ifdef H5 */
+	bottom: 160rpx;
+	/* #endif */
+	/* #ifdef MP-WEIXIN */
+	bottom: 60rpx;
+	/* #endif */
 }
 
 .fab-box.fab.rightTop {
