@@ -2,12 +2,12 @@
     <view class="content">
         <view>
             <view>
-                <img :src="this.user.avatar" alt="">
-                {{this.user.id}}
-                {{this.user.name}}
-                {{this.user.bio}}
-                {{this.user.fans_num}}
-                {{this.user.followed_num}}
+                <image :src="user.avatar" alt=""></image>
+                {{user.id}}
+                {{user.name}}
+                {{user.bio}}
+                {{user.fans_num}}
+                {{user.followed_num}}
             </view>
             <view>
                 <uni-grid :column="3" :showBorder="false" :square="true" @change="change">
@@ -66,7 +66,7 @@ import uniGridItem from '@/components/grid/uni-grid-item.vue'
     export default {
         data() {
             return {
-                user: {}
+                user: {},
             }
         },
         onLoad: function (e) {
@@ -80,7 +80,6 @@ import uniGridItem from '@/components/grid/uni-grid-item.vue'
 
             this.initUserInfo(e.id)
         },
-
         computed: {
             ...mapState(['hasBinding', 'hasLogin'])
         },

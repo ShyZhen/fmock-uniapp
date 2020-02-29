@@ -71,12 +71,7 @@
         "navigationBarTitleText": "找回密码"
       }
     },{
-      // #ifdef H5
       "path": "pages/write/write",
-      // #endif
-      // #ifdef MP
-      "path": "pages/write/write-mp",
-      // #endif
       "style": {
         "navigationBarTitleText": "创作"
       }
@@ -86,12 +81,7 @@
         "navigationBarTitleText": "搜索"
       }
     },{
-      // #ifdef H5
       "path": "pages/post/post",
-      // #endif
-      // #ifdef MP
-      "path": "pages/post/post-mp",
-      // #endif
       "style": {
         "navigationBarTitleText": "文章详情"
       }
@@ -142,7 +132,7 @@
     "list" : [
       {
         "name": "post",
-        "path": "pages/post/post-mp",
+        "path": "pages/post/post",
         "query": "id=post-dc2e7216-1db8-8f44-2c4f-679e9ffe54a1"
       }
     ]

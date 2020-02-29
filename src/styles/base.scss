@@ -13,6 +13,9 @@ body {
   font-family: -apple-systee-font, microsoft yahei;
   background-color: $e-lightGray;
 }
+image {
+  will-change: transform
+}
 /* #ifdef MP-BAIDU */
 page {
   width: 100%;
