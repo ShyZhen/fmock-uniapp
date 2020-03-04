@@ -194,10 +194,6 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
                 }
             },
 
-
-
-
-
             // 搜索页面
             inputClick() {
                 uni.navigateTo({
@@ -205,9 +201,7 @@ import uniFab from '@/components/uni-fab.vue';    // 悬浮按钮
                 })
             },
             toHome() {
-                uni.switchTab({
-                    url: '../home/home'
-                });
+                this.$toHome()
             },
         }
     }

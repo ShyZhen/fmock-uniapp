@@ -16,6 +16,10 @@ body {
 image {
   will-change: transform
 }
+button::after
+{
+  border: none;
+}
 /* #ifdef MP-BAIDU */
 page {
   width: 100%;
@@ -46,17 +50,17 @@ m-input {
 }
 
 .content {
+  width: 100%;
   display: flex;
   flex: 1;
   flex-direction: column;
   background-color: #efeff4;
-  padding: 20upx;
-  padding-top: 0;
+  padding: 0 20rpx 20rpx 20rpx;
 }
 
 .input-group {
   background-color: #ffffff;
-  margin-top: 40upx;
+  margin-top: 40rpx;
   position: relative;
 }
 
@@ -65,7 +69,7 @@ m-input {
   right: 0;
   top: 0;
   left: 0;
-  height: 1upx;
+  height: 1rpx;
   content: '';
   -webkit-transform: scaleY(.5);
   transform: scaleY(.5);
@@ -77,7 +81,7 @@ m-input {
   right: 0;
   bottom: 0;
   left: 0;
-  height: 1upx;
+  height: 1rpx;
   content: '';
   -webkit-transform: scaleY(.5);
   transform: scaleY(.5);
@@ -92,19 +96,19 @@ m-input {
 
 .input-row .title {
   width: 20%;
-  height: 50upx;
-  min-height: 50upx;
-  padding: 15upx 0;
-  padding-left: 30upx;
-  line-height: 50upx;
+  height: 50rpx;
+  min-height: 50rpx;
+  padding: 15rpx 0;
+  padding-left: 30rpx;
+  line-height: 50rpx;
 }
 
 .input-row.border::after {
   position: absolute;
   right: 0;
   bottom: 0;
-  left: 15upx;
-  height: 1upx;
+  left: 15rpx;
+  height: 1rpx;
   content: '';
   -webkit-transform: scaleY(.5);
   transform: scaleY(.5);
@@ -112,8 +116,8 @@ m-input {
 }
 
 .btn-row {
-  margin-top: 50upx;
-  padding: 20upx;
+  margin-top: 50rpx;
+  padding: 20rpx;
 }
 
 button.primary {
@@ -212,34 +216,34 @@ button.primary {
   font-weight: bold;
 }
 .e-font20{
-  font-size: 20upx;
+  font-size: 20rpx;
 }
 .e-font22{
-  font-size: 22upx;
+  font-size: 22rpx;
 }
 .e-font24{
-  font-size: 24upx;
+  font-size: 24rpx;
 }
 .e-font28{
-  font-size: 28upx;
+  font-size: 28rpx;
 }
 .e-font30{
-  font-size: 30upx;
+  font-size: 30rpx;
 }
 .e-font32{
-  font-size: 32upx;
+  font-size: 32rpx;
 }
 .e-font34{
-  font-size: 34upx;
+  font-size: 34rpx;
 }
 .e-font36{
-  font-size: 36upx;
+  font-size: 36rpx;
 }
 .e-font42{
-  font-size: 42upx;
+  font-size: 42rpx;
 }
 .e-font44{
-  font-size: 44upx;
+  font-size: 44rpx;
 }
 
 /* ··················· 颜色 ··················· */
@@ -282,79 +286,79 @@ button.primary {
 
 /* ··················· 边距 ··················· */
 .e-pd20 {
-  padding: 20upx;
+  padding: 20rpx;
 }
 .e-pl20 {
-  padding-left: 20upx;
+  padding-left: 20rpx;
 }
 .e-pr20 {
-  padding-right: 20upx;
+  padding-right: 20rpx;
 }
 .e-pt20 {
-  padding-top: 20upx;
+  padding-top: 20rpx;
 }
 .e-pb20 {
-  padding-bottom: 20upx;
+  padding-bottom: 20rpx;
 }
 .e-mt5 {
-  margin-top: 5upx;
+  margin-top: 5rpx;
 }
 .e-mb5 {
-  margin-bottom: 5upx;
+  margin-bottom: 5rpx;
 }
 .e-ml5 {
-  margin-left: 5upx;
+  margin-left: 5rpx;
 }
 .e-mr5 {
-  margin-right: 5upx;
+  margin-right: 5rpx;
 }
 .e-mt10 {
-  margin-top: 10upx;
+  margin-top: 10rpx;
 }
 .e-ml10 {
-  margin-left: 10upx;
+  margin-left: 10rpx;
 }
 .e-mr10 {
-  margin-right: 10upx;
+  margin-right: 10rpx;
 }
 .e-mb10 {
-  margin-bottom: 10upx;
+  margin-bottom: 10rpx;
 }
 .e-mt20 {
-  margin-top: 20upx;
+  margin-top: 20rpx;
 }
 .e-ml20 {
-  margin-left: 20upx;
+  margin-left: 20rpx;
 }
 .e-mr20 {
-  margin-right: 20upx;
+  margin-right: 20rpx;
 }
 .e-mb20 {
-  margin-bottom: 20upx;
+  margin-bottom: 20rpx;
 }
 .e-ml26 {
-  margin-left: 26upx;
+  margin-left: 26rpx;
 }
 .e-mt30 {
-  margin-top: 30upx;
+  margin-top: 30rpx;
 }
 .e-mb30 {
-  margin-bottom: 30upx;
+  margin-bottom: 30rpx;
 }
 .e-mb35 {
-  margin-bottom: 35upx;
+  margin-bottom: 35rpx;
 }
 .e-ml30 {
-  margin-left: 30upx;
+  margin-left: 30rpx;
 }
 .e-mt50 {
-  margin-top: 50upx;
+  margin-top: 50rpx;
 }
 .e-mb50 {
-  margin-bottom: 50upx;
+  margin-bottom: 50rpx;
 }
 .e-mt80 {
-  margin-top: 80upx;
+  margin-top: 80rpx;
 }
 
 /* ··················· 字间距 ··················· */
@@ -482,16 +486,16 @@ button.primary {
 // 带阴影边框
 .e-box_p {
   width: auto;
-  margin: 30upx;
-  padding: 35upx 28upx;
+  margin: 30rpx;
+  padding: 35rpx 28rpx;
   background: $e-f;
-  border-radius: 10upx;
-  box-shadow: 0upx 10upx 14upx 1upx rgba(0, 0, 0, 0.03);
+  border-radius: 10rpx;
+  box-shadow: 0rpx 10rpx 14rpx 1rpx rgba(0, 0, 0, 0.03);
 }
 .e-box_f {
   box-sizing: border-box;
   width: 100%;
-  padding: 30upx 26upx;
+  padding: 30rpx 26rpx;
   background: $e-f;
 }
 
@@ -508,5 +512,5 @@ button.primary {
 .e-bottom-btnGroup {
   height: 85rpx;
   background-color: #fff;
-  padding: 12upx 20upx;
+  padding: 12rpx 20rpx;
 }

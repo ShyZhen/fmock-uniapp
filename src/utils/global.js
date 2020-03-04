@@ -30,4 +30,25 @@ function toLogin() {
     });
 }
 
-export { loading, toast, toLogin }
+function toHome() {
+    uni.switchTab({
+        url: '../home/home'
+    });
+}
+
+function toBack(pagesLength) {
+    // #ifdef H5
+    if (pagesLength > 1) {
+        uni.navigateBack(1)
+        return;
+    } else {
+        uni.switchTab({
+            url: '../home/home'
+        });
+        return;
+    }
+    // #endif
+    uni.navigateBack(1)
+}
+
+export { loading, toast, toLogin, toBack, toHome }

@@ -144,7 +144,7 @@
     .title {
         width: 100%;
         height: 100%;
-        font-size: 28upx;
+        font-size: 14px;
         position: absolute;
         top: 0;
         left: 0;
