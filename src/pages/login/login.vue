@@ -71,7 +71,7 @@
         },
         data() {
             return {
-                leftIcon: 'iconback',
+                leftIcon: 'iconjiantou',
                 // 是否提供第三方登录
                 hasProvider: true,
                 providerList: [
@@ -170,14 +170,11 @@
             },
 
             toHome() {
-                uni.switchTab({
-                    url: '../home/home'
-                });
+                this.$toHome()
             },
             toBack() {
-                uni.navigateBack({
-                    delta: 1
-                });
+                const pages = getCurrentPages()
+                this.$toBack(pages.length)
             },
 
             initPosition() {

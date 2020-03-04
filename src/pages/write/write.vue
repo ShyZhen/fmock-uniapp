@@ -3,7 +3,7 @@
         <navBar :logo="logo" :leftIcon="leftIcon"
                 :rightWords="rightWords"
                 :title="title"
-                @leftClick="toBack()">
+                @leftClick="toHome()">
         </navBar>
 
         <view class="editor-warpper">
@@ -49,7 +49,7 @@
             <!-- #endif -->
         </view>
 
-        匿名发布<switch/>
+        匿名<switch @change="setAnonymous"/>
         <button type="primary" class="primary e-font30" @tap="submitPost">发布</button>
 
     </view>
@@ -294,17 +294,19 @@ import 'quill/dist/quill.bubble.css'
                 });
                 return data
             },
+            setAnonymous(e) {
+                this.anonymous = e.target.value
+            },
             // 文章详情
             navToDetails(uuid){
-                uni.navigateTo({
+                // 此页面不许返回直接关闭栈
+                uni.redirectTo({
                     url: `/pages/post/post?id=${uuid}`
                 })
             },
 
-            toBack() {
-                uni.navigateBack({
-                    delta: 1
-                });
+            toHome() {
+                this.$toHome()
             },
         }
     }

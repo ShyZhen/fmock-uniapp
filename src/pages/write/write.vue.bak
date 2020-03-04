@@ -179,9 +179,8 @@ import uniRichtext from '@/components/uni-richtext.vue'
                 });
             },
             toBack() {
-                uni.navigateBack({
-                    delta: 1
-                });
+                const pages = getCurrentPages()
+                this.$toBack(pages.length)
             },
         }
     }

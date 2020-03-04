@@ -217,14 +217,11 @@ import navBar from '@/components/nav-bar'
             },
 
             toHome() {
-                uni.switchTab({
-                    url: '../home/home'
-                });
+                this.$toHome()
             },
             toBack() {
-                uni.navigateBack({
-                    delta: 1
-                });
+                const pages = getCurrentPages()
+                this.$toBack(pages.length)
             }
         }
     }

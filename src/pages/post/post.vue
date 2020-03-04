@@ -167,12 +167,10 @@ import 'quill/dist/quill.bubble.css'
                     this.$toast('该作者已匿名')
                 }
             },
-
             toBack() {
-                uni.navigateBack({
-                    delta: 1
-                });
-            },
+                const pages = getCurrentPages()
+                this.$toBack(pages.length)
+            }
         }
     }
 </script>
@@ -181,6 +179,7 @@ import 'quill/dist/quill.bubble.css'
 <style lang="scss" scoped>
     .content {
         background-color: $e-f;
+        padding: 0;
     }
     .editor {
         height: 85%;

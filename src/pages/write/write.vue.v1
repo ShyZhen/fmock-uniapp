@@ -115,9 +115,8 @@ import  '@/plugins/editor/vue-quill-editor'
                 });
             },
             toBack() {
-                uni.navigateBack({
-                    delta: 1
-                });
+                const pages = getCurrentPages()
+                this.$toBack(pages.length)
             },
         }
     }

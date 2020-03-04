@@ -90,11 +90,6 @@
       "style": {
         "navigationBarTitleText": "个人中心"
       }
-    },{
-      "path": "pages/test/test",
-      "style": {
-        "navigationBarTitleText": "TEST"
-      }
     }
   ],
   // 底部 tab
