@@ -20,32 +20,34 @@
                 </view>
                 <button class="blue-btn" @click="concern">关注</button>
             </view>
-            <!-- 标题 -->
-            <view class="e-font44 e-mt30 e-bold e-mb30">{{postObj.title}}</view>
+            <view class="e-pd20">
+                <!-- 标题 -->
+                <view class="e-font44 e-mt30 e-bold e-mb30">{{postObj.title}}</view>
 
-            <!-- 点赞 -->
-             <view class="e-c9 e-mb30">{{postObj.like_num}}人为这篇文章点赞</view>
+                <!-- 点赞 -->
+                 <view class="e-c9 e-mb30">{{postObj.like_num}}人为这篇文章点赞</view>
 
-            <!-- 正文 -->
-            <view>
-                <view class="editor">
+                <!-- 正文 -->
+                <view>
+                    <view class="editor">
 
-                    <!-- #ifdef MP-WEIXIN -->
-                    <!--小程序编辑器-->
-                    <editor
-                            id="editor-content"
-                            class="ql-container"
-                            :read-only=true
-                            @ready="onEditorReady()">
-                    </editor>
-                    <!-- #endif -->
+                        <!-- #ifdef MP-WEIXIN -->
+                        <!--小程序编辑器-->
+                        <editor
+                                id="editor-content"
+                                class="ql-container"
+                                :read-only=true
+                                @ready="onEditorReady()">
+                        </editor>
+                        <!-- #endif -->
 
-                    <!-- #ifdef H5 -->
-                    <!-- quill编辑器 -->
-                    <view class="ql-container ql-bubble">
-                        <view id="editor-content"></view>
+                        <!-- #ifdef H5 -->
+                        <!-- quill编辑器 -->
+                        <view class="ql-container ql-bubble">
+                            <view id="editor-content"></view>
+                        </view>
+                        <!-- #endif -->
                     </view>
-                    <!-- #endif -->
                 </view>
             </view>
 

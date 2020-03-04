@@ -59,7 +59,7 @@
                                 <!-- 标题 -->
                                 <view class="e-font36 e-c0 e-omit2" :class="['title', 'title'+item.type]">{{item.title}}</view>
                                 <!-- 内容 -->
-                                <view class="e-flex">
+                                <view class="e-flex e-pr20">
                                     <view class="e-flex_auto">
                                         <!-- 作者 -->
                                         <view class="e-flex_left user-info e-mt10 e-mb10 e-font28">

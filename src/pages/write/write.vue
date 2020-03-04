@@ -314,8 +314,6 @@ import 'quill/dist/quill.bubble.css'
     .editor-warpper {
         height: 85%;
         width: 100%;
-        padding: 5px;
-
     }
 
     #editor {

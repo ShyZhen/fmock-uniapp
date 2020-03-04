@@ -16,6 +16,10 @@ body {
 image {
   will-change: transform
 }
+button::after
+{
+  border: none;
+}
 /* #ifdef MP-BAIDU */
 page {
   width: 100%;
@@ -46,11 +50,12 @@ m-input {
 }
 
 .content {
+  width: 100%;
   display: flex;
   flex: 1;
   flex-direction: column;
   background-color: #efeff4;
-  padding: 20upx;
+  //padding: 20upx;
   padding-top: 0;
 }
 
