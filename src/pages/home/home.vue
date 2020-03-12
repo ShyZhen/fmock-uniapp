@@ -7,12 +7,16 @@
         * url 跳转链接
         *  -->
         <!-- #ifndef MP -->
+
+        <!--
         <advert
                 ref="advert"
                 :timedown="advertTimedown"
                 :imageUrl="imageUrl"
                 :url="advertUrl"
         ></advert>
+        -->
+
         <!-- #endif -->
 
         <!-- 头部导航 -->
@@ -474,7 +478,7 @@
 
     .posts-item {
         position:relative;
-        width: 750rpx;
+        width: 100%;
         padding: 24rpx 30rpx;
         border-bottom-width: 1px;
         border-color: #eee;
