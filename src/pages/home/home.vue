@@ -20,7 +20,7 @@
         <!-- #endif -->
 
         <!-- 头部导航 -->
-        <nav-bar :logo="logo" :title="title" :rightIcon="rightIcon" @inputClick="inputClick"></nav-bar>
+        <nav-bar :logo="logo" :title="title"></nav-bar>
         <!-- 二级导航 -->
         <scroll-view id="nav-bar" class="nav-bar" :style="{top: statusH + 44 + 'px'}">
             <view
@@ -61,7 +61,7 @@
                             <!-- posts 文章组件 -->
                             <view v-for="(item, index) in tabItem.postsList" :key="index" class="posts-item e-box_f e-mt10" @click="navToDetails(item.uuid)">
                                 <!-- 标题 -->
-                                <view class="e-font36 e-c0 e-omit2" :class="['title', 'title'+item.type]">{{item.title}}</view>
+                                <view class="e-font36 e-c0 e-omit2 post-title" :class="['title', 'title'+item.type]">{{item.title}}</view>
                                 <!-- 内容 -->
                                 <view class="e-flex e-pr20">
                                     <view class="e-flex_auto">
@@ -119,12 +119,6 @@
         data() {
             return {
                 logo: '/static/img/FMOCK-LOGO.png',
-                leftIcon: 'iconback',
-                leftWords: '',
-                rightImg: '',
-                rightIcon: '',
-                rightWords: '',
-                iconColor: '',
                 title: '墨客社区',
                 showInput: true,
 
@@ -192,7 +186,7 @@
         },
         onReady: function () {
             // #ifndef MP
-            this.$refs.advert.initAdvert();
+            // this.$refs.advert.initAdvert();
             // #endif
         },
         methods: {
@@ -505,5 +499,8 @@
             width: 100%;
             height: 100%;
         }
+    }
+    .post-title {
+        word-break: break-all;
     }
 </style>

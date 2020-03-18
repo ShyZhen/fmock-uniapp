@@ -189,7 +189,6 @@ import navBar from '@/components/nav-bar'
                     verify_code: this.verify_code,
                     password_confirmation: this.password_confirmation
                 }
-
                 updatePassword(data).then(res => {
                     console.log(res)
                     this.$loading(false)
@@ -199,23 +198,6 @@ import navBar from '@/components/nav-bar'
                 })
 
             },
-
-            // 中英文长度计算
-            strlen(str) {
-                let len = 0;
-                for (let i = 0; i < str.length; i++) {
-                    let c = str.charCodeAt(i);
-                    //单字节加1
-                    if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f))    {
-                        len++;
-                    }
-                    else {
-                        len+=2;
-                    }
-                }
-                return len;
-            },
-
             toHome() {
                 this.$toHome()
             },

@@ -2,9 +2,7 @@
     <view class="content">
 
         <navBar :logo="logo" :leftIcon="leftIcon"
-                :rightWords="rightWords"
                 :title="title"
-                @rightClick="rightClick()"
                 @leftClick="toBack()">
         </navBar>
 
@@ -20,9 +18,9 @@
                 </view>
                 <button class="blue-btn" @click="concern">关注</button>
             </view>
-            <view class="e-pd20">
+            <view class="e-pd20 e-mb100">
                 <!-- 标题 -->
-                <view class="e-font44 e-mt30 e-bold e-mb30">{{postObj.title}}</view>
+                <view class="e-font44 e-mt30 e-bold e-mb30 post-title">{{postObj.title}}</view>
 
                 <!-- 点赞 -->
                  <view class="e-c9 e-mb30">{{postObj.like_num}}人为这篇文章点赞</view>
@@ -86,8 +84,7 @@ import 'quill/dist/quill.bubble.css'
             return {
                 logo: '',
                 leftIcon: 'iconjiantou',
-                rightWords: '',
-                title: '文章详情',
+                title: '',
                 idObj: {},
                 postObj: {
                     user_info: {}
@@ -119,6 +116,10 @@ import 'quill/dist/quill.bubble.css'
             getPostDetail(this.idObj.id).then(res => {
                 this.$loading(false)
                 this.postObj = res.data
+                this.title = res.data.title
+                if (this.title.length > 15) {
+                    this.title = this.title.substring(0, 15) + '...'
+                }
 
                 // #ifdef H5
                 this.initQuill(JSON.parse(this.postObj.content).ops)
@@ -218,5 +219,8 @@ import 'quill/dist/quill.bubble.css'
         .iconfont {
             font-size: 30upx;
         }
+    }
+    .post-title {
+        word-break: break-all;
     }
 </style>

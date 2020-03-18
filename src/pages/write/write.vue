@@ -60,6 +60,7 @@ import { mapState, mapActions } from 'vuex'
 import navBar from '@/components/nav-bar.vue'
 import mInput from '@/components/m-input.vue'
 import { uniUploadImage, createPost } from '@/apis/posts'
+import * as Common from '@/utils/common.js'
 
 // #ifdef H5
 import Quill from 'quill'
@@ -144,6 +145,12 @@ import 'quill/dist/quill.bubble.css'
             submitPost() {
                 this.$loading()
                 if (this.postTitle.trim() && this.editor.getLength() > 1) {
+
+                    if (Common.strLen(this.postTitle.trim()) > 60) {
+                        this.$toast('标题太长会有碍阅读哦')
+                        return
+                    }
+
                     let data = {
                         title: this.postTitle.trim(),
                         // 存储html格式
@@ -214,6 +221,12 @@ import 'quill/dist/quill.bubble.css'
                     success: function (res) {
                         let summary = res.text.replace(/\n/g, ' ').slice(0, 80)
                         if (that.postTitle && summary) {
+
+                            if (Common.strLen(that.postTitle.trim()) > 60) {
+                                that.$toast('标题太长会有碍阅读哦')
+                                return
+                            }
+
                             let data = {
                                 title: that.postTitle.trim(),
                                 content: JSON.stringify(res.delta),
@@ -236,7 +249,6 @@ import 'quill/dist/quill.bubble.css'
                 })
             },
             // #endif
-
 
             // 处理上传图片 并回显
             imageHandler: function () {
