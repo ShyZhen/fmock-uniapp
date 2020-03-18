@@ -3,6 +3,7 @@
  */
 import Config from "../config/config.js"
 import * as Auth from "./auth.js"
+import store from "../store";
 
 class Request 
 {
@@ -49,6 +50,16 @@ class Request
                         icon: 'none',
                         duration: 2000,
                     })
+
+                    if (Auth.removeLoginStorage()) {
+                        store.commit('logout')
+                        setTimeout(() => {
+                            uni.navigateTo({
+                                url: '/pages/login/login',
+                            });
+                        }, 2000);
+                    }
+
                     // 调试输出
                     reject(error)
                     
@@ -60,12 +71,16 @@ class Request
                             icon: 'none',
                             duration: 2000,
                         });
-        
-                        setTimeout(() => {
-                            uni.navigateTo({
-                                url: '/pages/login/login',
-                            });
-                        }, 2000);
+
+                        // 防止重复登录引起的token前端有效、后端失效的问题
+                        if (Auth.removeLoginStorage()) {
+                            store.commit('logout')
+                            setTimeout(() => {
+                                uni.navigateTo({
+                                    url: '/pages/login/login',
+                                });
+                            }, 2000);
+                        }
                         // 调试输出
                         reject(res)
                         

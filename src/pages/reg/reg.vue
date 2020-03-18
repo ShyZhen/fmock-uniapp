@@ -42,6 +42,7 @@ import mInput from '../../components/m-input.vue'
 import { registerCode, accountRegister } from '@/utils/loginPlugin.js'
 import { mapState, mapActions } from 'vuex'
 import navBar from '@/components/nav-bar'
+import * as Common from '@/utils/common.js'
 
     export default {
         onLoad: function () {
@@ -161,8 +162,7 @@ import navBar from '@/components/nav-bar'
             register() {
                 this.$loading()
 
-                // 非空判断
-                if (!this.strlen(this.name.trim()) || this.strlen(this.name.trim()) > 16) {
+                if (!Common.strLen(this.name.trim()) || Common.strLen(this.name.trim()) > 16) {
                     this.$toast('昵称最多不得超过8个汉字或16个字符')
                     return
                 }
@@ -174,7 +174,6 @@ import navBar from '@/components/nav-bar'
                     this.$toast('验证码格式错误!')
                     return
                 }
-
                 if (this.password.trim().length < 6 || this.password.trim().length > 20) {
                     this.$toast('密码最少需要6个字符，且不得超过20个字符!')
                     return
@@ -187,7 +186,6 @@ import navBar from '@/components/nav-bar'
                     this.$toast('请确认密码!')
                     return
                 }
-                // 密码与重复密码不一致
                 if (this.password.trim() !== this.password_confirmation.trim()) {
                     this.$toast('密码与重复密码不一致!')
                     return
@@ -210,23 +208,6 @@ import navBar from '@/components/nav-bar'
                 })
 
             },
-
-            // 中英文长度计算
-            strlen(str){
-                let len = 0;
-                for (let i = 0; i < str.length; i++) {
-                    let c = str.charCodeAt(i);
-                    //单字节加1
-                    if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f))    {
-                        len++;
-                    }
-                    else {
-                        len+=2;
-                    }
-                }
-                return len;
-            },
-
             toHome() {
                 this.$toHome()
             },

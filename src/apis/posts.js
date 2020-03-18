@@ -97,9 +97,9 @@ function updatePost(uuid, data) {
 }
 
 // TODO 获取所有我关注的用户的文章列表 动态页
-function getMyFollowPostsList(page) {
+function getMyFollowPostsList(type, page) {
     return new Promise((resolve, reject) => {
-        request.request('GET', 'V1/follow/posts/', data).then(res => {
+        request.request('GET', 'V1/track/'+type+'?page='+page).then(res => {
             resolve(res.data)
         }).catch(e => {
             reject(e)

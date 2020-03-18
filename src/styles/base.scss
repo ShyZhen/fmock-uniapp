@@ -55,7 +55,7 @@ m-input {
   flex: 1;
   flex-direction: column;
   background-color: #efeff4;
-  padding: 0 20rpx 20rpx 20rpx;
+  padding: 0 8rpx 20rpx 8rpx;
 }
 
 .input-group {
@@ -356,6 +356,9 @@ button.primary {
 }
 .e-mb50 {
   margin-bottom: 50rpx;
+}
+.e-mb100 {
+  margin-bottom: 100rpx;
 }
 .e-mt80 {
   margin-top: 80rpx;
