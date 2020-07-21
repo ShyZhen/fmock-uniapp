@@ -86,6 +86,11 @@
         "navigationBarTitleText": "文章详情"
       }
     },{
+      "path": "pages/post/answer",
+      "style": {
+        "navigationBarTitleText": "回答详情"
+      }
+    },{
       "path": "pages/user/person",
       "style": {
         "navigationBarTitleText": "个人中心"

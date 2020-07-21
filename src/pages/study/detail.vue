@@ -1,9 +1,9 @@
+<!--视频详情页 通过视频uuid获取视频详情-->
 <template>
 	<view class="content">
 		<view class="uni-padding-wrap uni-common-mt">
 			<view>
-<!--				<video id="fmock-video-context" src="http://image.fmock.com//hls/video/2020/01/video-d8714d36-f3be-6083-0313-6501c3e1aede.mp4"-->
-				<video id="fmock-video-context" src="http://image.fmock.com/video/2020/01/video-f604f2f0-6a2f-130c-628e-440fb7ce46b0.mp4"
+				<video id="fmock-video-context" src="https://video.fmock.com/hls/2020/01/29eb36c5d5b082a1b67e66a749dfaee2.m3u8?pm3u8/0/43200"
 					   @error="videoErrorCallback" :danmu-list="danmuList" enable-danmu danmu-btn controls></video>
 			</view>
 			<!-- #ifndef MP-ALIPAY -->
@@ -50,6 +50,7 @@ import { mapState, mapActions } from 'vuex'
 			}
 
 			this.idObj = idObj
+			console.log(this.idObj)
 		},
 		onReady: function(res) {
 			// #ifndef MP-ALIPAY
