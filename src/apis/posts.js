@@ -22,6 +22,17 @@ function getPostDetail(uuid) {
     })
 }
 
+// 获取某个回答详情
+function getAnswerDetail(uuid) {
+    return new Promise((resolve, reject) => {
+        request.request('GET', 'V1/answer/detail/' + uuid).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
 // 创建文章
 function createPost(data) {
     return new Promise((resolve, reject) => {
@@ -109,5 +120,5 @@ function getMyFollowPostsList(type, page) {
 
 export {
     getPostsList, getPostDetail, createPost, uploadImage, deletePost, getUserPosts, updatePost, uniUploadImage,
-    getMyFollowPostsList
+    getMyFollowPostsList, getAnswerDetail
 }
