@@ -1,3 +1,4 @@
+<!--视频列表页-->
 <template>
 	<view class="content">
 		<view v-for="(item, index) in videoList" :key="index" class="posts-item e-box_f e-mt10" @click="navToDetails(item.uuid)">

@@ -203,9 +203,17 @@ export default {
 
         // 文章详情页
         navToDetails(uuid){
-            uni.navigateTo({
-                url: `/pages/post/post?id=${uuid}`
-            })
+            // 动态跳转到 post/answer/video 详情页面
+            let currentPageIndex = this.tabBars[this.tabCurrentIndex].id
+            if (currentPageIndex === 'video') {
+                uni.navigateTo({
+                    url: `/pages/study/detail?id=${uuid}`
+                })
+            } else {
+                uni.navigateTo({
+                    url: `/pages/post/${currentPageIndex}?id=${uuid}`
+                })
+            }
         },
 
         // 切换内容滑块
