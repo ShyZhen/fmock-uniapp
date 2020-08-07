@@ -7,7 +7,8 @@
         </navBar>
 
         <view class="editor-warpper">
-            <view :style="{paddingTop: statusH + 44 + 'px'}">
+        <!-- :style="{paddingTop: statusH + 44 + 'px'}" -->
+            <view  class="input-outside">
                 <m-input class="m-input" type="text" clearable focus v-model="postTitle"  placeholder="输入文章标题"></m-input>
             </view>
 
@@ -48,10 +49,23 @@
             </view>
             <!-- #endif -->
         </view>
-
-        匿名<switch @change="setAnonymous"/>
-        <button type="primary" class="primary e-font30" @tap="submitPost">发布</button>
-
+        <div class="btnArea">
+            <view class="uni-list" style="flex:1;">
+                <view class="uni-list-cell" style="display: flex">
+                    <view class="uni-list-cell-left">
+                        发布类型:
+                    </view>
+                    <view class="uni-list-cell-db">
+                        <picker @change="bindPickerChange" :value="contentType" :range="publishType" range-key="name">
+                            <view class="uni-input">{{publishType[contentType].name}}</view>
+                        </picker>
+                    </view>
+                </view>
+            </view>
+            <span class="hideName">匿名发布</span>
+            <switch class="switchBtn" @change="setAnonymous"/>
+            <button type="primary" class="primary e-font30 subBtn" @tap="submitPost">发布</button>
+        </div>
     </view>
 </template>
 
@@ -82,6 +96,21 @@ import 'quill/dist/quill.bubble.css'
                 editor: {},
                 placeholder: '请输入内容...',
                 formats: {},
+                publishType: [
+                    {name:'分享',value:"share"},
+                    {name:'问答',value:"question"},
+                    {name:'爆料',value:"dynamite"},
+                    {name:'相亲',value:"friend"},
+                    {name:'招聘',value:"recruit"}
+                ],
+                contentType: 0,
+                typeList:[
+                    'share',
+                    'question',
+                    'dynamite',
+                    'friend',
+                    'recruit'
+                ]
             }
         },
         components: {
@@ -143,6 +172,7 @@ import 'quill/dist/quill.bubble.css'
             },
             // 发布文章
             submitPost() {
+                // debugger
                 this.$loading()
                 if (this.postTitle.trim() && this.editor.getLength() > 1) {
 
@@ -159,7 +189,7 @@ import 'quill/dist/quill.bubble.css'
                         summary: this.editor.getText(0, 80).replace(/\n/g, ' '),
                         poster: this.imgUrlFun(this.editor.root.innerHTML),
                         anonymous: this.anonymous,
-                        type: this.type
+                        type: this.typeList[this.contentType]
                     }
                     createPost(data).then(res => {
                         this.$loading(false)
@@ -320,14 +350,23 @@ import 'quill/dist/quill.bubble.css'
             toHome() {
                 this.$toHome()
             },
+            bindPickerChange: function(e) {
+                // debugger
+                console.log('picker发送选择改变，携带值为', e.target.value)
+                this.contentType = e.target.value
+            }
         }
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .editor-warpper {
-        height: 85%;
+        // height: 85%;
         width: 100%;
+        .input-outside {
+            background: white;
+            margin-top: 65px!important;
+        }
     }
 
     #editor {
@@ -366,6 +405,54 @@ import 'quill/dist/quill.bubble.css'
     }
     .ql-active {
         color: #06c;
+    }
+
+    .content {
+        // display: flex;
+        // flex-direction: row;
+    }
+    .btnArea {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 20px;
+        background: white;
+        .uni-list {
+            .uni-list-cell {
+                display: flex;
+                justify-content: center;
+                .uni-list-cell-left{
+                    line-height: 38px;
+                    padding-right: 16px;
+                }
+                .uni-list-cell-db {
+                    .uni-input {
+                        background: #0faeff;
+                        line-height: 38px;
+                        width: 58px;
+                        text-align: center;
+                        color: white;
+                        border-radius: 5px;
+                    }
+                }
+            }
+        }
+        .hideName {
+            line-height: 38px;
+        }
+        /deep/.switchBtn {
+            /deep/.uni-switch-wrapper {
+                /deep/.uni-switch-input {
+                    margin-left: 15px;
+                    margin-right: 15px!important;
+                }
+            }
+        } 
+        .subBtn {
+            margin-left: 0; 
+            margin-right: 0;
+            justify-content: flex-end;
+        }
     }
 
 </style>

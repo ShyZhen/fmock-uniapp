@@ -118,7 +118,23 @@ function getMyFollowPostsList(type, page) {
     })
 }
 
+//获取 点赞 踩 收藏相关信息
+function getInitStatus(uuid) {
+    return new Promise((resolve, reject) => {
+        request.request('GET', 'V1/status/post/' + uuid).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+} 
+
+//点赞
+function likeBtn(params) {
+    
+}
+
 export {
     getPostsList, getPostDetail, createPost, uploadImage, deletePost, getUserPosts, updatePost, uniUploadImage,
-    getMyFollowPostsList, getAnswerDetail
+    getMyFollowPostsList, getAnswerDetail, getInitStatus
 }
