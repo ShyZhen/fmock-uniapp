@@ -51,19 +51,47 @@
 
             <!-- 底部操作栏 -->
             <view class="e-fixed_bottom e-bottom-btnGroup e-flex_center e-b-top">
+                <!-- 点赞按钮 -->
                 <view>
-                    <text class="iconfont iconsupport"></text>
-                    <text>赞</text>
+                    <!-- <text class="iconfont iconsupport"></text> -->
+                    <!-- 当islike为true时 显示的红色点赞icon -->
+                    <svg class="icon" aria-hidden="true" v-if="bottom.isDislike">
+                        <use xlink:href="#iconsupport-a"></use>
+                    </svg>
+                    <!-- 当islike为false时 显示的灰色点赞icon -->
+                    <svg class="icon" aria-hidden="true" v-else>
+                        <use xlink:href="#iconsupport"></use>
+                    </svg>
+                    <!-- <text>赞</text> -->
+                    <uni-badge :text="statusNum.islikeNum" type="error" @click="" style="position: absolute;
+    top: 10px;"></uni-badge>
                 </view>
+                <!-- 点赞按钮 -->
+                <!-- 踩按钮 -->
+                <view>
+                    <!-- 当dislike为true时 显示的红色踩icon -->
+                    <svg class="icon" aria-hidden="true" v-if="bottom.isDislike">
+                        <use xlink:href="#iconsupport-a"></use>
+                    </svg>
+                    <!-- 当dislike为false时 显示的灰色踩icon -->
+                    <svg class="icon" aria-hidden="true" v-else>
+                        <use xlink:href="#iconoppose"></use>
+                    </svg>
+                    <!-- <text>踩</text> -->
+                    <uni-badge :text="statusNum.dislikeNum" type="purple" style="position: absolute;
+    top: 10px;"></uni-badge>
+                </view>
+                <!-- 踩按钮 -->
                 <view>
                     <text class="iconfont iconshoucang"></text>
-                    <text>收藏</text>
+                    <!-- <text>收藏</text> -->
+                    <uni-badge :text="statusNum.isCollectedNum" type="primary" @click="" style="position: absolute;
+    top: 10px;"></uni-badge>
                 </view>
                 <view>
                     <text class="iconfont iconpinglun"></text>
                     <text>评论</text>
                 </view>
-                <view>举报</view>
             </view>
         </view>
     </view>
@@ -72,12 +100,14 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import navBar from '@/components/nav-bar.vue'
-import { getPostDetail } from '@/apis/posts'
+import { getPostDetail, getInitStatus } from '@/apis/posts'
+import uniBadge from "@/components/grid/uni-badge.vue"
 
 // #ifdef H5
 import Quill from 'quill'
 import 'quill/dist/quill.bubble.css'
 // #endif
+// Vue.use(uniBadge)
 
     export default {
         data() {
@@ -90,10 +120,21 @@ import 'quill/dist/quill.bubble.css'
                     user_info: {}
                 },
                 editor: {},
+                bottom:{
+                    islike: Boolean,
+                    isDislike: Boolean,
+                    isCollected: Boolean
+                },
+                statusNum:{
+                    islikeNum: String,
+                    dislikeNum: String,
+                    isCollectedNum: String
+                }
             }
         },
         components: {
             navBar,
+            uniBadge
         },
         computed: {
             ...mapState(['hasBinding', 'hasLogin', 'statusH']),
@@ -117,6 +158,9 @@ import 'quill/dist/quill.bubble.css'
                 this.$loading(false)
                 this.postObj = res.data
                 this.title = res.data.title
+                this.statusNum.islikeNum = res.data.like_num
+                this.statusNum.dislikeNum = res.data.dislike_num
+                this.statusNum.isCollectedNum = res.data.follow_num
                 if (this.title.length > 15) {
                     this.title = this.title.substring(0, 15) + '...'
                 }
@@ -127,8 +171,18 @@ import 'quill/dist/quill.bubble.css'
                 // #ifdef MP-WEIXIN
                 this.initEditor(JSON.parse(this.postObj.content).ops)
                 // #endif
+
             }).catch(err => {
                 this.$loading(false)
+            })
+
+
+            // 获取底栏文字赞踩收藏状态
+            getInitStatus(this.idObj.id).then(res => {
+                console.log(res)
+                this.bottom.islike = res.data.like
+                this.bottom.isDislike =res.data.dislike
+                this.bottom.isCollected = res.data.collected
             })
         },
         methods: {
