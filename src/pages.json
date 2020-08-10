@@ -11,7 +11,7 @@
         //         "searchInput": {
         //             "align": "center",
         //             "placeholder": "Search...",
-        //             "borderRadius":"50upx",
+        //             "borderRadius":"50rpx",
         //             "backgroundColor": "#FCFCFD"
         //         },
         //         "buttons": [

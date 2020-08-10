@@ -7,8 +7,7 @@
         </navBar>
 
         <view class="editor-warpper">
-        <!-- :style="{paddingTop: statusH + 44 + 'px'}" -->
-            <view  class="input-outside">
+            <view :style="{paddingTop: statusH + 44 + 'px'}" class="input-outside">
                 <m-input class="m-input" type="text" clearable focus v-model="postTitle"  placeholder="输入文章标题"></m-input>
             </view>
 
@@ -361,11 +360,10 @@ import 'quill/dist/quill.bubble.css'
 
 <style scoped lang="scss">
     .editor-warpper {
-        // height: 85%;
         width: 100%;
         .input-outside {
             background: white;
-            margin-top: 65px!important;
+            height: 88rpx;
         }
     }
 

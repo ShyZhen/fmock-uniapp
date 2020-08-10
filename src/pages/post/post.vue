@@ -51,47 +51,23 @@
 
             <!-- 底部操作栏 -->
             <view class="e-fixed_bottom e-bottom-btnGroup e-flex_center e-b-top">
-                <!-- 点赞按钮 -->
                 <view>
-                    <!-- <text class="iconfont iconsupport"></text> -->
-                    <!-- 当islike为true时 显示的红色点赞icon -->
-                    <svg class="icon" aria-hidden="true" v-if="bottom.isDislike">
-                        <use xlink:href="#iconsupport-a"></use>
-                    </svg>
-                    <!-- 当islike为false时 显示的灰色点赞icon -->
-                    <svg class="icon" aria-hidden="true" v-else>
-                        <use xlink:href="#iconsupport"></use>
-                    </svg>
-                    <!-- <text>赞</text> -->
-                    <uni-badge :text="statusNum.islikeNum" type="error" @click="" style="position: absolute;
-    top: 10px;"></uni-badge>
+                    <text v-if="bottom.isDislike">
+                        <text>踩{{statusNum.dislikeNum}}</text>
+                    </text>
+                    <text v-else class="iconfont iconsupport">
+                        <text>赞{{statusNum.islikeNum}}</text>
+                    </text>
                 </view>
-                <!-- 点赞按钮 -->
-                <!-- 踩按钮 -->
-                <view>
-                    <!-- 当dislike为true时 显示的红色踩icon -->
-                    <svg class="icon" aria-hidden="true" v-if="bottom.isDislike">
-                        <use xlink:href="#iconsupport-a"></use>
-                    </svg>
-                    <!-- 当dislike为false时 显示的灰色踩icon -->
-                    <svg class="icon" aria-hidden="true" v-else>
-                        <use xlink:href="#iconoppose"></use>
-                    </svg>
-                    <!-- <text>踩</text> -->
-                    <uni-badge :text="statusNum.dislikeNum" type="purple" style="position: absolute;
-    top: 10px;"></uni-badge>
-                </view>
-                <!-- 踩按钮 -->
                 <view>
                     <text class="iconfont iconshoucang"></text>
-                    <!-- <text>收藏</text> -->
-                    <uni-badge :text="statusNum.isCollectedNum" type="primary" @click="" style="position: absolute;
-    top: 10px;"></uni-badge>
+                    <text>收藏{{statusNum.isCollectedNum}}</text>
                 </view>
                 <view>
                     <text class="iconfont iconpinglun"></text>
                     <text>评论</text>
                 </view>
+                <view>举报</view>
             </view>
         </view>
     </view>
@@ -101,13 +77,11 @@
 import { mapState, mapActions } from 'vuex'
 import navBar from '@/components/nav-bar.vue'
 import { getPostDetail, getInitStatus } from '@/apis/posts'
-import uniBadge from "@/components/grid/uni-badge.vue"
 
 // #ifdef H5
 import Quill from 'quill'
 import 'quill/dist/quill.bubble.css'
 // #endif
-// Vue.use(uniBadge)
 
     export default {
         data() {
@@ -126,15 +100,14 @@ import 'quill/dist/quill.bubble.css'
                     isCollected: Boolean
                 },
                 statusNum:{
-                    islikeNum: String,
-                    dislikeNum: String,
-                    isCollectedNum: String
+                    islikeNum: 0,
+                    dislikeNum: 0,
+                    isCollectedNum: 0
                 }
             }
         },
         components: {
             navBar,
-            uniBadge
         },
         computed: {
             ...mapState(['hasBinding', 'hasLogin', 'statusH']),
@@ -175,7 +148,6 @@ import 'quill/dist/quill.bubble.css'
             }).catch(err => {
                 this.$loading(false)
             })
-
 
             // 获取底栏文字赞踩收藏状态
             getInitStatus(this.idObj.id).then(res => {
@@ -244,16 +216,16 @@ import 'quill/dist/quill.bubble.css'
         font-size: 28rpx;
         padding: 20rpx;
         image {
-            width: 80upx;
-            height: 80upx;
-            border-radius: 40upx;
+            width: 80rpx;
+            height: 80rpx;
+            border-radius: 40rpx;
         }
     }
     .img-empty{
-        width: 175upx;
-        height: 140upx;
+        width: 175rpx;
+        height: 140rpx;
         border-radius: 3px;
-        margin-left: 20upx;
+        margin-left: 20rpx;
         overflow: hidden;
         image {
             width: 100%;
@@ -271,7 +243,7 @@ import 'quill/dist/quill.bubble.css'
     .e-bottom-btnGroup {
         padding: 12rpx 60rpx;
         .iconfont {
-            font-size: 30upx;
+            font-size: 30rpx;
         }
     }
     .post-title {

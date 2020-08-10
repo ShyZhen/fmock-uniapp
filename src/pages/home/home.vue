@@ -484,16 +484,16 @@
     }
     .user-info {
         image {
-            width: 40upx;
-            height: 40upx;
-            border-radius: 20upx;
+            width: 40rpx;
+            height: 40rpx;
+            border-radius: 20rpx;
         }
     }
     .img-empty{
-        width: 175upx;
-        height: 140upx;
+        width: 175rpx;
+        height: 140rpx;
         border-radius: 3px;
-        margin-left: 20upx;
+        margin-left: 20rpx;
         overflow: hidden;
         image {
             width: 100%;

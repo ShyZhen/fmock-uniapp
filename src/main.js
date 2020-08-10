@@ -6,8 +6,6 @@ import { toast, loading, toLogin, toBack, toHome } from './utils/global.js'
 
 // 字体图标库
 import './static/font/iconfont.css'
-import './static/font/iconfont.js'
-
 
 Vue.config.productionTip = false
 
