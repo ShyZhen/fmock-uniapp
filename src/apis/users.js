@@ -22,8 +22,46 @@ function getUserInfo(uuid) {
     })
 }
 
+// 关注/取关 某人
+function followUser(uuid) {
+    return new Promise((resolve, reject) => {
+        request.request('POST', 'V1/follow/' + uuid).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+
+function followStatus(uuid) {
+    return new Promise((resolve, reject) => {
+        request.request('GET', 'V1/follow/status/' + uuid).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+function followList(uuid) {
+    return new Promise((resolve, reject) => {
+        request.request('GET', 'V1/follows/list/' + uuid).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
+function fanList(uuid) {
+    return new Promise((resolve, reject) => {
+        request.request('GET', 'V1/fans/list/' + uuid).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
+}
 
 
 export {
-    getMyInfo, getUserInfo
+    getMyInfo, getUserInfo, followUser, followStatus, followList, fanList
 }

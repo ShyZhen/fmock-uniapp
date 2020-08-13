@@ -50,7 +50,7 @@
 
 		props: {
 			top: {
-				//距离顶部距离，单位upx
+				//距离顶部距离，单位rpx
 				type: Number,
 				default: 0
 			},
@@ -160,8 +160,8 @@
 	}
 
 	.mix-loading-icon{
-		width: 88upx;
-		height: 88upx;
+		width: 88rpx;
+		height: 88rpx;
 		transition: .3s;
 	}
 	.mix-loading-icon.ready{
@@ -173,10 +173,10 @@
 
 	@keyframes loading {
 		0% {
-			transform: translateY(-20upx) scaleX(1);
+			transform: translateY(-20rpx) scaleX(1);
 		}
 		100% {
-			transform: translateY(4upx)  scaleX(1.3);
+			transform: translateY(4rpx)  scaleX(1.3);
 		}
 	}
 

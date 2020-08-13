@@ -7,7 +7,7 @@
 
 ## Init Info
  - 初始化程序后发现富文本编辑器的按钮显示异常，参考 https://ask.dcloud.net.cn/question/76628，解决方案如下：
- 将 `9392`, `9528`, `9923`, `11452`行中的`button`改成`uni-button`
+ 将`node_modules\quill\dist\quill.js`文件中 `9392`, `9528`, `9923`, `11452`行中的`button`改成`uni-button`
  具体如下：
  ```
     [].forEach.call(_this.container.querySelectorAll('uni-button, select'), function (input) {
@@ -19,6 +19,8 @@
     this.buildButtons([].slice.call(toolbar.container.querySelectorAll('uni-button')), _icons2.default);
 ```
 
+ - css单位全部使用`rpx`（响应式：比如宽度） 和 `px`（固定大小：比如文字、高度）
+ - 有色图标全部使用文件base64,不能使用iconfont.js(不支持dom操作)
 ## Project setup
 ```
 npm install

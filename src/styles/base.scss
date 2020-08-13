@@ -4,6 +4,7 @@
 }
 body, page {
   min-height: 100%;
+  min-width: 100%;
   display: flex;
 }
 body {
@@ -55,7 +56,7 @@ m-input {
   flex: 1;
   flex-direction: column;
   background-color: #efeff4;
-  padding: 0 8rpx 20rpx 8rpx;
+  //padding: 0 8rpx 20rpx 8rpx;
 }
 
 .input-group {
@@ -178,7 +179,6 @@ button.primary {
   display: flex;
   align-items: center;
 }
-
 
 // 弹性布局
 .e-box {
@@ -517,3 +517,13 @@ button.primary {
   background-color: #fff;
   padding: 12rpx 20rpx;
 }
+
+
+/////////////icon-font 通用样式/////////////////
+//.icon {
+//  width: 1em;
+//  height: 1em;
+//  vertical-align: -0.15em;
+//  fill: currentColor;
+//  overflow: hidden;
+//}

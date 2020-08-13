@@ -191,7 +191,7 @@
 		display:inline-flex;
 		flex-wrap:nowrap;
 		flex-shrink:0;
-		width: 170upx;
+		width: 170rpx;
 	}
 	
 	.uni-navbar-header .uni-navbar-header-btns:first-child{
@@ -203,14 +203,14 @@
 	}
 	.uni-navbar-container{
 		width:100%;
-		margin:0 10upx;
+		margin:0 10rpx;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 	.uni-navbar-container-title{
-		font-size:30upx;
+		font-size:30rpx;
 		text-align:center;
-		padding-right: 60upx;
+		padding-right: 60rpx;
 	}
 </style>

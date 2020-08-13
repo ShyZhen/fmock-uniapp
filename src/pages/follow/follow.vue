@@ -84,7 +84,7 @@ import { mapState, mapActions } from 'vuex'
 import navBar from '@/components/nav-bar.vue'
 import pulldownRefresh from '@/components/pulldown-refresh/pulldown-refresh'    // 在滑块内的下拉刷新插件
 import loadMore from '@/components/load-more/load-more'    // 在滑块内的上拉加载插件
-import { getMyFollowPostsList } from '@/apis/posts.js'
+import { getMyFollowPostsList } from '@/apis/action.js'
 import { setTimeout } from 'timers';
 
 let scrollTimer = false
@@ -358,16 +358,16 @@ export default {
     }
     .user-info {
         image {
-            width: 40upx;
-            height: 40upx;
-            border-radius: 20upx;
+            width: 40rpx;
+            height: 40rpx;
+            border-radius: 20rpx;
         }
     }
     .img-empty{
-        width: 175upx;
-        height: 140upx;
+        width: 175rpx;
+        height: 140rpx;
         border-radius: 3px;
-        margin-left: 20upx;
+        margin-left: 20rpx;
         overflow: hidden;
         image {
             width: 100%;

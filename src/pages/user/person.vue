@@ -140,12 +140,12 @@ import uniGridItem from '@/components/grid/uni-grid-item.vue'
 
 <style>
     .image {
-        width: 55upx;
-        height: 55upx;
+        width: 55rpx;
+        height: 55rpx;
     }
 
     .text {
-        font-size: 24upx;
-        margin-top: 10upx;
+        font-size: 24rpx;
+        margin-top: 10rpx;
     }
 </style>

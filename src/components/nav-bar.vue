@@ -97,8 +97,8 @@
     }
     .nav-wrapper {
         position: relative;
-        padding: 0 20upx;
-        height: 88upx;
+        padding: 0 20rpx;
+        height: 88rpx;
     }
     .iconfont {
         font-size: 24px;  //44rpx;

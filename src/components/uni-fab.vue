@@ -197,13 +197,13 @@ export default {
 }
 
 .fab-box.top {
-	width: 60upx;
-	height: 60upx;
-	right: 30upx;
-	bottom: 60upx;
+	width: 60rpx;
+	height: 60rpx;
+	right: 30rpx;
+	bottom: 60rpx;
 	border: 1px #5989b9 solid;
 	background: #6699cc;
-	border-radius: 10upx;
+	border-radius: 10rpx;
 	color: #fff;
 	transition: all 0.3;
 	opacity: 0;
@@ -218,15 +218,15 @@ export default {
 }
 
 .fab-box.fab.leftBottom {
-	left: 30upx;
-	bottom: 60upx;
+	left: 30rpx;
+	bottom: 60rpx;
 }
 
 .fab-box.fab.leftTop {
-	left: 30upx;
-	top: 80upx;
+	left: 30rpx;
+	top: 80rpx;
 	/* #ifdef H5 */
-	top: calc(80upx + var(--window-top));
+	top: calc(80rpx + var(--window-top));
 	/* #endif */
 }
 
@@ -241,10 +241,10 @@ export default {
 }
 
 .fab-box.fab.rightTop {
-	right: 30upx;
-	top: 80upx;
+	right: 30rpx;
+	top: 80rpx;
 	/* #ifdef H5 */
-	top: calc(80upx + var(--window-top));
+	top: calc(80rpx + var(--window-top));
 	/* #endif */
 }
 
@@ -253,8 +253,8 @@ export default {
 	justify-content: center;
 	align-items: center;
 	position: absolute;
-	width: 110upx;
-	height: 110upx;
+	width: 110rpx;
+	height: 110rpx;
 	background: #3c3e49;
 	/* background: #5989b9; */
 	border-radius: 50%;
@@ -280,7 +280,7 @@ export default {
 
 .fab-circle .icon-jia {
 	color: #ffffff;
-	font-size: 50upx;
+	font-size: 50rpx;
 	transition: all 0.3s;
 }
 
@@ -292,11 +292,11 @@ export default {
 	background: #6699cc;
 	box-sizing: border-box;
 	display: flex;
-	border-radius: 100upx;
+	border-radius: 100rpx;
 	overflow: hidden;
 	box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
 	transition: all 0.2s;
-	width: 110upx;
+	width: 110rpx;
 }
 
 .fab-content.left {
@@ -327,9 +327,9 @@ export default {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 110upx;
-	height: 110upx;
-	font-size: 24upx;
+	width: 110rpx;
+	height: 110rpx;
+	font-size: 24rpx;
 	color: #fff;
 	opacity: 0;
 	transition: opacity 0.2s;
@@ -340,13 +340,13 @@ export default {
 }
 
 .fab-content .fab-item .content-image {
-	width: 50upx;
-	height: 50upx;
-	margin-bottom: 5upx;
+	width: 50rpx;
+	height: 50rpx;
+	margin-bottom: 5rpx;
 }
 
 .fab-content .fab-item.first {
-	width: 110upx;
+	width: 110rpx;
 }
 
 .icon {

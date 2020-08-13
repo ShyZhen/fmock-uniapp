@@ -16,7 +16,7 @@
                     <view class="e-ml10 e-c6 e-bold e-omit1 e-lp1">{{postObj.user_info.username}}</view>
                     <view class="e-flex_auto e-ml10 e-omit1 e-pr20 e-c9">{{postObj.user_info.bio}}</view>
                 </view>
-                <button class="blue-btn" @click="concern">关注</button>
+                <button class="blue-btn" @click="follow">{{followText}}</button>
             </view>
             <view class="e-pd20 e-mb100">
                 <!-- 标题 -->
@@ -51,18 +51,40 @@
 
             <!-- 底部操作栏 -->
             <view class="e-fixed_bottom e-bottom-btnGroup e-flex_center e-b-top">
-                <view>
-                    <text class="iconfont iconsupport"></text>
-                    <text>赞</text>
+                <view class="e-flex_left">
+                    <view v-if="bottom.status.liked">
+                        <image src="/static/img/liked2.png" @tap="userAction('like')"></image>
+                    </view>
+                    <view v-else>
+                        <image src="/static/img/like2.png" @tap="userAction('like')"></image>
+                    </view>
+                    <text>{{bottom.num.likeNum}}</text>
                 </view>
-                <view>
-                    <text class="iconfont iconshoucang"></text>
-                    <text>收藏</text>
+                <view class="e-flex_left">
+                    <view v-if="bottom.status.disliked">
+                        <image src="/static/img/disliked2.png" @tap="userAction('dislike')"></image>
+                    </view>
+                    <view v-else>
+                        <image src="/static/img/dislike2.png" @tap="userAction('dislike')"></image>
+                    </view>
+                    <text>{{bottom.num.dislikeNum}}</text>
                 </view>
-                <view>
-                    <text class="iconfont iconpinglun"></text>
-                    <text>评论</text>
+                <view class="e-flex_left">
+                    <view v-if="bottom.status.collected">
+                        <image src="/static/img/hearted.png" @tap="userAction('collect')"></image>
+                    </view>
+                    <view v-else>
+                        <image src="/static/img/heart.png" @tap="userAction('collect')"></image>
+                    </view>
+                    <text>{{bottom.num.collectedNum}}</text>
                 </view>
+                <view class="e-flex_left">
+                    <view>
+                        <image src="/static/img/u-comment.png" @tap=getComment()></image>
+                    </view>
+                    <text>{{bottom.num.commentNum}}</text>
+                </view>
+
                 <view>举报</view>
             </view>
         </view>
@@ -73,6 +95,9 @@
 import { mapState, mapActions } from 'vuex'
 import navBar from '@/components/nav-bar.vue'
 import { getPostDetail } from '@/apis/posts'
+import { getInitStatus, like, dislike, collect, unCollect } from '@/apis/action';
+import { getAllComment } from '@/apis/comment';
+import { followUser, followStatus } from '@/apis/users';
 
 // #ifdef H5
 import Quill from 'quill'
@@ -85,11 +110,29 @@ import 'quill/dist/quill.bubble.css'
                 logo: '',
                 leftIcon: 'iconjiantou',
                 title: '',
+                actionType: 'post',
                 idObj: {},
                 postObj: {
                     user_info: {}
                 },
                 editor: {},
+                bottom:{
+                    num: {
+                        likeNum: 0,
+                        dislikeNum: 0,
+                        collectedNum: 0,
+                        commentNum: 0
+                    },
+                    status: {
+                        liked: false,
+                        disliked: false,
+                        collected: false,
+                        inMyFollows: false,
+                        inMyFans: false,
+                    }
+                },
+                actionFinish: false,
+                followText: '关注',
             }
         },
         components: {
@@ -117,6 +160,10 @@ import 'quill/dist/quill.bubble.css'
                 this.$loading(false)
                 this.postObj = res.data
                 this.title = res.data.title
+                this.bottom.num.likeNum = res.data.like_num
+                this.bottom.num.dislikeNum = res.data.dislike_num
+                this.bottom.num.collectedNum = res.data.collect_num
+                this.bottom.num.commentNum = res.data.comment_num
                 if (this.title.length > 15) {
                     this.title = this.title.substring(0, 15) + '...'
                 }
@@ -127,8 +174,23 @@ import 'quill/dist/quill.bubble.css'
                 // #ifdef MP-WEIXIN
                 this.initEditor(JSON.parse(this.postObj.content).ops)
                 // #endif
+
+                // 当前用户与我的互粉关系
+                followStatus(res.data.user_info.uuid).then(followRes => {
+                    this.bottom.status.inMyFollows = followRes.data.inMyFollows
+                    this.bottom.status.inMyFans = followRes.data.inMyFans
+                    this.updateFollowText(this.bottom.status.inMyFans, this.bottom.status.inMyFollows)
+                })
             }).catch(err => {
                 this.$loading(false)
+            })
+
+            // 获取底栏文字赞踩收藏状态
+            getInitStatus(this.idObj.id, this.actionType).then(res => {
+                console.log(res)
+                this.bottom.status.liked = res.data.liked
+                this.bottom.status.disliked =res.data.disliked
+                this.bottom.status.collected = res.data.collected
             })
         },
         methods: {
@@ -159,6 +221,137 @@ import 'quill/dist/quill.bubble.css'
                 }).exec()
             },
 
+            // 底部操作栏
+            userAction(action) {
+                this.postAction(action).then(() => {
+                    this.actionFinish && this.postStatus(action)
+                })
+            },
+
+            // 同步接口请求
+            async postAction(action) {
+                this.$loading()
+                switch (action) {
+                    case 'like':
+                        await like(this.idObj.id, this.actionType).then(res => {
+                            this.actionFinish = true;
+                            this.$loading(false)
+                        }).catch(err => {
+                            console.log('err', err)
+                        })
+                        break;
+                    case 'dislike':
+                        await dislike(this.idObj.id, this.actionType).then(res => {
+                            this.actionFinish = true;
+                            this.$loading(false)
+                        }).catch(err => {
+                            console.log('err', err)
+                        })
+                        break;
+                    case 'collect':
+                        let data = {
+                            resource_uuid: this.idObj.id,
+                            type: this.actionType
+                        }
+                        if (this.bottom.status.collected) {
+                            // 取消收藏
+                            await unCollect(data.resource_uuid, data.type).then(res => {
+                                this.actionFinish = true;
+                                this.$loading(false)
+                            }).catch(err => {
+                                console.log('err', err)
+                            })
+                        } else {
+                            // 收藏
+                            await collect(data).then(res => {
+                                this.actionFinish = true;
+                                this.$loading(false)
+                            }).catch(err => {
+                                console.log('err', err)
+                            })
+                        }
+                        break;
+                    default:
+                        this.$loading(false)
+                        break;
+                }
+            },
+
+            // 异步更新状态及数值
+            postStatus(action) {
+                switch (action) {
+                    case 'like':
+                        if (this.bottom.status.liked) {
+                            this.bottom.status.liked = false
+                            this.bottom.num.likeNum -= 1
+                        } else {
+                            this.bottom.status.liked = true
+                            this.bottom.num.likeNum += 1
+                        }
+                        break
+                    case 'dislike':
+                        if (this.bottom.status.disliked) {
+                            this.bottom.status.disliked = false
+                            this.bottom.num.dislikeNum -= 1
+                        } else {
+                            this.bottom.status.disliked = true
+                            this.bottom.num.dislikeNum += 1
+                        }
+                        break
+                    case 'collect':
+                        if (this.bottom.status.collected) {
+                            this.bottom.status.collected = false
+                            this.bottom.num.collectedNum -= 1
+                        } else {
+                            this.bottom.status.collected = true
+                            this.bottom.num.collectedNum += 1
+                        }
+                        break
+                    default:
+                        break
+                }
+            },
+
+            // todo 获取评论列表
+            getComment() {
+                getAllComment(this.idObj.id, this.actionType, 'new', 1).then(res => {
+                    console.log(res)
+                }).catch(err => {
+                    console.log('err', err)
+                })
+            },
+
+            // 关注、取消关注 某人
+            follow() {
+                this.$loading()
+                followUser(this.postObj.user_info.uuid).then(res => {
+                    if (this.bottom.status.inMyFollows) {
+                        this.bottom.status.inMyFollows = false
+                    } else {
+                        this.bottom.status.inMyFollows = true
+                    }
+                    this.updateFollowText(this.bottom.status.inMyFans, this.bottom.status.inMyFollows)
+                    this.$loading(false)
+                }).catch(err => {
+                    console.log('err', err)
+                    this.$loading(false)
+                })
+            },
+
+            // 更改按钮文本
+            updateFollowText(inMyFans, inMyFollows) {
+                if (inMyFollows) {
+                    if (inMyFans) {
+                        this.followText = '互相关注'
+                    } else {
+                        this.followText = '已关注'
+                    }
+                } else {
+                    this.followText = '关注'
+                }
+            },
+
+            // 用户信息也
             toUserDetail(uuid) {
                 if (uuid !== 'user-anonymous') {
                     uni.navigateTo({
@@ -176,7 +369,6 @@ import 'quill/dist/quill.bubble.css'
     }
 </script>
 
-
 <style lang="scss" scoped>
     .content {
         background-color: $e-f;
@@ -190,16 +382,16 @@ import 'quill/dist/quill.bubble.css'
         font-size: 28rpx;
         padding: 20rpx;
         image {
-            width: 80upx;
-            height: 80upx;
-            border-radius: 40upx;
+            width: 80rpx;
+            height: 80rpx;
+            border-radius: 40rpx;
         }
     }
     .img-empty{
-        width: 175upx;
-        height: 140upx;
+        width: 175rpx;
+        height: 140rpx;
         border-radius: 3px;
-        margin-left: 20upx;
+        margin-left: 20rpx;
         overflow: hidden;
         image {
             width: 100%;
@@ -207,7 +399,7 @@ import 'quill/dist/quill.bubble.css'
         }
     }
     .blue-btn {
-        width: 120rpx;
+        width: 196rpx;
         height: 60rpx;
         line-height: 60rpx;
         background-color: dodgerblue;
@@ -216,8 +408,9 @@ import 'quill/dist/quill.bubble.css'
     }
     .e-bottom-btnGroup {
         padding: 12rpx 60rpx;
-        .iconfont {
-            font-size: 30upx;
+        image {
+            height: 30rpx;
+            width: 30rpx;
         }
     }
     .post-title {

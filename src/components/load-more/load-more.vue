@@ -40,18 +40,18 @@
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-		height: 90upx;
-		padding-top: 10upx;
+		height: 90rpx;
+		padding-top: 10rpx;
 	}
 	.mix-load-icon{
 		display: block;
-		width: 36upx;
-		height: 36upx;
-		margin-right: 12upx;
+		width: 36rpx;
+		height: 36rpx;
+		margin-right: 12rpx;
 		animation: load 1.2s cubic-bezier(.37,1.08,.7,.74) infinite;
 	}
 	.mix-load-text{
-		font-size: 28upx;
+		font-size: 28rpx;
 		color: #888;
 	}
 

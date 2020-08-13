@@ -407,10 +407,8 @@
 </script>
 
 <style lang='scss'>
-    .article {
-        height: 100vh;
-        box-sizing: border-box;
-        position: relative;
+    .content {
+        padding: 0 8rpx 20rpx 8rpx;
     }
     /* 顶部tabbar */
     .nav-bar{
@@ -478,22 +476,18 @@
         border-color: #eee;
         background-color: #fff;
     }
-    .title {
-        // line-height: 46rpx;
-        // height: 45rpx;
-    }
     .user-info {
         image {
-            width: 40upx;
-            height: 40upx;
-            border-radius: 20upx;
+            width: 40rpx;
+            height: 40rpx;
+            border-radius: 20rpx;
         }
     }
     .img-empty{
-        width: 175upx;
-        height: 140upx;
+        width: 175rpx;
+        height: 140rpx;
         border-radius: 3px;
-        margin-left: 20upx;
+        margin-left: 20rpx;
         overflow: hidden;
         image {
             width: 100%;

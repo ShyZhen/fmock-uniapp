@@ -136,17 +136,17 @@
 		justify-content: center;
 		align-items: center;
 		position: absolute;
-		right: 30upx;
-		top: 30upx;
+		right: 30rpx;
+		top: 30rpx;
 		z-index: 10;
-		height: 50upx;
-		padding: 0 20upx;
+		height: 50rpx;
+		padding: 0 20rpx;
 		background: rgba(0,0,0,.3);
 		border-radius: 100px;
 	}
 	.mix-advert-timer{
 		color: #fff;
-		font-size: 26upx;
+		font-size: 26rpx;
 		line-height: 1;
 	}
 </style>

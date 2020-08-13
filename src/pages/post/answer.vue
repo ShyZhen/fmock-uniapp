@@ -190,16 +190,16 @@ import 'quill/dist/quill.bubble.css'
         font-size: 28rpx;
         padding: 20rpx;
         image {
-            width: 80upx;
-            height: 80upx;
-            border-radius: 40upx;
+            width: 80rpx;
+            height: 80rpx;
+            border-radius: 40rpx;
         }
     }
     .img-empty{
-        width: 175upx;
-        height: 140upx;
+        width: 175rpx;
+        height: 140rpx;
         border-radius: 3px;
-        margin-left: 20upx;
+        margin-left: 20rpx;
         overflow: hidden;
         image {
             width: 100%;
@@ -217,7 +217,7 @@ import 'quill/dist/quill.bubble.css'
     .e-bottom-btnGroup {
         padding: 12rpx 60rpx;
         .iconfont {
-            font-size: 30upx;
+            font-size: 30rpx;
         }
     }
     .post-title {
