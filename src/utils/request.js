@@ -43,7 +43,7 @@ class Request
                 header: this.buildHeader(headers)
             }).then(result => {
                 let [error, res]  = result;
-                
+
                 if (error !== null) {
                     uni.showToast({
                         title: '糟糕！好像出了什么问题',

@@ -407,10 +407,8 @@
 </script>
 
 <style lang='scss'>
-    .article {
-        height: 100vh;
-        box-sizing: border-box;
-        position: relative;
+    .content {
+        padding: 0 8rpx 20rpx 8rpx;
     }
     /* 顶部tabbar */
     .nav-bar{
@@ -477,10 +475,6 @@
         border-bottom-width: 1px;
         border-color: #eee;
         background-color: #fff;
-    }
-    .title {
-        // line-height: 46rpx;
-        // height: 45rpx;
     }
     .user-info {
         image {

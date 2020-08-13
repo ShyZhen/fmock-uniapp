@@ -84,7 +84,7 @@ import { mapState, mapActions } from 'vuex'
 import navBar from '@/components/nav-bar.vue'
 import pulldownRefresh from '@/components/pulldown-refresh/pulldown-refresh'    // 在滑块内的下拉刷新插件
 import loadMore from '@/components/load-more/load-more'    // 在滑块内的上拉加载插件
-import { getMyFollowPostsList } from '@/apis/posts.js'
+import { getMyFollowPostsList } from '@/apis/action.js'
 import { setTimeout } from 'timers';
 
 let scrollTimer = false

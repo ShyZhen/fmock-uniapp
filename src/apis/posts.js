@@ -107,34 +107,8 @@ function updatePost(uuid, data) {
     })
 }
 
-// TODO 获取所有我关注的用户的文章列表 动态页
-function getMyFollowPostsList(type, page) {
-    return new Promise((resolve, reject) => {
-        request.request('GET', 'V1/track/'+type+'?page='+page).then(res => {
-            resolve(res.data)
-        }).catch(e => {
-            reject(e)
-        })
-    })
-}
 
-//获取 点赞 踩 收藏相关信息
-function getInitStatus(uuid) {
-    return new Promise((resolve, reject) => {
-        request.request('GET', 'V1/status/post/' + uuid).then(res => {
-            resolve(res.data)
-        }).catch(e => {
-            reject(e)
-        })
-    })
-} 
-
-//点赞
-function likeBtn(params) {
-    
-}
 
 export {
-    getPostsList, getPostDetail, createPost, uploadImage, deletePost, getUserPosts, updatePost, uniUploadImage,
-    getMyFollowPostsList, getAnswerDetail, getInitStatus
+    getPostsList, getPostDetail, createPost, uploadImage, deletePost, getUserPosts, updatePost, uniUploadImage, getAnswerDetail
 }
