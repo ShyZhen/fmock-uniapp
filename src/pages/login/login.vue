@@ -144,7 +144,6 @@
                                 window.open(res.redirectUrl)
                                 window.addEventListener('message', (e) => {
                                     let res = JSON.parse(e.data);
-                                    console.log('RES', res);
                                     if (res.access_token) {
                                         // 本地存储token
                                         this.$loading(false)
