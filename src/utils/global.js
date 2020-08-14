@@ -15,12 +15,14 @@ function loading(text, config) {
 
 // 弹窗
 function toast(text, config) {
-  let options = Object.assign({
-    title: text,
-    icon: 'none',
-    duration: 2000,
-  }, config || {});
-  uni.showToast(options);
+    // 防止由于loading的关闭导致toast关闭
+    loading(false)
+    let options = Object.assign({
+        title: text,
+        icon: 'none',
+        duration: 2000,
+    }, config || {});
+    uni.showToast(options);
 }
 
 // 跳转到登录
