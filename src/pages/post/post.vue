@@ -345,7 +345,6 @@ import 'quill/dist/quill.bubble.css'
                         }
                         this.updateFollowText(this.bottom.status.inMyFans, this.bottom.status.inMyFollows)
                         this.$toast(res.message)
-                        this.$loading(false)
                     }).catch(err => {
                         this.$loading(false)
                     })
