@@ -7,8 +7,6 @@
         </navBar>
 
         <view :style="{paddingTop: statusH + 44 + 'px'}">
-            <!-- 文章主图 -->
-            <image :src="postObj.bg" ></image>
             <!-- 作者 -->
             <view class="e-flex_left user-info e-b-bottom">
                 <image :src="postObj.user_info.avatar"></image>
@@ -80,7 +78,7 @@
                 </view>
                 <view class="e-flex_left">
                     <view>
-                        <image src="/static/img/u-comment.png" @tap=getComment()></image>
+                        <image src="/static/img/u-comment.png" @tap=getAllComment()></image>
                     </view>
                     <text>{{bottom.num.commentNum}}</text>
                 </view>
@@ -175,19 +173,20 @@ import 'quill/dist/quill.bubble.css'
                 this.initEditor(JSON.parse(this.postObj.content).ops)
                 // #endif
 
-                // 当前用户与我的互粉关系
-                followStatus(res.data.user_info.uuid).then(followRes => {
-                    this.bottom.status.inMyFollows = followRes.data.inMyFollows
-                    this.bottom.status.inMyFans = followRes.data.inMyFans
-                    this.updateFollowText(this.bottom.status.inMyFans, this.bottom.status.inMyFollows)
-                })
+                // 当前用户与我的互粉关系(匿名用户除外)
+                if (res.data.user_info.uuid !== 'user-anonymous') {
+                    followStatus(res.data.user_info.uuid).then(followRes => {
+                        this.bottom.status.inMyFollows = followRes.data.inMyFollows
+                        this.bottom.status.inMyFans = followRes.data.inMyFans
+                        this.updateFollowText(this.bottom.status.inMyFans, this.bottom.status.inMyFollows)
+                    })
+                }
             }).catch(err => {
                 this.$loading(false)
             })
 
             // 获取底栏文字赞踩收藏状态
             getInitStatus(this.idObj.id, this.actionType).then(res => {
-                console.log(res)
                 this.bottom.status.liked = res.data.liked
                 this.bottom.status.disliked =res.data.disliked
                 this.bottom.status.collected = res.data.collected
@@ -312,30 +311,47 @@ import 'quill/dist/quill.bubble.css'
                 }
             },
 
-            // todo 获取评论列表
-            getComment() {
-                getAllComment(this.idObj.id, this.actionType, 'new', 1).then(res => {
+            // todo 获取评论列表,下拉刷新（时间排序）
+            getAllComment() {
+                let page = 1
+                this.$loading()
+                getAllComment(this.idObj.id, this.actionType, 'new', page).then(res => {
                     console.log(res)
+                    this.$loading(false)
                 }).catch(err => {
-                    console.log('err', err)
+                    this.$loading(false)
+                })
+            },
+            // 获取热门评论列表（展示在最上面,不需要下拉刷新）
+            getHotComment() {
+                this.$loading()
+                getAllComment(this.idObj.id, this.actionType, 'hot', 1).then(res => {
+                    console.log(res)
+                    this.$loading(false)
+                }).catch(err => {
+                    this.$loading(false)
                 })
             },
 
             // 关注、取消关注 某人
             follow() {
-                this.$loading()
-                followUser(this.postObj.user_info.uuid).then(res => {
-                    if (this.bottom.status.inMyFollows) {
-                        this.bottom.status.inMyFollows = false
-                    } else {
-                        this.bottom.status.inMyFollows = true
-                    }
-                    this.updateFollowText(this.bottom.status.inMyFans, this.bottom.status.inMyFollows)
-                    this.$loading(false)
-                }).catch(err => {
-                    console.log('err', err)
-                    this.$loading(false)
-                })
+                if (this.postObj.user_info.uuid !== 'user-anonymous') {
+                    this.$loading()
+                    followUser(this.postObj.user_info.uuid).then(res => {
+                        if (this.bottom.status.inMyFollows) {
+                            this.bottom.status.inMyFollows = false
+                        } else {
+                            this.bottom.status.inMyFollows = true
+                        }
+                        this.updateFollowText(this.bottom.status.inMyFans, this.bottom.status.inMyFollows)
+                        this.$toast(res.message)
+                        this.$loading(false)
+                    }).catch(err => {
+                        this.$loading(false)
+                    })
+                } else {
+                    this.$toast('匿名用户无法被关注')
+                }
             },
 
             // 更改按钮文本
