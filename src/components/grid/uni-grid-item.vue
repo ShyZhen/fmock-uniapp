@@ -153,7 +153,7 @@ export default {
 			align-items: center;
 			width: 100%;
 			height: 100%;
-			font-size: 32rpx;
+			font-size: 16px;
 			color: #666;
 			padding: 20rpx 0;
 			box-sizing: border-box;
@@ -162,7 +162,7 @@ export default {
 				height: 50rpx;
 			}
 			.text {
-				font-size: 26rpx;
+				font-size: 13px;
 				margin-top: 10rpx;
 			}
 		}

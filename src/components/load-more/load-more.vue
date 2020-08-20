@@ -51,7 +51,7 @@
 		animation: load 1.2s cubic-bezier(.37,1.08,.7,.74) infinite;
 	}
 	.mix-load-text{
-		font-size: 28rpx;
+		font-size: 14px;
 		color: #888;
 	}
 

@@ -146,7 +146,7 @@
 	}
 	.mix-advert-timer{
 		color: #fff;
-		font-size: 26rpx;
+		font-size: 13px;
 		line-height: 1;
 	}
 </style>

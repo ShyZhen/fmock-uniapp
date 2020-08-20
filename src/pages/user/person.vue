@@ -145,7 +145,7 @@ import uniGridItem from '@/components/grid/uni-grid-item.vue'
     }
 
     .text {
-        font-size: 24rpx;
+        font-size: 12px;
         margin-top: 10rpx;
     }
 </style>
