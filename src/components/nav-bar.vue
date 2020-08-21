@@ -117,7 +117,7 @@
         border: 1px solid #00A6FC;
         border-radius: 50rpx;
         position: relative;
-        font-size: 23rpx;
+        font-size: 12px;
         display: flex;
         justify-content: flex-start;
         align-items: center;

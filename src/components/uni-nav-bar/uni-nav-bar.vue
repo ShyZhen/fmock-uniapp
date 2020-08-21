@@ -209,7 +209,7 @@
 		align-items: center;
 	}
 	.uni-navbar-container-title{
-		font-size:30rpx;
+		font-size:15px;
 		text-align:center;
 		padding-right: 60rpx;
 	}

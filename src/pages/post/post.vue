@@ -394,7 +394,7 @@ import 'quill/dist/quill.bubble.css'
         width: 100%;
     }
     .user-info {
-        font-size: 28rpx;
+        font-size: 14px;
         padding: 20rpx;
         image {
             width: 80rpx;
@@ -419,7 +419,7 @@ import 'quill/dist/quill.bubble.css'
         line-height: 60rpx;
         background-color: dodgerblue;
         color: $e-f;
-        font-size: 26rpx;
+        font-size: 13px;
     }
     .e-bottom-btnGroup {
         padding: 12rpx 60rpx;

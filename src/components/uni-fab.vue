@@ -280,7 +280,7 @@ export default {
 
 .fab-circle .icon-jia {
 	color: #ffffff;
-	font-size: 50rpx;
+	font-size: 25px;
 	transition: all 0.3s;
 }
 
@@ -329,7 +329,7 @@ export default {
 	align-items: center;
 	width: 110rpx;
 	height: 110rpx;
-	font-size: 24rpx;
+	font-size: 12px;
 	color: #fff;
 	opacity: 0;
 	transition: opacity 0.2s;
