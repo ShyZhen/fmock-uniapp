@@ -1,50 +1,64 @@
 <template>
     <view class="content">
         <view>
-            <view>
-                <image :src="user.avatar" alt=""></image>
-                {{user.id}}
-                {{user.name}}
-                {{user.bio}}
-                {{user.fans_num}}
-                {{user.followed_num}}
+            <view class="photo-wall">
+                <image :src="user.photo_wall ? user.photo_wall : '/static/img/default_photo_wall.jpg'"></image>
+            </view>
+            <view class="avatar">
+                <image :src="user.avatar ? user.avatar : '/static/img/default_avatar.jpg'"></image>
+                <button size="mini" type="primary" @click="">编辑资料</button>
             </view>
             <view>
+                {{user.name}}
+                {{user.id}}
+            </view>
+            <view>
+                {{user.bio}}
+            </view>
+            <view>
+                {{user.fans_num}}
+                {{user.followed_num}}
+                详细信息>
+            </view>
+        </view>
+
+        <view>
+            <view class="grid-list">
                 <uni-grid :column="3" :showBorder="false" :square="true" @change="change">
                     <uni-grid-item>
-                        <image class="image" src="/static/img/u-write.png" mode="widthFix" />
+                        <image src="/static/img/u-write.png" mode="widthFix" />
                         <text class="text">创作</text>
                     </uni-grid-item>
                     <uni-grid-item>
-                        <image class="image" src="/static/img/u-collection.png" mode="widthFix" />
-                        <text class="text">搜藏</text>
+                        <image src="/static/img/u-collection.png" mode="widthFix" />
+                        <text class="text">收藏</text>
                     </uni-grid-item>
                     <uni-grid-item>
-                        <image class="image" src="/static/img/u-comment.png" mode="widthFix" />
+                        <image src="/static/img/u-comment.png" mode="widthFix" />
                         <text class="text">评论</text>
                     </uni-grid-item>
                     <uni-grid-item>
-                        <image class="image" src="/static/img/u-video.png" mode="widthFix" />
+                        <image src="/static/img/u-video.png" mode="widthFix" />
                         <text class="text">已购买课程</text>
                     </uni-grid-item>
                     <uni-grid-item>
-                        <image class="image" src="/static/img/u-history.png" mode="widthFix" />
+                        <image src="/static/img/u-history.png" mode="widthFix" />
                         <text class="text">历史观看</text>
                     </uni-grid-item>
                     <uni-grid-item>
-                        <image class="image" src="/static/img/u-tab.png" mode="widthFix" />
+                        <image src="/static/img/u-tab.png" mode="widthFix" />
                         <text class="text">标签</text>
                     </uni-grid-item>
                     <uni-grid-item>
-                        <image class="image" src="/static/img/u-attestation.png" mode="widthFix" />
+                        <image src="/static/img/u-attestation.png" mode="widthFix" />
                         <text class="text">认证</text>
                     </uni-grid-item>
                     <uni-grid-item>
-                        <image class="image" src="/static/img/u-notification.png" mode="widthFix" />
+                        <image src="/static/img/u-notification.png" mode="widthFix" />
                         <text class="text">消息中心</text>
                     </uni-grid-item>
                     <uni-grid-item>
-                        <image class="image" src="/static/img/u-logout.png" mode="widthFix" />
+                        <image src="/static/img/u-logout.png" mode="widthFix" />
                         <text class="text">退出</text>
                     </uni-grid-item>
                 </uni-grid>
@@ -146,13 +160,23 @@ import uniGridItem from '@/components/grid/uni-grid-item.vue'
 </script>
 
 <style>
-    .image {
+    .grid-list image {
         width: 55rpx;
-        height: 55rpx;
+        height: 110px;
     }
 
     .text {
         font-size: 12px;
-        margin-top: 10rpx;
+        margin-top: 20px;
+    }
+
+    .photo-wall image {
+        width: 100%;
+        height: 160px;
+    }
+    .avatar image {
+        border-radius: 50%;
+        width: 81px;
+        height: 81px;
     }
 </style>

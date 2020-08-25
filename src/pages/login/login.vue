@@ -157,10 +157,10 @@
                         })
                         break;
                     case 'qq':
-                        console.log('qq', provider)
+                        this.$toast(provider + '还没开通')
                         break;
                     case 'wechat':
-                        console.log('ww', provider)
+                        this.$toast(provider + '还没开通')
                         break;
                     default:
                         this.$loading(false)

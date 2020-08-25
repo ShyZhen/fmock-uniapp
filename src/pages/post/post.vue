@@ -14,7 +14,7 @@
                     <view class="e-ml10 e-c6 e-bold e-omit1 e-lp1">{{postObj.user_info.username}}</view>
                     <view class="e-flex_auto e-ml10 e-omit1 e-pr20 e-c9">{{postObj.user_info.bio}}</view>
                 </view>
-                <button class="blue-btn" @click="follow">{{followText}}</button>
+                <button type="primary" size="mini" @click="follow">{{followText}}</button>
             </view>
             <view class="e-pd20 e-mb100">
                 <!-- 标题 -->
@@ -412,14 +412,6 @@ import 'quill/dist/quill.bubble.css'
             width: 100%;
             height: 100%;
         }
-    }
-    .blue-btn {
-        width: 196rpx;
-        height: 60rpx;
-        line-height: 60rpx;
-        background-color: dodgerblue;
-        color: $e-f;
-        font-size: 13px;
     }
     .e-bottom-btnGroup {
         padding: 12rpx 60rpx;
