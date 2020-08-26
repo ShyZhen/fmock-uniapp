@@ -10,8 +10,6 @@
 			wxmpLogin().then(res => {
                 this.$loading(false)
 			}).catch(err => {
-                this.$loading(false);
-                console.log('登录失败：', err)
                 setTimeout(() => {this.$toast('登陆失败！'), 500});
             })
 			// #endif
