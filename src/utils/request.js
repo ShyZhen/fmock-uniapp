@@ -53,11 +53,11 @@ class Request
 
                     if (Auth.removeLoginStorage()) {
                         store.commit('logout')
-                        setTimeout(() => {
-                            uni.navigateTo({
-                                url: '/pages/login/login',
-                            });
-                        }, 2000);
+                        // setTimeout(() => {
+                        //     uni.navigateTo({
+                        //         url: '/pages/login/login',
+                        //     });
+                        // }, 2000);
                     }
 
                     // 调试输出
@@ -75,11 +75,11 @@ class Request
                         // 防止重复登录引起的token前端有效、后端失效的问题
                         if (Auth.removeLoginStorage()) {
                             store.commit('logout')
-                            setTimeout(() => {
-                                uni.navigateTo({
-                                    url: '/pages/login/login',
-                                });
-                            }, 2000);
+                            // setTimeout(() => {
+                            //     uni.navigateTo({
+                            //         url: '/pages/login/login',
+                            //     });
+                            // }, 2000);
                         }
                         // 调试输出
                         reject(res)
