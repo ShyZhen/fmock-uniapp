@@ -9,7 +9,7 @@
                 <view class="input-row e-flex_center">
                     <!-- <text class="title">账号：</text> -->
                     <m-input type="text" clearable v-model="account" @input="checkIsCorAccount" placeholder="输入手机或邮箱"></m-input>
-                    <button type="primary" class="mini-btn" @tap="getCode">{{emailText.text}}</button>
+                    <button type="primary" class="mini-btn" @tap="getCode">{{codeDuration ? codeDuration + 's' : '发送验证码' }}</button>
                 </view>
                 <view class="input-row">
                     <!-- <text class="title">验证码：</text> -->
@@ -39,20 +39,16 @@ import mInput from '../../components/m-input.vue'
 import { getasswordCode, updatePassword } from '@/utils/loginPlugin.js'
 import { mapState, mapActions } from 'vuex'
 import navBar from '@/components/nav-bar'
+import * as Common from '@/utils/common.js'
 
     export default {
         onLoad: function () {
-            // 小程序不需要忘记密码界面
-            // #ifdef MP-WEIXIN
-            this.toHome()
-            // #endif
-
             // 在需要登录的地方执行初始化方法
             this.initLoginState()
 
             // 判断登录状态 并跳转到首页
             if (this.hasLogin) {
-                this.toHome()
+                this.$toHome()
             }
         },
         components: {
@@ -78,12 +74,8 @@ import navBar from '@/components/nav-bar'
                 // 密码格式是否正确
                 isCorrectPassword: false,
 
-                // 是否可以获取注册码
-                canGetRegisterCode: true,
-
-                emailText: {
-                    text: '获取验证码'
-                },
+                // 是否可以获取注册码|剩余时间
+                codeDuration: 0
             }
         },
         computed: {
@@ -93,24 +85,20 @@ import navBar from '@/components/nav-bar'
             ...mapActions(['initLoginState']),
 
             checkIsCorAccount() {
-                const regEmail = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-                const regPhone = /^1(?:3|4|5|6|7|8|9)\d{9}$/
                 const account = this.account;
-
-                this.isCorrectAccount = regEmail.test(account) || regPhone.test(account);
+                this.isCorrectAccount = Common.regular('email', account) || Common.regular('phone', account)
             },
 
             // 密码规则校验 数字、字母、特殊字符 最少俩种
             checkIsCorPassword() {
-                const regPassword = /^(?![\d]+$)(?![a-zA-Z]+$)(?![!@#$%^&*()_.]+$)[\da-zA-Z!@#$%^&*()_.]{6,20}$/
                 const password = this.password;
-
-                this.isCorrectPassword = regPassword.test(password);
+                this.isCorrectPassword = Common.regular('password', password)
             },
 
             // 发送注册验证码
             getCode() {
-                if (!this.canGetRegisterCode) {
+                if (this.codeDuration) {
+                    this.$toast(`请在${this.codeDuration}秒后重试`)
                     return
                 }
 
@@ -121,35 +109,23 @@ import navBar from '@/components/nav-bar'
 
                 // TODO 极验
 
-                this.$loading()
                 let data = {
                     account: this.account
                 }
                 getasswordCode(data).then(res => {
-                    this.$loading(false)
-                    const _this = this
-                    this.canGetRegisterCode = false
-
                     // 触发倒计时
-                    _countDown(this.emailText)
-                    function _countDown(textObj, time = 60) {
-                        let timer = null;
-
-                        timer = setInterval(() => {
-                            if (time === 0) {
-                                textObj.text = '获取验证码'
-                                _this.canGetRegisterCode = true
-                                clearInterval(timer)
-                                return
+                    this.codeDuration = 60
+                    this.codeInterVal = setInterval(() => {
+                        this.codeDuration--
+                        if (this.codeDuration === 0) {
+                            if (this.codeInterVal) {
+                                clearInterval(this.codeInterVal)
+                                this.codeInterVal = null
                             }
-                            time--;
-                            textObj.text = `${time}s后重新发送`
-                        }, 1000)
-                    }
-
+                        }
+                    }, 1000)
                 }).catch(err => {
-                    this.canGetRegisterCode = true
-                    console.log('err', err)
+                    this.$toast('验证码发送失败：' + err.data.message)
                 })
             },
 
@@ -192,14 +168,11 @@ import navBar from '@/components/nav-bar'
                 updatePassword(data).then(res => {
                     console.log(res)
                     this.$loading(false)
-                    this.toHome()
+                    this.$toHome()
                 }).catch(err => {
                     console.log('err', err)
                 })
 
-            },
-            toHome() {
-                this.$toHome()
             },
             toBack() {
                 const pages = getCurrentPages()

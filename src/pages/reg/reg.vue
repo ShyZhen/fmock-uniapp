@@ -13,7 +13,7 @@
 
                 <view class="input-row e-flex_center">
                     <m-input type="text" clearable v-model="account" @input="checkIsCorAccount" placeholder="输入手机或邮箱"></m-input>
-                    <button type="primary" class="mini-btn" @tap="registerCode">{{emailText.text}}</button>
+                    <button type="primary" class="mini-btn" @tap="registerCode">{{codeDuration ? codeDuration + 's' : '发送验证码' }}</button>
                 </view>
                 <view class="input-row">
                     <m-input type="text" clearable v-model="verify_code" placeholder="输入验证码"></m-input>
@@ -46,17 +46,12 @@ import * as Common from '@/utils/common.js'
 
     export default {
         onLoad: function () {
-            // 小程序不需要注册界面
-            // #ifdef MP-WEIXIN
-            this.toHome()
-            // #endif
-
             // 在需要登录的地方执行初始化方法
             this.initLoginState()
 
             // 判断登录状态 并跳转到首页
             if (this.hasLogin) {
-                this.toHome()
+                this.$toHome()
             }
         },
         components: {
@@ -84,12 +79,8 @@ import * as Common from '@/utils/common.js'
                 // 密码格式是否正确
                 isCorrectPassword: false,
 
-                // 是否可以获取注册码
-                canGetRegisterCode: true,
-
-                emailText: {
-                    text: '获取验证码'
-                },
+                // 是否可以获取注册码|剩余时间
+                codeDuration: 0
             }
         },
         computed: {
@@ -99,24 +90,20 @@ import * as Common from '@/utils/common.js'
             ...mapActions(['initLoginState']),
 
             checkIsCorAccount() {
-                const regEmail = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-                const regPhone = /^1(?:3|4|5|6|7|8|9)\d{9}$/
                 const account = this.account;
-
-                this.isCorrectAccount = regEmail.test(account) || regPhone.test(account);
+                this.isCorrectAccount = Common.regular('email', account) || Common.regular('phone', account)
             },
 
             // 密码规则校验 数字、字母、特殊字符 最少俩种
             checkIsCorPassword() {
-                const regPassword = /^(?![\d]+$)(?![a-zA-Z]+$)(?![!@#$%^&*()_.]+$)[\da-zA-Z!@#$%^&*()_.]{6,20}$/
                 const password = this.password;
-
-                this.isCorrectPassword = regPassword.test(password);
+                this.isCorrectPassword = Common.regular('password', password)
             },
 
             // 发送注册验证码
             registerCode() {
-                if (!this.canGetRegisterCode) {
+                if (this.codeDuration) {
+                    this.$toast(`请在${this.codeDuration}秒后重试`)
                     return
                 }
                 if (!this.isCorrectAccount) {
@@ -126,35 +113,24 @@ import * as Common from '@/utils/common.js'
 
                 // TODO 极验
 
-                this.$loading()
                 let data = {
                     account: this.account
                 }
                 registerCode(data).then(res => {
-                    this.$loading(false)
-                    const _this = this
-                    this.canGetRegisterCode = false
-
                     // 触发倒计时
-                    _countDown(this.emailText)
-                    function _countDown(textObj, time = 60) {
-                        let timer = null;
-
-                        timer = setInterval(() => {
-                            if (time === 0) {
-                                textObj.text = '获取验证码'
-                                _this.canGetRegisterCode = true
-                                clearInterval(timer)
-                                return
+                    this.codeDuration = 60
+                    this.codeInterVal = setInterval(() => {
+                        this.codeDuration--
+                        if (this.codeDuration === 0) {
+                            if (this.codeInterVal) {
+                                clearInterval(this.codeInterVal)
+                                this.codeInterVal = null
                             }
-                            time--;
-                            textObj.text = `${time}s后重新发送`
-                        }, 1000)
-                    }
+                        }
+                    }, 1000)
 
                 }).catch(err => {
-                    this.canGetRegisterCode = true
-                    console.log('err', err)
+                    this.$toast('验证码发送失败：' + err.data.message)
                 })
             },
 
@@ -202,14 +178,11 @@ import * as Common from '@/utils/common.js'
                 accountRegister(data).then(res => {
                     console.log(res)
                     this.$loading(false)
-                    this.toHome()
+                    this.$toHome()
                 }).catch(err => {
                     console.log('err', err)
                 })
 
-            },
-            toHome() {
-                this.$toHome()
             },
             toBack() {
                 const pages = getCurrentPages()

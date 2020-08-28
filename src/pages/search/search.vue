@@ -26,7 +26,6 @@ import navBar from '@/components/nav-bar.vue'
             ...mapState(['hasBinding', 'hasLogin']),
         },
         onLoad: function () {
-
             // 在需要登录的地方执行初始化方法
             this.initLoginState()
 

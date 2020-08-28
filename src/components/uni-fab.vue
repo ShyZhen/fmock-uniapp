@@ -233,10 +233,10 @@ export default {
 .fab-box.fab.rightBottom {
 	right: 30rpx;
 	/* #ifdef H5 */
-	bottom: 160rpx;
+	bottom: 90px;
 	/* #endif */
 	/* #ifdef MP-WEIXIN */
-	bottom: 60rpx;
+	bottom: 30px;
 	/* #endif */
 }
 
