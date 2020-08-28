@@ -118,6 +118,11 @@ export default {
         // 在需要登录的地方执行初始化方法
         this.initLoginState()
 
+        // 判断登录状态
+        if (!this.hasLogin) {
+            this.$toLogin()
+        }
+
         // 获取屏幕宽度
         // windowWidth = uni.getSystemInfoSync().windowWidth;
         this.loadTabbars()

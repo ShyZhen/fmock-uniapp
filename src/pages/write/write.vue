@@ -3,7 +3,7 @@
         <navBar :logo="logo" :leftIcon="leftIcon"
                 :rightWords="rightWords"
                 :title="title"
-                @leftClick="toHome()">
+                @leftClick="this.$toHome()">
         </navBar>
 
         <view class="editor-warpper">
@@ -344,10 +344,6 @@ import 'quill/dist/quill.bubble.css'
                 uni.redirectTo({
                     url: `/pages/post/post?id=${uuid}`
                 })
-            },
-
-            toHome() {
-                this.$toHome()
             },
             bindPickerChange: function(e) {
                 // debugger

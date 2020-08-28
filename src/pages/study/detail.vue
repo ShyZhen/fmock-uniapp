@@ -3,7 +3,8 @@
 	<view class="content">
 		<view class="uni-padding-wrap uni-common-mt">
 			<view>
-				<video id="fmock-video-context" src="https://video.fmock.com/hls/2020/01/29eb36c5d5b082a1b67e66a749dfaee2.m3u8?pm3u8/0/43200"
+<!--				<video id="fmock-video-context" src="https://video.fmock.com/hls/2020/08/f7bc3a7fe892ff13cbad3971bea669d9.m3u8"-->
+				<video id="fmock-video-context" src="https://video.fmock.com/video/2020/08/video-5bdba140-437c-d058-fed3-31f1326be81c.mp4"
 					   @error="videoErrorCallback" :danmu-list="danmuList" enable-danmu danmu-btn controls></video>
 			</view>
 			<!-- #ifndef MP-ALIPAY -->

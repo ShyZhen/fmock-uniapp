@@ -1,8 +1,8 @@
 import request from '../utils/request';
 
 // 小程序登录API
-function wxmpLogin(code) {
-    let params = {"code":code}
+function wxmpLogin(code, userInfo) {
+    let params = {'code':code, 'user':userInfo}
     return new Promise((resolve, reject) => {
         request.request('POST', 'V1/oauth/wechat/login', params).then(res => {
             resolve(res.data)
