@@ -59,22 +59,22 @@ function wxmpLogin(user) {
 
 // github 登录插件
 function githubLogin(){
-	return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         AuthApi.githubLogin().then(res => {
             resolve(res)
         }).catch(err => {
             reject(err)
         })
-	})
+    })
 }
 
 // github 登录成功后的状态回填
 function githubCallback(data) {
-	// 保存token 绑定状态到storage；保存vuex状态
-	setToken(data.access_token)
-	setBinding(data.binding_status)
-	store.commit('login')
-	store.commit('binding')
+    // 保存token 绑定状态到storage；保存vuex状态
+    setToken(data.access_token)
+    setBinding(data.binding_status)
+    store.commit('login')
+    store.commit('binding')
 }
 
 // 登出插件

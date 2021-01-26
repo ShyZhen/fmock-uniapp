@@ -38,8 +38,8 @@ function logout() {
 // 发送注册验证码
 function registerCode(data) {
     let params = {
-            "account": data.account,
-        }
+        "account": data.account,
+    }
 
     return new Promise((resolve, reject) => {
         request.request('POST', 'V1/register-code', params).then(res => {
@@ -63,34 +63,34 @@ function accountRegister(data) {
 
 // 获取用户状态 是否存在 是否已冻结
 function getAccountStatus(data) {
-	let params = {
-		"account": data.account,
-	}
+    let params = {
+        "account": data.account,
+    }
 
-	return new Promise((resolve, reject) => {
-	    request.request('POST', 'V1/user-check', params).then(res => {
-	        resolve(res.data)
-	    }).catch(e => {
-	        reject(e)
-	    })
-	})
+    return new Promise((resolve, reject) => {
+        request.request('POST', 'V1/user-check', params).then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
 }
 
 function githubLogin() {
-	return new Promise((resolve, reject) => {
-	    request.request('GET', 'V1/oauth/github/login').then(res => {
-	        resolve(res.data)
-	    }).catch(e => {
-	        reject(e)
-	    })
-	})
+    return new Promise((resolve, reject) => {
+        request.request('GET', 'V1/oauth/github/login').then(res => {
+            resolve(res.data)
+        }).catch(e => {
+            reject(e)
+        })
+    })
 }
 
 // 发送忘记密码 改密验证码
 function getasswordCode(data) {
     let params = {
-            "account": data.account,
-        }
+        "account": data.account,
+    }
 
     return new Promise((resolve, reject) => {
         request.request('POST', 'V1/password-code', params).then(res => {

@@ -5,7 +5,7 @@ import Config from "../config/config.js"
 import * as Auth from "./auth.js"
 import store from "../store";
 
-class Request 
+class Request
 {
     /**
      * 构建全路径
@@ -17,7 +17,7 @@ class Request
         (uri.substring(0, 1) === '/') && (uri = uri.substring(1));
         return baseUrl + uri
     }
-    
+
     /**
      * 构建带authorization的header头
      * @param {Object} headers
@@ -26,7 +26,7 @@ class Request
         let auth = {'Authorization': 'Bearer ' + Auth.getToken()};
         return Object.assign({'Accept': 'application/json'}, headers || {}, auth);
     }
-    
+
     /**
      * 发送请求 分装成promise
      * @param {string} method
@@ -62,7 +62,7 @@ class Request
 
                     // 调试输出
                     reject(error)
-                    
+
                 } else {
                     // 认证失败状态，不需要返回，直接跳转登录
                     if (res.statusCode === 401) {
@@ -83,7 +83,7 @@ class Request
                         }
                         // 调试输出
                         reject(res)
-                        
+
                     } else if (res.statusCode >= 200 && res.statusCode <= 299) {
                         // 成功状态
                         resolve(res)
@@ -100,9 +100,9 @@ class Request
                     }
                 }
             })
-            .catch(error => {
-                reject(error)
-            })
+                .catch(error => {
+                    reject(error)
+                })
         })
     }
 }
