@@ -82,6 +82,7 @@
         "devServer" : {
             "https" : false
         },
-        "title" : "墨客社区"
+        "title" : "墨客社区",
+        "template" : "indexH5.html"
     }
 }
