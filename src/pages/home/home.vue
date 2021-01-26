@@ -120,7 +120,7 @@
             return {
                 logo: '/static/img/FMOCK-LOGO.png',
                 title: '墨客社区',
-                showInput: true,
+                showInput: false,
 
                 // 首页广告设置
                 advertTimedown: 3,
@@ -177,9 +177,6 @@
             uniFab
         },
         onLoad: function () {
-            // 在需要登录的地方执行初始化方法
-            this.initLoginState()
-
             // 获取屏幕宽度
             // windowWidth = uni.getSystemInfoSync().windowWidth;
             this.loadTabbars()
