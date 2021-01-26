@@ -21,6 +21,13 @@
 
  - css单位全部使用`rpx`（响应式：比如宽度） 和 `px`（固定大小：比如文字、高度）
  - 有色图标全部使用文件base64,不能使用iconfont.js(不支持dom操作)
+ 
+## 修改后台接口地址
+```
+cp .env.example .env
+vi .env
+```
+ 
 ## Project setup
 ```
 npm install
