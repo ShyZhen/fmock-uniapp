@@ -24,7 +24,7 @@
 
     <view>
       <view class="grid-list">
-        <uni-grid :column="3" :showBorder="false" :square="true" @change="change">
+        <uni-grid :column="4" :showBorder="false" :square="true" @change="change">
           <uni-grid-item>
             <image src="/static/img/u-write.png" mode="widthFix" />
             <text class="text">创作</text>
@@ -56,6 +56,10 @@
           <uni-grid-item>
             <image src="/static/img/u-notification.png" mode="widthFix" />
             <text class="text">消息中心</text>
+          </uni-grid-item>
+          <uni-grid-item>
+            <image src="/static/img/u-upload.png" mode="widthFix" />
+            <text class="text">上传</text>
           </uni-grid-item>
           <uni-grid-item>
             <image src="/static/img/u-logout.png" mode="widthFix" />
@@ -141,6 +145,10 @@ export default {
           console.log('7777')
           break
         case 8:
+          let uri = '/pages/user/upload'
+          this.navToUri(uri)
+          break
+        case 9:
           this.bindLogout()
           break
         default:
@@ -153,6 +161,11 @@ export default {
       logout().then(res => {
         this.$loading(false)
         this.$toLogin()
+      })
+    },
+    navToUri(uri){
+      uni.navigateTo({
+        url: uri
       })
     },
   }

@@ -95,6 +95,11 @@
       "style": {
         "navigationBarTitleText": "个人中心"
       }
+    },{
+      "path": "pages/user/upload",
+      "style": {
+        "navigationBarTitleText": "上传demo"
+      }
     }
   ],
   // 底部 tab

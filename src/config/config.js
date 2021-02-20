@@ -12,7 +12,11 @@ const env = {
 	bindingKey: 'FMOCK-BINDING-KEY',
 
 	// 前端存储过期时间 （单位天）
-	tokenExpire: 7
+	tokenExpire: 7,
+
+	// CDN url
+	cdnUrl: 'https://image.fmock.com',
+    cdnUrlVideo: 'https://video.fmock.com',
 }
 
 export default env
