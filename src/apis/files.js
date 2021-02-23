@@ -15,7 +15,7 @@ function getUploadToken(type) {
 // 上传文件成功后，调用入库
 function saveVideo(data) {
     return new Promise((resolve, reject) => {
-        request.request('POST', 'V1/video/save', data).then(res => {
+        request.request('POST', 'V1/video/item', data).then(res => {
             resolve(res.data)
         }).catch(e => {
             reject(e)
@@ -26,7 +26,7 @@ function saveVideo(data) {
 // 轮询转码结果
 function transcode(uuid) {
     return new Promise((resolve, reject) => {
-        request.request('GET', 'V1/video/transcode/' + uuid).then(res => {
+        request.request('GET', 'V1/video/item/' + uuid).then(res => {
             resolve(res.data)
         }).catch(e => {
             reject(e)
