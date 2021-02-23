@@ -70,7 +70,7 @@ export default {
                 that.saveVideoItem(res).then(r => {
                   that.$loading('转码中')
                   that.getTranscode(r.data.uuid).then(item => {
-                    console.log(item) // 这里没有运行
+                    console.log(item.data)
                     that.$toast('转码完成')
                   }).catch(e => {
                     console.log(e)
@@ -138,7 +138,7 @@ export default {
             resolve(res)
           } else {
             this.timer = setTimeout(function(){
-              that.getTranscode(uuid)
+              resolve(that.getTranscode(uuid))
             }, 2500);
           }
         }).catch(e => {
