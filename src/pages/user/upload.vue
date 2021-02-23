@@ -17,6 +17,7 @@ import { inArray } from '@/utils/common'
 export default {
   data() {
     return {
+      timer: ''
     }
   },
   computed: {
@@ -37,12 +38,14 @@ export default {
   methods: {
     ...mapActions(['initLoginState']),
 
+    // 上传视频demo
     uploadVideo: function() {
       let that = this
       uni.chooseVideo({
         count: 1,
         sourceType: ['camera', 'album'],
         success: function (res) {
+
           // 验证文件
           if (!that.validateVideo(res.tempFile)) {
             return false
@@ -60,19 +63,23 @@ export default {
                 // console.log('上传进度:', res.total.percent)
               },
               error(err) {
-                // that.$toast(err.message)
                 that.$toast('上传失败，请重试')
               },
               complete(res) {
+                // 保存数据到本地数据库；七牛异步转码，完成后回调修改本地数据库状态
                 that.saveVideoItem(res).then(r => {
                   that.$loading('转码中')
-                  console.log(that.getTranscode(r.data.uuid))
+                  that.getTranscode(r.data.uuid).then(item => {
+                    console.log(item) // 这里没有运行
+                    that.$toast('转码完成')
+                  }).catch(e => {
+                    console.log(e)
+                  })
                 }).catch(e => {
                   console.log(e)
                 })
               }
             })
-
           }).catch(err => {
             console.log(err)
           })
@@ -121,9 +128,24 @@ export default {
       }
       return saveVideo(data)
     },
+    // 轮询转码结果，is_transcode=0
     getTranscode: function(uuid) {
-      return transcode(uuid)
-    }
+      return new Promise((resolve, reject) => {
+        let that = this
+        transcode(uuid).then(res => {
+          if (res.data.is_transcode === 0) {
+            clearTimeout(this.timer);
+            resolve(res)
+          } else {
+            this.timer = setTimeout(function(){
+              that.getTranscode(uuid)
+            }, 2500);
+          }
+        }).catch(e => {
+          reject(e)
+        })
+      })
+    },
   }
 }
 </script>
