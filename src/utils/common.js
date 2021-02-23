@@ -31,4 +31,10 @@ function regular(type, value) {
     return reg.test(value)
 }
 
-export { strLen, regular }
+function inArray(arr, val) {
+    return arr.some(item => {
+        return val === item
+    })
+}
+
+export { strLen, regular, inArray }

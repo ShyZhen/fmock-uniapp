@@ -320,7 +320,6 @@ export default {
               that.$loading(false)
               that.insertImage(JSON.parse(res.data).data)
             }).catch(err => {
-              that.$loading(false)
               that.$toast('上传失败，请重试')
             })
           }
