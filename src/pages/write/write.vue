@@ -154,7 +154,7 @@ export default {
         },
         placeholder: this.placeholder,
         readOnly: false,
-        theme: 'bubble'    // bubble
+        theme: 'bubble'    // bubble snow
       }
 
       // 自定义icon
